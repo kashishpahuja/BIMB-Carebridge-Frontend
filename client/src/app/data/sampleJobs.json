@@ -1,0 +1,74 @@
+{
+  "employers": [
+    {
+      "_id": "emp_001",
+      "companyName": "Toronto General Care Centre",
+      "contactEmail": "hr@tgccare.ca",
+      "phone": "416-555-0192",
+      "address": "100 College St, Toronto, ON",
+      "verificationStatus": "Verified"
+    },
+    {
+      "_id": "emp_002",
+      "companyName": "Grand Vista Hotel & Resort",
+      "contactEmail": "careers@grandvistaresort.ca",
+      "phone": "647-555-8831",
+      "address": "450 Lakeshore Blvd, Toronto, ON",
+      "verificationStatus": "Verified"
+    }
+  ],
+  "jobs": [
+    {
+      "_id": "job_001",
+      "title": "Registered Nurse (RN) - Long Term Care",
+      "sector": "Healthcare",
+      "category": "Registered Nurses (RN)",
+      "employmentType": "Full-time",
+      "location": "Toronto, Ontario, Canada",
+      "salary": "$38 - $45 / hour",
+      "shiftDetails": "Day & Night Rotational Shifts",
+      "description": "Provide compassionate, professional nursing care to elderly residents, administering medications and supervising support staff.",
+      "status": "Active",
+      "employer": "emp_001"
+    },
+    {
+      "_id": "job_002",
+      "title": "Personal Support Worker (PSW)",
+      "sector": "Healthcare",
+      "category": "Personal Support Workers (PSW)",
+      "employmentType": "Part-time",
+      "location": "Mississauga, Ontario, Canada",
+      "salary": "$24 - $28 / hour",
+      "shiftDetails": "Flexible / On-call shifts",
+      "description": "Assist patients with daily living activities, personal hygiene, mobility support, and companionship in community care.",
+      "status": "Active",
+      "employer": "emp_001"
+    },
+    {
+      "_id": "job_003",
+      "title": "Fine Dining Wait Staff & Servers",
+      "sector": "Hospitality",
+      "category": "Wait Staff",
+      "employmentType": "Temporary",
+      "location": "Toronto, Ontario, Canada",
+      "salary": "$20 + Tips / hour",
+      "shiftDetails": "Evening and Weekend shifts",
+      "description": "Deliver exceptional customer service, take accurate orders, and serve food and beverages in a high-end resort restaurant environment.",
+      "status": "Active",
+      "employer": "emp_002"
+    },
+    {
+      "_id": "job_004",
+      "title": "Professional Bartender",
+      "sector": "Hospitality",
+      "category": "Bartenders",
+      "employmentType": "On-call",
+      "location": "Markham, Ontario, Canada",
+      "salary": "$22 - $26 / hour",
+      "shiftDetails": "Night shifts & Special Events",
+      "description": "Mix and serve alcoholic and non-alcoholic beverages for banquet events, maintain bar inventory, and ensure guest satisfaction.",
+      "status": "Active",
+      "employer": "emp_002"
+    }
+  ]
+}
