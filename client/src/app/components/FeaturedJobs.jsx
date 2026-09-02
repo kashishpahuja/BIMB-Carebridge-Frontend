@@ -22,7 +22,7 @@ export default function FeaturedJobs({ jobs = [], filteredJobs = [], loading, se
   }, [jobs, filteredJobs, selectedCategory]);
 
   return (
-    <section className="py-24 bg-[#F4F7FC]">
+    <section className="py-24">
       <div className="px-5 md:px-12 lg:px-24 xl:px-40">
         
         {/* Section Header & All Offers Button */}

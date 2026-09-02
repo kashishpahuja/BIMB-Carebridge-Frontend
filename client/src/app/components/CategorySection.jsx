@@ -254,7 +254,7 @@ export default function CategorySection({ jobs = [], selectedCategory, setSelect
       style={{ backgroundImage: "url('/Images/category.webp')" }}
     >
       {/* Dark overlay with deep navy and green tint for readability */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#143A2F] via-[#0b2345]/90 to-[#143A2F]/90 backdrop-blur-[2px] z-0" />
+      <div className="absolute inset-0 bg-linear-to-br from-[#143A2F] via-[#0b2345]/90 to-[#143A2F]/90 backdrop-blur-[2px] z-0" />
 
       <div className="relative z-10 px-5 md:px-12 lg:px-24 xl:px-40">
         
