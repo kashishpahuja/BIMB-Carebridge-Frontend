@@ -34,7 +34,7 @@ export default function AboutPage() {
           bg-no-repeat
         "
         style={{
-          backgroundImage: "url('/Images/aboutbg.webp')", // Update with your image path
+          backgroundImage: "url('/Images/contactbg.webp')", // Update with your image path
         }}
       >
         {/* Decorative Background */}
@@ -93,9 +93,9 @@ export default function AboutPage() {
             <h1
               className="
                 mt-4
-                text-4xl
-                sm:text-5xl
-                lg:text-6xl
+                text-3xl
+                sm:text-4xl
+                lg:text-5xl
                 font-light
                 tracking-tight
                 leading-[1.1]

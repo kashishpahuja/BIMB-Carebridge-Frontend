@@ -31,7 +31,7 @@ export default function WhyPartnerSection() {
 
       {/* Overlapping Section: Image on left over right section, no border radius, centered horizontally */}
       <section className="pb-24   ">
-        <div className="  flex items-center justify-start">
+        <div className="flex items-center justify-start">
           
   
 
@@ -46,7 +46,7 @@ export default function WhyPartnerSection() {
   transition={{ duration: 0.6 }}
   className="
     relative
-    xl:w-full
+    w-full
     overflow-hidden
     bg-cover
     bg-center

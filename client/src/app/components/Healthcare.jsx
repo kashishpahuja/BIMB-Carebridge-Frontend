@@ -10,6 +10,7 @@ import {
   ArrowRight,
   Play
 } from 'lucide-react';
+import Link from 'next/link';
 
 export default function HealthcareSolutionsSection() {
   const suppliedRoles = [
@@ -53,10 +54,10 @@ export default function HealthcareSolutionsSection() {
               Providing qualified, dependable and compassionate healthcare professionals to support your organization and the people you care for.
             </p>
             <div className="flex flex-wrap items-center gap-4">
-              <button className="bg-[#467B23] hover:bg-[#0b2345] text-white px-7 py-3.5 rounded-2xl text-sm font-semibold uppercase tracking-wider transition-all duration-300 flex items-center gap-2 group cursor-pointer shadow-md hover:-translate-y-0.5">
+              <Link href={'/about'} className="bg-[#467B23] hover:bg-[#0b2345] text-white px-7 py-3.5 rounded-2xl text-sm font-semibold uppercase tracking-wider transition-all duration-300 flex items-center gap-2 group cursor-pointer shadow-md hover:-translate-y-0.5">
                 <span>Learn More</span>
                 <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
-              </button>
+              </Link>
               <button 
                 aria-label="Play video"
                 className="w-12 h-12 rounded-2xl bg-[#0b2345]/10 text-[#0b2345] flex items-center justify-center hover:bg-[#0b2345]/20 transition-all cursor-pointer hover:scale-105"

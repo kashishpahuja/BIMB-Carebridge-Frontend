@@ -22,6 +22,8 @@ function Navbar({ openPopup }) {
   const dropdownRef = useRef(null);
 
   const [courseMenuOpen, setCourseMenuOpen] = useState(false);
+  const [updateMenuOpen, setUpdateMenuOpen] = useState(false);
+  
 
   useEffect(() => {
     if (menuOpen) {
@@ -108,15 +110,6 @@ function Navbar({ openPopup }) {
     }
   }, [menuOpen]);
 
-  const [isHovering, setIsHovering] = useState(false);
-
-  const handleMouseHover = () => {
-    setIsHovering(true);
-  };
-
-  const handleMouseHoverLeave = () => {
-    setIsHovering(false);
-  };
 
   return (
     <>
@@ -297,11 +290,15 @@ function Navbar({ openPopup }) {
             </Link>
           </li>
 
-          <li>
-            <Link href="/candidates" className="relative inline-block group">
-              <span>Candidates</span>
+          <li className="relative group">
+            <Link href="/updates" className="relative inline-block group">
+              <span>Updates</span>
               <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#467B23] transition-[width] duration-300 group-hover:w-full"></span>
             </Link>
+            <div className="absolute space-y-2 flex flex-col w-[200px] bg-white/95 backdrop-blur-sm border border-[#467B23]/30 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 px-2 py-2 mt-2">
+              <Link className="p-3 hover:bg-[#467B23]/10 rounded-lg transition-colors duration-300 text-[#467B23] font-semibold text-sm" href="/articles">Articles</Link>
+              <Link className="p-3 hover:bg-[#467B23]/10 rounded-lg transition-colors duration-300 text-[#467B23] font-semibold text-sm" href="/news">News</Link>
+            </div>
           </li>
 
           <li>
@@ -435,7 +432,7 @@ function Navbar({ openPopup }) {
         <li className="w-full mb-2">
           <button
             onClick={() => setCourseMenuOpen(!courseMenuOpen)}
-            className="cursor-pointer flex items-center justify-between gap-2 w-full p-3 rounded-lg hover:bg-gray-900/20 transition-all duration-300 group"
+            className="cursor-pointer flex items-center justify-between gap-2 w-full p-3 rounded-lg hover:bg-[#467B23]/10 transition-all duration-300 group"
           >
             <span className="flex items-center gap-2">
               <svg
@@ -486,7 +483,7 @@ function Navbar({ openPopup }) {
                     setMenuOpen(false);
                     setCourseMenuOpen(false);
                   }}
-                  className="block p-3 rounded-lg hover:bg-gray-800/20 transition-all duration-300 group"
+                  className="block p-3 rounded-lg hover:bg-[#467B23]/10 transition-all duration-300 group"
                 >
                   <div className="flex items-start gap-3">
                     <div className="flex-1 text-left">
@@ -506,7 +503,7 @@ function Navbar({ openPopup }) {
                     setMenuOpen(false);
                     setCourseMenuOpen(false);
                   }}
-                  className="block p-3 rounded-lg hover:bg-gray-800/20 transition-all duration-300 group"
+                  className="block p-3 rounded-lg hover:bg-[#467B23]/10 transition-all duration-300 group"
                 >
                   <div className="flex items-start gap-3">
                     <div className="flex-1 text-left">
@@ -526,7 +523,7 @@ function Navbar({ openPopup }) {
                     setMenuOpen(false);
                     setCourseMenuOpen(false);
                   }}
-                  className="block p-3 rounded-lg hover:bg-gray-800/20 transition-all duration-300 group"
+                  className="block p-3 rounded-lg hover:bg-[#467B23]/10 transition-all duration-300 group"
                 >
                   <div className="flex items-start gap-3">
                     <div className="flex-1 text-left">
@@ -546,7 +543,7 @@ function Navbar({ openPopup }) {
                     setMenuOpen(false);
                     setCourseMenuOpen(false);
                   }}
-                  className="block p-3 rounded-lg hover:bg-gray-800/20 transition-all duration-300 group"
+                  className="block p-3 rounded-lg hover:bg-[#467B23]/10 transition-all duration-300 group"
                 >
                   <div className="flex items-start gap-3">
                     <div className="flex-1 text-left">
@@ -579,7 +576,7 @@ function Navbar({ openPopup }) {
           <Link
             href="/employers"
             onClick={() => setMenuOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-900/20 transition-all duration-300 group"
+            className="flex items-center gap-3 p-3 rounded-lg hover:bg-[#467B23]/10 transition-all duration-300 group"
           >
             <svg
               className="w-5 h-5 text-[#01193B]"
@@ -604,7 +601,7 @@ function Navbar({ openPopup }) {
           <Link
             href="/about"
             onClick={() => setMenuOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-900/20 transition-all duration-300 group"
+            className="flex items-center gap-3 p-3 rounded-lg hover:bg-[#467B23]/10 transition-all duration-300 group"
           >
             <svg
               className="w-5 h-5 text-[#01193B]"
@@ -626,11 +623,12 @@ function Navbar({ openPopup }) {
         </li>
 
         <li className="w-full mb-1">
-          <Link
-            href="/candidates"
-            onClick={() => setMenuOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-900/20 transition-all duration-300 group"
+          <div
+            onClick={()=>setUpdateMenuOpen(!updateMenuOpen)}
+            className="cursor-pointer flex items-center justify-between gap-3 p-3 rounded-lg hover:bg-[#467B23]/10 transition-all duration-300 group"
           >
+            <div className="flex gap-3">
+
             <svg
               className="w-5 h-5 text-[#01193B]"
               fill="none"
@@ -645,16 +643,77 @@ function Navbar({ openPopup }) {
               />
             </svg>
             <span className="group-hover:text-[#467B23] transition-colors">
-              Candidates
+              Updates
             </span>
-          </Link>
+            </div>
+
+            <svg
+              className={`w-5 h-5 transition-transform duration-300 ${
+                courseMenuOpen ? "rotate-180" : ""
+              } text-gray-800`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+        
+      
+          </div>
+              <div
+            className={`overflow-hidden transition-all duration-500 ease-in-out ${
+              updateMenuOpen ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"
+            }`}
+          >
+            <div className="mt-2 p-2 bg-gray-100/50 rounded-lg border border-gray-50/20">
+              <div className="grid grid-cols-1 gap-2">
+                    <Link
+                  href="articles"
+                  onClick={() => {
+                    setMenuOpen(false);
+                    setUpdateMenuOpen(false);
+                  }}
+                  className="block p-3 rounded-lg hover:bg-[#467B23]/10 transition-all duration-300 group"
+                >
+                  <div className="flex items-start gap-3 font-semibold group-hover:text-[#467B23] transition-colors">
+                       Articles
+                    
+                    
+                  
+                  </div>
+                </Link>
+
+                <Link
+                  href="/news"
+                  onClick={() => {
+                    setMenuOpen(false);
+                    setUpdateMenuOpen(false);
+                  }}
+                  className="block p-3 rounded-lg hover:bg-[#467B23]/10 transition-all duration-300 group"
+                >
+                                 <div className="flex items-start gap-3 font-semibold group-hover:text-[#467B23] transition-colors">
+                       News
+                  </div>
+                </Link>
+
+ 
+              </div>
+
+           
+            </div>
+          </div>
         </li>
 
         <li className="w-full mb-1">
           <Link
             href="/contact"
             onClick={() => setMenuOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-900/20 transition-all duration-300 group"
+            className="flex items-center gap-3 p-3 rounded-lg hover:bg-[#467B23]/10 transition-all duration-300 group"
           >
             <svg
               className="w-5 h-5 text-[#01193B]"

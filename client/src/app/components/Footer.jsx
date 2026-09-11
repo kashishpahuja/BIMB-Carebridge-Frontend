@@ -79,9 +79,15 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/candidates" className="text-gray-300 hover:text-white transition-colors flex items-center gap-1.5 group">
+                <Link href="/news" className="text-gray-300 hover:text-white transition-colors flex items-center gap-1.5 group">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#467B23] group-hover:scale-125 transition-transform"></span>
-                  Candidates
+                  News
+                </Link>
+              </li>
+                          <li>
+                <Link href="/articles" className="text-gray-300 hover:text-white transition-colors flex items-center gap-1.5 group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#467B23] group-hover:scale-125 transition-transform"></span>
+                  Articles
                 </Link>
               </li>
               <li>
