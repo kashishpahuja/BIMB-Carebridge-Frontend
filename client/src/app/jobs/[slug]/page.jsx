@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useState, useEffect, useMemo } from "react";
 import { useParams } from "next/navigation";
@@ -17,6 +17,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import jobData from "../../data/sampleJobs.json"; // Adjust path based on your folder structure
+import AuthModal from "@/app/components/AuthModal";
 
 // Helper function to turn any title into a clean URL slug consistently
 const createSlug = (text) => {
@@ -30,6 +31,7 @@ const createSlug = (text) => {
 export default function JobDetailPage() {
   const params = useParams();
   const rawSlug = params?.slug;
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
 
   const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -51,6 +53,12 @@ export default function JobDetailPage() {
     return () => clearTimeout(timer);
   }, [rawSlug]);
 
+  const handleApply = (e) => {
+    e.preventDefault();
+    setIsAuthModalOpen(true);
+    setIsApplied(true);
+  }
+
   // Extract other latest jobs from the same sector/company for the sidebar widget
   const latestJobs = useMemo(() => {
     if (!job) return [];
@@ -63,10 +71,7 @@ export default function JobDetailPage() {
       .slice(0, 5);
   }, [job]);
 
-  const handleApply = (e) => {
-    e.preventDefault();
-    setIsApplied(true);
-  };
+
 
   if (loading) {
     return (
@@ -117,8 +122,10 @@ export default function JobDetailPage() {
           </Link>
         </div>
 
+
+
         {/* Top Header Card */}
-        <div className="bg-white border border-[#01193B]/10 p-5 sm:p-8 lg:p-10 shadow-sm rounded-3xl mb-6 sm:mb-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+        <div className=" mb-6 sm:mb-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="space-y-3">
             <div className="flex flex-wrap items-center gap-2">
               <span className="bg-[#467B23]/10 text-[#467B23] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider rounded-lg">
@@ -180,11 +187,11 @@ export default function JobDetailPage() {
         </div>
 
         {/* Main Body Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
-          {/* Left Content Details */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-start">
+          {/* Left Content Details (Scrollable) */}
           <div className="lg:col-span-2 space-y-6 sm:space-y-8">
             {/* Job Description Card */}
-            <div className="bg-white border border-[#01193B]/10 p-5 sm:p-8 lg:p-10 shadow-sm rounded-3xl space-y-4 sm:space-y-6">
+            <div className=" space-y-4 sm:space-y-6">
               <h3 className="text-lg sm:text-xl font-medium text-[#01193B] border-b border-[#01193B]/10 pb-4">
                 Job{" "}
                 <span className="font-semibold text-[#467B23]">
@@ -198,7 +205,7 @@ export default function JobDetailPage() {
 
             {/* Requirements Card */}
             {job.requirements && (
-              <div className="bg-white border border-[#01193B]/10 p-5 sm:p-8 lg:p-10 shadow-sm rounded-3xl space-y-4 sm:space-y-6">
+              <div className=" space-y-4 sm:space-y-6">
                 <h3 className="text-lg sm:text-xl font-medium text-[#01193B] border-b border-[#01193B]/10 pb-4">
                   Key{" "}
                   <span className="font-semibold text-[#467B23]">
@@ -228,12 +235,11 @@ export default function JobDetailPage() {
               </div>
             )}
 
-            {/* About Company Card (Inspired by reference layout) */}
-            <div className="bg-white border border-[#01193B]/10 p-5 sm:p-8 lg:p-10 shadow-sm rounded-3xl space-y-5">
+            {/* About Company Card */}
+            <div className=" space-y-5">
               <div className="flex items-center justify-between border-b border-[#01193B]/10 pb-4">
                 <h3 className="text-lg sm:text-xl font-medium text-[#01193B]">
-                  About{" "}
-                  <span className="font-semibold text-[#467B23]">Company</span>
+                  About <span className="font-semibold text-[#467B23]">Company</span>
                 </h3>
               </div>
               <div className="flex items-center gap-4">
@@ -259,106 +265,104 @@ export default function JobDetailPage() {
             </div>
           </div>
 
-          {/* Right Sidebar Details */}
-          <div className="space-y-6">
+          {/* Right Sidebar Details (Fully Sticky including Overview & Latest Jobs) */}
+          <div className="space-y-6 lg:sticky lg:top-28">
             {/* Overview Card */}
-            <div className="space-y-6 lg:sticky lg:top-28">
-              <div className="bg-white border border-[#01193B]/10 p-5 sm:p-6 lg:p-8 shadow-sm rounded-3xl space-y-6 lg:sticky lg:top-28">
-                <h3 className="text-lg font-semibold text-[#01193B] border-b border-[#01193B]/10 pb-4">
-                  Overview
-                </h3>
+            <div className="bg-white border border-[#01193B]/10 p-5 sm:p-6 lg:p-8 shadow-sm rounded-3xl space-y-6">
+              <h3 className="text-lg font-semibold text-[#01193B] border-b border-[#01193B]/10 pb-4">
+                Overview
+              </h3>
 
-                <div className="space-y-4 text-sm">
-                  <div className="flex items-center justify-between py-2 border-b border-gray-100 gap-2">
-                    <span className="text-[#01193B]/50 flex items-center gap-2">
-                      <Briefcase size={16} className="text-[#467B23]" /> Type
-                    </span>
-                    <span className="font-semibold text-[#01193B] text-right">
-                      {job.employmentType}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center justify-between py-2 border-b border-gray-100 gap-2">
-                    <span className="text-[#01193B]/50 flex items-center gap-2">
-                      <Clock size={16} className="text-[#467B23]" /> Shift
-                    </span>
-                    <span className="font-semibold text-[#01193B] text-right">
-                      {job.shiftDetails || "Standard"}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center justify-between py-2 border-b border-gray-100 gap-2">
-                    <span className="text-[#01193B]/50 flex items-center gap-2">
-                      <MapPin size={16} className="text-[#467B23]" /> Location
-                    </span>
-                    <span className="font-semibold text-[#01193B] text-right truncate max-w-[160px]">
-                      {job.location}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center justify-between py-2">
-                    <span className="text-[#01193B]/50 flex items-center gap-2">
-                      <Calendar size={16} className="text-[#467B23]" /> Status
-                    </span>
-                    <span className="font-semibold text-[#467B23]">
-                      {job.status}
-                    </span>
-                  </div>
+              <div className="space-y-4 text-sm">
+                <div className="flex items-center justify-between py-2 border-b border-gray-100 gap-2">
+                  <span className="text-[#01193B]/50 flex items-center gap-2">
+                    <Briefcase size={16} className="text-[#467B23]" /> Type
+                  </span>
+                  <span className="font-semibold text-[#01193B] text-right">
+                    {job.employmentType}
+                  </span>
                 </div>
 
-                <button
-                  onClick={handleApply}
-                  disabled={isApplied}
-                  className={`w-full py-4 text-xs font-semibold uppercase tracking-wider transition-all duration-300 shadow-sm text-center rounded-xl ${
-                    isApplied
-                      ? "bg-[#467B23] text-white cursor-default"
-                      : "bg-[#01193B] hover:bg-[#01193B]/90 text-white"
-                  }`}
-                >
-                  {isApplied ? "Application Submitted" : "Apply Now"}
-                </button>
+                <div className="flex items-center justify-between py-2 border-b border-gray-100 gap-2">
+                  <span className="text-[#01193B]/50 flex items-center gap-2">
+                    <Clock size={16} className="text-[#467B23]" /> Shift
+                  </span>
+                  <span className="font-semibold text-[#01193B] text-right">
+                    {job.shiftDetails || "Standard"}
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between py-2 border-b border-gray-100 gap-2">
+                  <span className="text-[#01193B]/50 flex items-center gap-2">
+                    <MapPin size={16} className="text-[#467B23]" /> Location
+                  </span>
+                  <span className="font-semibold text-[#01193B] text-right  max-w-[160px]">
+                    {job.location}
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between py-2">
+                  <span className="text-[#01193B]/50 flex items-center gap-2">
+                    <Calendar size={16} className="text-[#467B23]" /> Status
+                  </span>
+                  <span className="font-semibold text-[#467B23]">
+                    {job.status}
+                  </span>
+                </div>
               </div>
 
-              {/* Latest Jobs Widget (Inspired by reference layout) */}
-              {latestJobs.length > 0 && (
-                <div className="bg-white border border-[#01193B]/10 p-5 sm:p-6 lg:p-8 shadow-sm rounded-3xl space-y-4">
-                  <div className="border-b border-[#01193B]/10 pb-3 flex items-center justify-between">
-                    <h3 className="text-base font-semibold text-[#01193B]">
-                      Latest Jobs
-                    </h3>
-                    <span className="text-[11px] font-semibold text-[#467B23] bg-[#467B23]/10 px-2.5 py-1 rounded-lg">
-                      {latestJobs.length} active
-                    </span>
-                  </div>
-
-                  <div className="space-y-3.5">
-                    {latestJobs.map((otherJob) => (
-                      <Link
-                        key={otherJob._id}
-                        href={`/jobs/${encodeURIComponent(createSlug(otherJob.title))}`}
-                        className="group block p-3 rounded-2xl hover:bg-[#F8FAFC] border border-transparent hover:border-[#01193B]/10 transition-all"
-                      >
-                        <h4 className="text-xs font-semibold text-[#01193B] group-hover:text-[#467B23] transition-colors line-clamp-1">
-                          {otherJob.title}
-                        </h4>
-                        <p className="text-[11px] text-[#01193B]/50 truncate mt-0.5">
-                          {otherJob.sector} • {otherJob.location.split(",")[0]}
-                        </p>
-                      </Link>
-                    ))}
-                  </div>
-
-                  <div className="pt-2 border-t border-[#01193B]/10 text-center">
-                    <Link
-                      href="/jobs"
-                      className="text-xs font-bold text-[#467B23] hover:underline inline-flex items-center gap-1 uppercase tracking-wider"
-                    >
-                      View all available positions <ChevronRight size={14} />
-                    </Link>
-                  </div>
-                </div>
-              )}
+              <button
+                onClick={handleApply}
+                disabled={isApplied}
+                className={`w-full py-4 text-xs font-semibold uppercase tracking-wider transition-all duration-300 shadow-sm text-center rounded-xl ${
+                  isApplied
+                    ? "bg-[#467B23] text-white cursor-default"
+                    : "bg-[#01193B] hover:bg-[#01193B]/90 text-white"
+                }`}
+              >
+                {isApplied ? "Application Submitted" : "Apply Now"}
+              </button>
             </div>
+
+            {/* Latest Jobs Widget */}
+            {latestJobs.length > 0 && (
+              <div className="bg-white border border-[#01193B]/10 p-5 sm:p-6 lg:p-8 shadow-sm rounded-3xl space-y-4">
+                <div className="border-b border-[#01193B]/10 pb-3 flex items-center justify-between">
+                  <h3 className="text-base font-semibold text-[#01193B]">
+                    Latest Jobs
+                  </h3>
+                  <span className="text-[11px] font-semibold text-[#467B23] bg-[#467B23]/10 px-2.5 py-1 rounded-lg">
+                    {latestJobs.length} active
+                  </span>
+                </div>
+
+                <div className="space-y-3.5">
+                  {latestJobs.map((otherJob) => (
+                    <Link
+                      key={otherJob._id}
+                      href={`/jobs/${encodeURIComponent(createSlug(otherJob.title))}`}
+                      className="group block p-3 rounded-2xl hover:bg-[#F8FAFC] border border-transparent hover:border-[#01193B]/10 transition-all"
+                    >
+                      <h4 className="text-xs font-semibold text-[#01193B] group-hover:text-[#467B23] transition-colors line-clamp-1">
+                        {otherJob.title}
+                      </h4>
+                      <p className="text-[11px] text-[#01193B]/50 truncate mt-0.5">
+                        {otherJob.sector} • {otherJob.location.split(",")[0]}
+                      </p>
+                    </Link>
+                  ))}
+                </div>
+
+                <div className="pt-2 border-t border-[#01193B]/10 text-center">
+                  <Link
+                    href="/jobs"
+                    className="text-xs font-bold text-[#467B23] hover:underline inline-flex items-center gap-1 uppercase tracking-wider"
+                  >
+                    View all available positions <ChevronRight size={14} />
+                  </Link>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -390,6 +394,9 @@ export default function JobDetailPage() {
           {isApplied ? "Application Submitted" : "Apply For This Job"}
         </button>
       </div>
+      <AuthModal isOpen={isAuthModalOpen}
+      onClose={()=>setIsAuthModalOpen(false)}
+      initialTab="signup"/>
     </div>
   );
 }

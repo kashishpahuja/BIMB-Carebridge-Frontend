@@ -1,12 +1,16 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { MapPin, DollarSign, Search, Briefcase, Filter, X } from 'lucide-react';
 // Import the JSON data directly. Adjust the path if your components folder is nested differently.
 import jobData from '../data/sampleJobs.json';
 
 export default function JobsPage() {
+  const searchParams = useSearchParams();
+  const categoryParam = searchParams.get('category');
+
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -17,15 +21,36 @@ export default function JobsPage() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedType, setSelectedType] = useState('All');
 
-  // Load initial data
+  // Load initial data and map URL category parameters to exact JSON matches
   useEffect(() => {
     const fetchTimer = setTimeout(() => {
-      setJobs(jobData.jobs || []);
+      const allJobs = jobData.jobs || [];
+      setJobs(allJobs);
+
+      if (categoryParam) {
+        // Decode URL string (e.g., "Registered+Nurses" -> "Registered Nurses")
+        const decodedCategory = decodeURIComponent(categoryParam).toLowerCase();
+        
+        // Find a matching category or sector from the JSON data dynamically
+        const matchedJob = allJobs.find(
+          (j) => 
+            (j.category && j.category.toLowerCase().includes(decodedCategory)) ||
+            (j.sector && j.sector.toLowerCase().includes(decodedCategory))
+        );
+
+        if (matchedJob) {
+          setSelectedCategory(matchedJob.category);
+        } else {
+          // Fallback direct match attempt
+          setSelectedCategory(categoryParam);
+        }
+      }
+
       setLoading(false);
     }, 600);
 
     return () => clearTimeout(fetchTimer);
-  }, []);
+  }, [categoryParam]);
 
   // Prevent background scrolling when filter menu is open (Mobile only)
   useEffect(() => {
@@ -199,7 +224,6 @@ export default function JobsPage() {
               </div>
               
               <div className="flex-1">
-                {/* <FilterContent /> */}
                {FilterContent ()}
               </div>
             </div>

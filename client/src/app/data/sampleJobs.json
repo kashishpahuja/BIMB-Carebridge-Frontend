@@ -11,7 +11,15 @@
       "shiftDetails": "12-hour Day & Night Rotational Shifts",
       "description": "Provide direct patient care in an acute care environment, administer medications, monitor patient conditions, and collaborate with physicians and healthcare teams.",
       "status": "Active",
-      "employer": "emp_001"
+      "employer": "emp_001",
+      "company": "CareFirst Health Systems",
+      "companyWebsite": "https://carefirsthealth.example.com",
+      "requirements": [
+        "Current certificate of registration with the College of Nurses of Ontario (CNO)",
+        "Minimum 2 years of acute care clinical experience",
+        "Valid BCLS-HCP certification",
+        "Strong critical thinking and communication skills"
+      ]
     },
     {
       "_id": "job_006",
@@ -24,7 +32,15 @@
       "shiftDetails": "Flexible Day and Evening Shifts",
       "description": "Deliver professional nursing services to patients in community and home care settings, including assessments, medication administration, and care planning.",
       "status": "Active",
-      "employer": "emp_001"
+      "employer": "emp_001",
+      "company": "CareFirst Health Systems",
+      "companyWebsite": "https://carefirsthealth.example.com",
+      "requirements": [
+        "Valid CNO license in good standing",
+        "Previous experience in home or community healthcare",
+        "Valid driver's license and reliable vehicle access",
+        "Demonstrated autonomy and client-centered approach"
+      ]
     },
     {
       "_id": "job_007",
@@ -37,7 +53,15 @@
       "shiftDetails": "Morning, Evening and Weekend Shifts",
       "description": "Provide compassionate personal care and daily living assistance to clients in their homes, including mobility support, hygiene, meal assistance, and companionship.",
       "status": "Active",
-      "employer": "emp_001"
+      "employer": "emp_001",
+      "company": "CareFirst Health Systems",
+      "companyWebsite": "https://carefirsthealth.example.com",
+      "requirements": [
+        "Recognized PSW certificate or equivalent personal support credentials",
+        "Current First Aid and CPR certification",
+        "Vulnerable Sector Check (VSC) clearance",
+        "Empathetic, reliable, and patient-focused attitude"
+      ]
     },
     {
       "_id": "job_008",
@@ -50,7 +74,15 @@
       "shiftDetails": "Day, Evening and Night Shifts",
       "description": "Support residents in a long-term care environment with personal hygiene, mobility, meals, companionship, and other daily living requirements.",
       "status": "Active",
-      "employer": "emp_001"
+      "employer": "emp_001",
+      "company": "CareFirst Health Systems",
+      "companyWebsite": "https://carefirsthealth.example.com",
+      "requirements": [
+        "Certified Personal Support Worker diploma",
+        "Experience working within long-term care facilities",
+        "Ability to handle physical demands, including bending and lifting",
+        "Strong team player with positive communication skills"
+      ]
     },
     {
       "_id": "job_009",
@@ -63,7 +95,15 @@
       "shiftDetails": "Evening, Weekend and Holiday Shifts",
       "description": "Deliver premium dining experiences by greeting guests, taking orders, serving meals and beverages, and ensuring exceptional customer satisfaction.",
       "status": "Active",
-      "employer": "emp_002"
+      "employer": "emp_002",
+      "company": "Apex Hospitality Group",
+      "companyWebsite": "https://apexhospitality.example.com",
+      "requirements": [
+        "Minimum 2 years of fine dining serving experience",
+        "Extensive knowledge of food pairings and upscale service etiquette",
+        "Smart Serve certification",
+        "Immaculate grooming and professional demeanor"
+      ]
     },
     {
       "_id": "job_010",
@@ -76,7 +116,15 @@
       "shiftDetails": "Weekends, Weddings and Special Events",
       "description": "Set up banquet spaces, serve food and beverages at events, assist guests, and maintain professional service standards throughout functions.",
       "status": "Active",
-      "employer": "emp_002"
+      "employer": "emp_002",
+      "company": "Apex Hospitality Group",
+      "companyWebsite": "https://apexhospitality.example.com",
+      "requirements": [
+        "Previous banquet or catering service experience",
+        "Ability to carry heavy trays and stand for long periods",
+        "Flexible availability for weekend and evening event shifts",
+        "Smart Serve certification"
+      ]
     },
     {
       "_id": "job_011",
@@ -89,7 +137,15 @@
       "shiftDetails": "Lunch and Evening Shifts",
       "description": "Take customer orders, serve food and beverages efficiently, process requests, and maintain a welcoming dining environment.",
       "status": "Active",
-      "employer": "emp_002"
+      "employer": "emp_002",
+      "company": "Apex Hospitality Group",
+      "companyWebsite": "https://apexhospitality.example.com",
+      "requirements": [
+        "Friendly personality and customer-centric attitude",
+        "Basic POS system operation experience",
+        "Smart Serve certification",
+        "Ability to multitask in a fast-paced environment"
+      ]
     },
     {
       "_id": "job_012",
@@ -102,7 +158,15 @@
       "shiftDetails": "Evenings, Weekends and Private Events",
       "description": "Prepare and serve alcoholic and non-alcoholic beverages at corporate functions, weddings, and private events while maintaining professional service standards.",
       "status": "Active",
-      "employer": "emp_002"
+      "employer": "emp_002",
+      "company": "Apex Hospitality Group",
+      "companyWebsite": "https://apexhospitality.example.com",
+      "requirements": [
+        "Proven high-volume bartending experience",
+        "Mandatory Smart Serve certification",
+        "Expert knowledge of mixology and cocktail recipes",
+        "Cash handling and inventory management skills"
+      ]
     },
     {
       "_id": "job_013",
@@ -115,7 +179,15 @@
       "shiftDetails": "Afternoon and Night Shifts",
       "description": "Prepare cocktails and beverages for hotel guests, maintain bar inventory, process orders, and provide an excellent guest experience.",
       "status": "Active",
-      "employer": "emp_002"
+      "employer": "emp_002",
+      "company": "Apex Hospitality Group",
+      "companyWebsite": "https://apexhospitality.example.com",
+      "requirements": [
+        "Minimum 3 years working in upscale hotel lounges",
+        "In-depth beverage menu knowledge",
+        "Smart Serve certification",
+        "Exceptional conversational skills and polished presentation"
+      ]
     },
     {
       "_id": "job_014",
@@ -128,7 +200,15 @@
       "shiftDetails": "Rotational Day and Night Shifts",
       "description": "Lead nursing activities in a long-term care facility, oversee resident care, administer treatments, mentor support staff, and maintain accurate clinical documentation.",
       "status": "Active",
-      "employer": "emp_001"
+      "employer": "emp_001",
+      "company": "CareFirst Health Systems",
+      "companyWebsite": "https://carefirsthealth.example.com",
+      "requirements": [
+        "Current CNO registration",
+        "Minimum 4 years of clinical experience, preferably in geriatric care",
+        "Proven leadership or charge nurse background",
+        "Proficiency in electronic health records (EHR)"
+      ]
     },
     {
       "_id": "job_015",
@@ -141,7 +221,15 @@
       "shiftDetails": "Flexible Day, Evening and Weekend Shifts",
       "description": "Assist retirement residence clients with personal care, medication reminders, mobility, meals, and social activities while promoting independence.",
       "status": "Active",
-      "employer": "emp_001"
+      "employer": "emp_001",
+      "company": "CareFirst Health Systems",
+      "companyWebsite": "https://carefirsthealth.example.com",
+      "requirements": [
+        "Certified PSW qualification",
+        "Experience in senior living communities",
+        "Strong interpersonal and patience-driven skills",
+        "Vulnerable Sector Check verification"
+      ]
     },
     {
       "_id": "job_016",
@@ -154,9 +242,16 @@
       "shiftDetails": "Evenings, Weekends and Event-Based Shifts",
       "description": "Create and serve cocktails for upscale events and private functions, manage bar setup, maintain inventory, and deliver a high-quality guest experience.",
       "status": "Active",
-      "employer": "emp_002"
+      "employer": "emp_002",
+      "company": "Apex Hospitality Group",
+      "companyWebsite": "https://apexhospitality.example.com",
+      "requirements": [
+        "Specialized craft cocktail mixing experience",
+        "Smart Serve certification",
+        "Ability to adapt to dynamic event environments",
+        "Strong time-management capacity"
+      ]
     },
-
     {
       "_id": "job_017",
       "title": "Registered Nurse (RN) - Emergency Department",
@@ -168,7 +263,15 @@
       "shiftDetails": "12-hour Day, Evening and Night Rotational Shifts",
       "description": "Provide nursing care to patients in a fast-paced emergency department, perform assessments, administer treatments, monitor vital signs, and collaborate with emergency care teams.",
       "status": "Active",
-      "employer": "emp_001"
+      "employer": "emp_001",
+      "company": "CareFirst Health Systems",
+      "companyWebsite": "https://carefirsthealth.example.com",
+      "requirements": [
+        "Active CNO license",
+        "ACLS and BLS certifications",
+        "Minimum 2 years of emergency department nursing experience",
+        "High-stress tolerance and rapid prioritization skills"
+      ]
     },
     {
       "_id": "job_018",
@@ -181,7 +284,15 @@
       "shiftDetails": "Day and Evening Shifts",
       "description": "Provide pre-operative and post-operative nursing care, monitor patient recovery, administer medications, document clinical information, and support surgical care teams.",
       "status": "Active",
-      "employer": "emp_001"
+      "employer": "emp_001",
+      "company": "CareFirst Health Systems",
+      "companyWebsite": "https://carefirsthealth.example.com",
+      "requirements": [
+        "Current CNO registration",
+        "Experience in post-surgical patient monitoring",
+        "Strong background in wound care and medication management",
+        "Collaborative attitude with multidisciplinary surgical teams"
+      ]
     },
     {
       "_id": "job_019",
@@ -194,7 +305,15 @@
       "shiftDetails": "Day, Evening and Weekend Shifts",
       "description": "Provide patient-centered nursing care in a mental health setting, complete assessments, administer medications, monitor patient progress, and work with multidisciplinary teams.",
       "status": "Active",
-      "employer": "emp_001"
+      "employer": "emp_001",
+      "company": "CareFirst Health Systems",
+      "companyWebsite": "https://carefirsthealth.example.com",
+      "requirements": [
+        "CNO certificate of registration",
+        "Specialized coursework or experience in psychiatric/mental health nursing",
+        "Exceptional de-escalation and active listening abilities",
+        "Compassionate and trauma-informed approach"
+      ]
     },
     {
       "_id": "job_020",
@@ -207,7 +326,15 @@
       "shiftDetails": "Day, Evening and Night Shifts",
       "description": "Assist hospital patients with personal care, mobility, positioning, meals, comfort measures, and daily activities while supporting nursing staff.",
       "status": "Active",
-      "employer": "emp_001"
+      "employer": "emp_001",
+      "company": "CareFirst Health Systems",
+      "companyWebsite": "https://carefirsthealth.example.com",
+      "requirements": [
+        "PSW diploma from an accredited institution",
+        "Hospital environment clinical rotation experience",
+        "Strong physical stamina",
+        "Current CPR certification"
+      ]
     },
     {
       "_id": "job_021",
@@ -220,7 +347,15 @@
       "shiftDetails": "Flexible Morning, Evening and Weekend Shifts",
       "description": "Support residents with personal care, mobility, meals, household routines, and recreational activities while promoting dignity and independence.",
       "status": "Active",
-      "employer": "emp_001"
+      "employer": "emp_001",
+      "company": "CareFirst Health Systems",
+      "companyWebsite": "https://carefirsthealth.example.com",
+      "requirements": [
+        "Certified PSW",
+        "Clean police background reference check",
+        "Patient-centric focus on independent living support",
+        "Clear verbal communication skills"
+      ]
     },
     {
       "_id": "job_022",
@@ -233,7 +368,15 @@
       "shiftDetails": "Day, Evening and Night Shifts",
       "description": "Provide compassionate personal care and comfort support to clients receiving palliative care while assisting families and healthcare professionals with daily care needs.",
       "status": "Active",
-      "employer": "emp_001"
+      "employer": "emp_001",
+      "company": "CareFirst Health Systems",
+      "companyWebsite": "https://carefirsthealth.example.com",
+      "requirements": [
+        "PSW certification with specialized hospice/palliative training",
+        "Exceptional emotional resilience and empathy",
+        "Ability to coordinate effectively with nursing staff and families",
+        "Reliable transportation"
+      ]
     },
     {
       "_id": "job_023",
@@ -246,7 +389,15 @@
       "shiftDetails": "Morning, Evening and Weekend Shifts",
       "description": "Provide attentive food and beverage service to hotel guests, take orders, deliver meals, respond to guest requests, and maintain a clean and welcoming dining area.",
       "status": "Active",
-      "employer": "emp_002"
+      "employer": "emp_002",
+      "company": "Apex Hospitality Group",
+      "companyWebsite": "https://apexhospitality.example.com",
+      "requirements": [
+        "1+ year hospitality experience in hotel dining",
+        "Smart Serve certification",
+        "Professional customer service orientation",
+        "Flexible shift availability"
+      ]
     },
     {
       "_id": "job_024",
@@ -259,7 +410,15 @@
       "shiftDetails": "Weekends, Evenings and Special Events",
       "description": "Assist with event setup, serve food and beverages, clear tables, respond to guest needs, and maintain professional service standards during catered events.",
       "status": "Active",
-      "employer": "emp_002"
+      "employer": "emp_002",
+      "company": "Apex Hospitality Group",
+      "companyWebsite": "https://apexhospitality.example.com",
+      "requirements": [
+        "Catering or banquet serving background",
+        "Smart Serve certification",
+        "Punctual, energetic, and organized workflow style",
+        "Team player ethos"
+      ]
     },
     {
       "_id": "job_025",
@@ -272,7 +431,15 @@
       "shiftDetails": "Evening, Weekend and Holiday Shifts",
       "description": "Deliver high-end dining service by assisting guests with menu selections, taking orders, serving courses, and ensuring an exceptional restaurant experience.",
       "status": "Active",
-      "employer": "emp_002"
+      "employer": "emp_002",
+      "company": "Apex Hospitality Group",
+      "companyWebsite": "https://apexhospitality.example.com",
+      "requirements": [
+        "Extensive fine dining experience",
+        "Superior knowledge of upscale cuisine and wines",
+        "Smart Serve certification",
+        "Immaculate presentation and communication"
+      ]
     },
     {
       "_id": "job_026",
@@ -285,7 +452,15 @@
       "shiftDetails": "Lunch, Evening and Weekend Shifts",
       "description": "Welcome guests, take food and beverage orders, deliver meals efficiently, assist with customer requests, and maintain a positive dining environment.",
       "status": "Active",
-      "employer": "emp_002"
+      "employer": "emp_002",
+      "company": "Apex Hospitality Group",
+      "companyWebsite": "https://apexhospitality.example.com",
+      "requirements": [
+        "Previous serving experience in casual or family dining",
+        "Smart Serve certification",
+        "Positive customer-facing demeanor",
+        "Adaptable team player"
+      ]
     },
     {
       "_id": "job_027",
@@ -298,7 +473,15 @@
       "shiftDetails": "Evenings, Weekends and Special Events",
       "description": "Lead beverage service for hotel events, coordinate bar setup, manage inventory, prepare beverages, and ensure consistent service quality throughout events.",
       "status": "Active",
-      "employer": "emp_002"
+      "employer": "emp_002",
+      "company": "Apex Hospitality Group",
+      "companyWebsite": "https://apexhospitality.example.com",
+      "requirements": [
+        "Minimum 3 years bartending with leadership/supervisor experience",
+        "Comprehensive stock ordering and inventory tracking skills",
+        "Smart Serve certification",
+        "Expert cocktail formulation skills"
+      ]
     },
     {
       "_id": "job_028",
@@ -311,7 +494,15 @@
       "shiftDetails": "Evenings, Weekends and Event-Based Shifts",
       "description": "Set up and operate event bars, prepare beverages, maintain clean service areas, monitor inventory, and provide professional guest service during banquets and functions.",
       "status": "Active",
-      "employer": "emp_002"
+      "employer": "emp_002",
+      "company": "Apex Hospitality Group",
+      "companyWebsite": "https://apexhospitality.example.com",
+      "requirements": [
+        "Event bartending experience",
+        "Smart Serve mandatory",
+        "High efficiency under pressure",
+        "Strong interpersonal communication"
+      ]
     },
     {
       "_id": "job_029",
@@ -324,7 +515,15 @@
       "shiftDetails": "Afternoon, Evening and Weekend Shifts",
       "description": "Prepare and serve beverages in a hotel or lounge environment, process guest orders, maintain the bar area, and provide friendly and professional service.",
       "status": "Active",
-      "employer": "emp_002"
+      "employer": "emp_002",
+      "company": "Apex Hospitality Group",
+      "companyWebsite": "https://apexhospitality.example.com",
+      "requirements": [
+        "2+ years lounge or bar mixing experience",
+        "Smart Serve certification",
+        "Personable and welcoming communication approach",
+        "Clean workspace maintenance habits"
+      ]
     },
     {
       "_id": "job_030",
@@ -337,7 +536,57 @@
       "shiftDetails": "Evenings, Weekends and Special Events",
       "description": "Support event operations by preparing service areas, assisting guests, serving food and beverages, clearing tables, and helping maintain a professional event environment.",
       "status": "Active",
-      "employer": "emp_002"
+      "employer": "emp_002",
+      "company": "Apex Hospitality Group",
+      "companyWebsite": "https://apexhospitality.example.com",
+      "requirements": [
+        "General banquet or event support experience",
+        "Physical capability to handle heavy lifting and long shifts",
+        "Smart Serve is an asset",
+        "Strong collaborative work ethos"
+      ]
+    },
+    {
+      "_id": "job_031",
+      "title": "Full Stack Software Engineer",
+      "sector": "Technology",
+      "category": "Software Development",
+      "employmentType": "Full-time",
+      "location": "Toronto, Ontario, Canada",
+      "salary": "$90,000 - $120,000 / year",
+      "shiftDetails": "Standard Core Business Hours (Hybrid)",
+      "description": "Design, develop, and scale robust web applications utilizing Next.js, Node.js, Express, and MongoDB to deliver high-performance user experiences.",
+      "status": "Active",
+      "employer": "emp_003",
+      "company": "Innovatech Solutions",
+      "companyWebsite": "https://innovatechsolutions.example.com",
+      "requirements": [
+        "Minimum 3 years of full-stack development experience",
+        "Proficiency in React, Next.js, Node.js, and MongoDB/Mongoose",
+        "Experience building and consuming RESTful APIs",
+        "Strong debugging, testing, and Git version control workflows"
+      ]
+    },
+    {
+      "_id": "job_032",
+      "title": "Frontend UI/UX Developer",
+      "sector": "Technology",
+      "category": "Software Development",
+      "employmentType": "Full-time",
+      "location": "Mississauga, Ontario, Canada",
+      "salary": "$80,000 - $105,000 / year",
+      "shiftDetails": "Monday to Friday, Flexible Hours",
+      "description": "Craft responsive user interfaces, custom landing page designs, and fluid layouts using Tailwind CSS, Next.js, and modern animation libraries.",
+      "status": "Active",
+      "employer": "emp_003",
+      "company": "Innovatech Solutions",
+      "companyWebsite": "https://innovatechsolutions.example.com",
+      "requirements": [
+        "Strong portfolio demonstrating advanced Tailwind CSS and React component layouts",
+        "Experience implementing GSAP or Framer Motion animations",
+        "Deep understanding of cross-browser compatibility and mobile-first design",
+        "Bachelor's degree in Computer Science or equivalent practical experience"
+      ]
     }
   ]
 }
