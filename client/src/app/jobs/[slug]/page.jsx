@@ -56,7 +56,7 @@ export default function JobDetailPage() {
   const handleApply = (e) => {
     e.preventDefault();
     setIsAuthModalOpen(true);
-    setIsApplied(true);
+    // setIsApplied(true);
   }
 
   // Extract other latest jobs from the same sector/company for the sidebar widget

@@ -25,18 +25,23 @@ function Navbar({ openPopup }) {
   const [courseMenuOpen, setCourseMenuOpen] = useState(false);
   const [updateMenuOpen, setUpdateMenuOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const [authModalTab, setAuthModalTab] = useState('login');
+  const [authModalTab, setAuthModalTab] = useState("login");
   // Dynamically extract unique categories from sampleJobs.json
   const dynamicCategories = React.useMemo(() => {
     const jobs = jobData.jobs || [];
-    const uniqueCats = [...new Set(jobs.map((j) => j.category).filter(Boolean))];
-    
+    const uniqueCats = [
+      ...new Set(jobs.map((j) => j.category).filter(Boolean)),
+    ];
+
     // Map each category to a display profile with default subtitles
     return uniqueCats.map((cat) => {
       let subtitle = "Professional Opportunities";
-      if (cat.includes("Registered Nurses")) subtitle = "Hospitals & Healthcare Facilities";
-      else if (cat.includes("Personal Support Workers")) subtitle = "Long-Term Care Homes";
-      else if (cat.includes("Wait Staff")) subtitle = "Hotels, Resorts & Restaurants";
+      if (cat.includes("Registered Nurses"))
+        subtitle = "Hospitals & Healthcare Facilities";
+      else if (cat.includes("Personal Support Workers"))
+        subtitle = "Long-Term Care Homes";
+      else if (cat.includes("Wait Staff"))
+        subtitle = "Hotels, Resorts & Restaurants";
       else if (cat.includes("Bartenders")) subtitle = "Lounges & Event Venues";
       else if (cat.includes("Software")) subtitle = "Tech & Engineering";
 
@@ -86,7 +91,7 @@ function Navbar({ openPopup }) {
         opacity: 1,
         duration: 0.2,
         ease: "power3.out",
-      }
+      },
     );
   };
 
@@ -115,7 +120,13 @@ function Navbar({ openPopup }) {
       gsap.fromTo(
         dropdownRef.current,
         { opacity: 0, y: -20 },
-        { opacity: 1, y: 0, duration: 0.4, ease: "power3.out", display: "flex" }
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.4,
+          ease: "power3.out",
+          display: "flex",
+        },
       );
     } else {
       gsap.to(dropdownRef.current, {
@@ -174,14 +185,14 @@ function Navbar({ openPopup }) {
             >
               <FaEnvelope />
               <span>info@bimbcarebridge.com</span>
-            </a>̥
+            </a>
           </div>
         </div>
       </div>
 
       <div className="relative w-full z-99999 backdrop-blur-md px-2 sm:px-5 md:px-12 lg:px-24 xl:px-40">
         <div className="text-black flex items-center justify-between h-[80px]">
-  <Link
+          <Link
             href={"/"}
             className="relative flex items-center justify-start gap-2 w-fit xl:w-[250px]"
           >
@@ -195,10 +206,10 @@ function Navbar({ openPopup }) {
               />
             </div>
           </Link>
-          <div className=" relative z-20">
+        <div className="block lg:hidden relative z-20">
   <button
     onClick={() => {
-      setAuthModalTab('login');
+      setAuthModalTab("login");
       setIsAuthModalOpen(true);
     }}
     ref={btnRef}
@@ -217,7 +228,20 @@ function Navbar({ openPopup }) {
       cursor-pointer
     "
   >
-    {/* (Keep your decorative expanding spans and SVG elements here) */}
+    <span className="absolute w-0 h-0 rounded-full bg-[#01193B] transition-all duration-500 ease-out group-hover:w-56 group-hover:h-56" />
+
+    <span className="absolute bottom-0 left-0 h-full -ml-2 pointer-events-none">
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-auto h-full opacity-100 object-stretch" viewBox="0 0 487 487">
+        <path fillOpacity=".1" fillRule="nonzero" fill="#FFF" d="M0 .3c67 2.1 134.1 4.3 186.3 37 52.2 32.7 89.6 95.8 112.8 150.6 23.2 54.8 32.3 101.4 61.2 149.9 28.9 48.4 77.7 98.8 126.4 149.2H0V.3z" />
+      </svg>
+    </span>
+
+    <span className="absolute top-0 right-0 w-12 h-full -mr-3 pointer-events-none">
+      <svg xmlns="http://www.w3.org/2000/svg" className="object-cover w-full h-full" viewBox="0 0 487 487">
+        <path fillOpacity=".1" fillRule="nonzero" fill="#FFF" d="M487 486.7c-66.1-3.6-132.3-7.3-186.3-37s-95.9-85.3-126.2-137.2c-30.4-51.8-49.3-99.9-76.5-151.4C70.9 109.6 35.6 54.8.3 0H487v486.7z" />
+      </svg>
+    </span>
+
     <span className="relative z-10 font-['Poppins'] text-sm xl:text-base">
       Log In
     </span>
@@ -248,7 +272,7 @@ function Navbar({ openPopup }) {
                         {cat.subtitle}
                       </p>
                     </Link>
-                  ))} 
+                  ))}
                 </div>
 
                 <div className="mt-4 pt-4 border-t border-[#467B23]/30 text-center">
@@ -277,13 +301,23 @@ function Navbar({ openPopup }) {
             </li>
 
             <li className="relative group">
-              <Link href="/updates" className="relative inline-block group">
+              <button className="relative inline-block group">
                 <span>Updates</span>
                 <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#467B23] transition-[width] duration-300 group-hover:w-full"></span>
-              </Link>
+              </button>
               <div className="absolute space-y-2 flex flex-col w-[200px] bg-white/95 backdrop-blur-sm border border-[#467B23]/30 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 px-2 py-2 mt-2">
-                <Link className="p-3 hover:bg-[#467B23]/10 rounded-lg transition-colors duration-300 text-[#467B23] font-semibold text-sm" href="/articles">Articles</Link>
-                <Link className="p-3 hover:bg-[#467B23]/10 rounded-lg transition-colors duration-300 text-[#467B23] font-semibold text-sm" href="/news">News</Link>
+                <Link
+                  className="p-3 hover:bg-[#467B23]/10 rounded-lg transition-colors duration-300 text-[#467B23] font-semibold text-sm"
+                  href="/articles"
+                >
+                  Articles
+                </Link>
+                <Link
+                  className="p-3 hover:bg-[#467B23]/10 rounded-lg transition-colors duration-300 text-[#467B23] font-semibold text-sm"
+                  href="/news"
+                >
+                  News
+                </Link>
               </div>
             </li>
 
@@ -296,43 +330,47 @@ function Navbar({ openPopup }) {
           </ul>
 
           {/* Post a Job / Register Right Button */}
-          {/* <div className="block relative z-20">
-            <Link
-              href="/register"
-              ref={btnRef}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-              className="
-                relative inline-flex 
-                items-center justify-center
-                overflow-hidden rounded-md
-                bg-[#467B23]
-                px-8 py-2.5
-                text-white
-                tracking-tight
-                group
-                animate-fadeUp
-              "
-            >
-              <span className="absolute w-0 h-0 rounded-full bg-[#01193B] transition-all duration-500 ease-out group-hover:w-56 group-hover:h-56" />
+             <div className="hidden lg:block relative z-20">
+  <button
+    onClick={() => {
+      setAuthModalTab("login");
+      setIsAuthModalOpen(true);
+    }}
+    ref={btnRef}
+    onMouseEnter={handleMouseEnter}
+    onMouseLeave={handleMouseLeave}
+    className="
+      relative inline-flex 
+      items-center justify-center
+      overflow-hidden rounded-md
+      bg-[#467B23]
+      px-8 py-2.5
+      text-white
+      tracking-tight
+      group
+      animate-fadeUp
+      cursor-pointer
+    "
+  >
+    <span className="absolute w-0 h-0 rounded-full bg-[#01193B] transition-all duration-500 ease-out group-hover:w-56 group-hover:h-56" />
 
-              <span className="absolute bottom-0 left-0 h-full -ml-2">
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-auto h-full opacity-100 object-stretch" viewBox="0 0 487 487">
-                  <path fillOpacity=".1" fillRule="nonzero" fill="#FFF" d="M0 .3c67 2.1 134.1 4.3 186.3 37 52.2 32.7 89.6 95.8 112.8 150.6 23.2 54.8 32.3 101.4 61.2 149.9 28.9 48.4 77.7 98.8 126.4 149.2H0V.3z" />
-                </svg>
-              </span>
+    <span className="absolute bottom-0 left-0 h-full -ml-2 pointer-events-none">
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-auto h-full opacity-100 object-stretch" viewBox="0 0 487 487">
+        <path fillOpacity=".1" fillRule="nonzero" fill="#FFF" d="M0 .3c67 2.1 134.1 4.3 186.3 37 52.2 32.7 89.6 95.8 112.8 150.6 23.2 54.8 32.3 101.4 61.2 149.9 28.9 48.4 77.7 98.8 126.4 149.2H0V.3z" />
+      </svg>
+    </span>
 
-              <span className="absolute top-0 right-0 w-12 h-full -mr-3">
-                <svg xmlns="http://www.w3.org/2000/svg" className="object-cover w-full h-full" viewBox="0 0 487 487">
-                  <path fillOpacity=".1" fillRule="nonzero" fill="#FFF" d="M487 486.7c-66.1-3.6-132.3-7.3-186.3-37s-95.9-85.3-126.2-137.2c-30.4-51.8-49.3-99.9-76.5-151.4C70.9 109.6 35.6 54.8.3 0H487v486.7z" />
-                </svg>
-              </span>
+    <span className="absolute top-0 right-0 w-12 h-full -mr-3 pointer-events-none">
+      <svg xmlns="http://www.w3.org/2000/svg" className="object-cover w-full h-full" viewBox="0 0 487 487">
+        <path fillOpacity=".1" fillRule="nonzero" fill="#FFF" d="M487 486.7c-66.1-3.6-132.3-7.3-186.3-37s-95.9-85.3-126.2-137.2c-30.4-51.8-49.3-99.9-76.5-151.4C70.9 109.6 35.6 54.8.3 0H487v486.7z" />
+      </svg>
+    </span>
 
-              <span className="relative z-10 font-['Poppins'] text-sm xl:text-base">
-                Log In
-              </span>
-            </Link>
-          </div> */}
+    <span className="relative z-10 font-['Poppins'] text-sm xl:text-base">
+      Log In
+    </span>
+  </button>
+</div>
 
           {/* Hamburger Icon - Mobile */}
           <button
@@ -370,20 +408,42 @@ function Navbar({ openPopup }) {
               className="cursor-pointer flex items-center justify-between gap-2 w-full p-3 rounded-lg hover:bg-[#467B23]/10 transition-all duration-300 group"
             >
               <span className="flex items-center gap-2">
-                <svg className="w-5 h-5 text-[#01193B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                <svg
+                  className="w-5 h-5 text-[#01193B]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  />
                 </svg>
                 <span className="group-hover:text-[#01193B] transition-colors">
                   Find Jobs
                 </span>
               </span>
 
-              <svg className={`w-5 h-5 transition-transform duration-300 ${courseMenuOpen ? "rotate-180" : ""} text-gray-800`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              <svg
+                className={`w-5 h-5 transition-transform duration-300 ${courseMenuOpen ? "rotate-180" : ""} text-gray-800`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
               </svg>
             </button>
 
-            <div className={`overflow-hidden transition-all duration-500 ease-in-out ${courseMenuOpen ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"}`}>
+            <div
+              className={`overflow-hidden transition-all duration-500 ease-in-out ${courseMenuOpen ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"}`}
+            >
               <div className="mt-2 p-2 bg-gray-100/50 rounded-lg border border-gray-50/20">
                 <div className="grid grid-cols-1 gap-2">
                   {dynamicCategories.map((cat, idx) => (
@@ -430,8 +490,18 @@ function Navbar({ openPopup }) {
               onClick={() => setMenuOpen(false)}
               className="flex items-center gap-3 p-3 rounded-lg hover:bg-[#467B23]/10 transition-all duration-300 group"
             >
-              <svg className="w-5 h-5 text-[#01193B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+              <svg
+                className="w-5 h-5 text-[#01193B]"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                />
               </svg>
               <span className="group-hover:text-[#467B23] transition-colors">
                 For Employers
@@ -445,8 +515,18 @@ function Navbar({ openPopup }) {
               onClick={() => setMenuOpen(false)}
               className="flex items-center gap-3 p-3 rounded-lg hover:bg-[#467B23]/10 transition-all duration-300 group"
             >
-              <svg className="w-5 h-5 text-[#01193B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              <svg
+                className="w-5 h-5 text-[#01193B]"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
               </svg>
               <span className="group-hover:text-[#467B23] transition-colors">
                 About Us
@@ -460,20 +540,42 @@ function Navbar({ openPopup }) {
               className="cursor-pointer flex items-center justify-between gap-3 p-3 rounded-lg hover:bg-[#467B23]/10 transition-all duration-300 group"
             >
               <div className="flex gap-3">
-                <svg className="w-5 h-5 text-[#01193B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                <svg
+                  className="w-5 h-5 text-[#01193B]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                  />
                 </svg>
                 <span className="group-hover:text-[#467B23] transition-colors">
                   Updates
                 </span>
               </div>
 
-              <svg className={`w-5 h-5 transition-transform duration-300 ${updateMenuOpen ? "rotate-180" : ""} text-gray-800`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              <svg
+                className={`w-5 h-5 transition-transform duration-300 ${updateMenuOpen ? "rotate-180" : ""} text-gray-800`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
               </svg>
             </div>
-            
-            <div className={`overflow-hidden transition-all duration-500 ease-in-out ${updateMenuOpen ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"}`}>
+
+            <div
+              className={`overflow-hidden transition-all duration-500 ease-in-out ${updateMenuOpen ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"}`}
+            >
               <div className="mt-2 p-2 bg-gray-100/50 rounded-lg border border-gray-50/20">
                 <div className="grid grid-cols-1 gap-2">
                   <Link
@@ -512,8 +614,18 @@ function Navbar({ openPopup }) {
               onClick={() => setMenuOpen(false)}
               className="flex items-center gap-3 p-3 rounded-lg hover:bg-[#467B23]/10 transition-all duration-300 group"
             >
-              <svg className="w-5 h-5 text-[#01193B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              <svg
+                className="w-5 h-5 text-[#01193B]"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                />
               </svg>
               <span className="group-hover:text-[#467B23] transition-colors">
                 Contact Us
@@ -523,10 +635,10 @@ function Navbar({ openPopup }) {
         </ul>
       </div>
       <AuthModal
-  isOpen={isAuthModalOpen} 
-  onClose={() => setIsAuthModalOpen(false)} 
-  initialTab={authModalTab} 
-/>
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        initialTab={authModalTab}
+      />
     </>
   );
 }

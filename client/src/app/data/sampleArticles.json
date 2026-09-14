@@ -1,0 +1,489 @@
+{
+    "articles": [
+    {
+      "_id": "1",
+      "title": "Understanding Modern Web Architecture in 2026",
+      "slug": "understanding-modern-web-architecture-in-2026",
+      "shortDescription": "Modern web development continues to evolve rapidly with server components, edge rendering, and highly optimized asset streams.",
+      "category": "Technology",
+      "author": "Kashish Pahuja",
+      "date": "March 12, 2026",
+      "readTime": "4 min read",
+      "thumbnail": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80",
+      "tags": ["web development", "next.js", "architecture"],
+      "homepage": true,
+      "status": "PUBLISHED",
+      "views": 1420,
+      "content": [
+        {
+          "title": "The Shift Toward Server-Side Rendering",
+          "des": "Modern web development continues to evolve rapidly with server components, edge rendering, and highly optimized asset streams. Building resilient applications requires careful balancing of state management and database schemas using Node.js and MongoDB.",
+          "color": "emerald",
+          "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "title": "Optimizing Database Connections and Mongoose Models",
+          "des": "When scaling high-traffic applications, database design plays a pivotal role. Implementing strict Mongoose schemas alongside proper indexing ensures low latency and robust response times under concurrent loads.",
+          "color": "blue",
+          "image": null
+        },
+        {
+          "title": "Future Outlook on Full-Stack Ecosystems",
+          "des": "As JavaScript tooling matures, unified frameworks continue dominating enterprise stacks. Developers must prioritize clean separation of concerns, secure authentication middleware, and modular code structures.",
+          "color": null,
+          "image": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
+    },
+    {
+      "_id": "2",
+      "title": "The Rise of Component-Driven Design Systems",
+      "slug": "the-rise-of-component-driven-design-systems",
+      "shortDescription": "Consistency across digital platforms relies heavily on robust component systems built with Tailwind CSS and React.",
+      "category": "Design",
+      "author": "Design Team",
+      "date": "April 05, 2026",
+      "readTime": "6 min read",
+      "thumbnail": "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80",
+      "tags": ["design systems", "tailwind", "ui/ux"],
+      "homepage": true,
+      "status": "PUBLISHED",
+      "views": 980,
+      "": [
+        {
+          "title": "Building Scalable Component Libraries",
+          "des": "Consistency across digital platforms relies heavily on robust component systems built with Tailwind CSS and React. This article breaks down atomic layout structures and responsive component patterns.",
+          "color": "purple",
+          "image": "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "title": "Maintaining Design Tokens and Flexibility",
+          "des": "Design tokens bridge the gap between design tools and codebases. By standardizing color palettes, typography scales, and spacing variables, teams can ship features faster without compromising visual integrity.",
+          "color": null,
+          "image": null
+        }
+      ]
+    },
+    {
+      "_id": "3",
+      "title": "Optimizing MongoDB Schemas for High-Traffic Apps",
+      "slug": "optimizing-mongodb-schemas-for-high-traffic-apps",
+      "shortDescription": "Database performance can make or break an application launch. Proper Mongoose indexing ensures smooth handling.",
+      "category": "Backend",
+      "author": "Kashish Pahuja",
+      "date": "April 18, 2026",
+      "readTime": "5 min read",
+      "thumbnail": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80",
+      "tags": ["mongodb", "backend", "database"],
+      "homepage": false,
+      "status": "PUBLISHED",
+      "views": 1150,
+      "content": [
+        {
+          "title": "Understanding Document Structures",
+          "des": "Database performance can make or break an application launch. Proper Mongoose indexing, aggregation pipeline tuning, and connection pooling strategies ensure your backend handles heavy concurrent requests smoothly.",
+          "color": "green",
+          "image": "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "title": "Best Practices for Indexing and Queries",
+          "des": "Writing clean aggregation queries prevents memory overflow issues on production clusters. Always analyze execution stats and restrain unindexed collection scans.",
+          "color": null,
+          "image": null
+        }
+      ]
+    },
+    {
+      "_id": "4",
+      "title": "Crafting Smooth Micro-Interactions with Framer Motion",
+      "slug": "crafting-smooth-micro-interactions-with-framer-motion",
+      "shortDescription": "Micro-interactions elevate user experience from ordinary to unforgettable through fluid text reveals and hover transitions.",
+      "category": "Frontend",
+      "author": "Creative Lab",
+      "date": "May 02, 2026",
+      "readTime": "4 min read",
+      "thumbnail": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80",
+      "tags": ["animation", "framer motion", "frontend"],
+      "homepage": true,
+      "status": "PUBLISHED",
+      "views": 840,
+      "content": [
+        {
+          "title": "The Psychology of Motion Design",
+          "des": "Micro-interactions elevate user experience from ordinary to unforgettable. Learn how to implement fluid text reveals, hover transitions, and scroll triggers without sacrificing page loading performance.",
+          "color": "pink",
+          "image": "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "title": "Performance Optimization Tips",
+          "des": "Always animate layout properties via transform and opacity layers to ensure 60fps rendering across desktop and mobile browsers.",
+          "color": null,
+          "image": null
+        }
+      ]
+    },
+    {
+      "_id": "5",
+      "title": "The Evolution of E-Commerce Product Showcases",
+      "slug": "the-evolution-of-e-commerce-product-showcases",
+      "shortDescription": "Interactive carousels and coverflow effects have revolutionized how customers inspect boutique goods online.",
+      "category": "E-Commerce",
+      "author": "Retail Insights",
+      "date": "May 20, 2026",
+      "readTime": "7 min read",
+      "thumbnail": "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=800&q=80",
+      "tags": ["ecommerce", "retail", "swiper"],
+      "homepage": false,
+      "status": "PUBLISHED",
+      "views": 620,
+      "content": [
+        {
+          "title": "Immersive Product Visuals",
+          "des": "Interactive carousels, coverflow effects, and zoom lenses have revolutionized how customers inspect high-end jewelry and boutique goods online. Explore how modern frameworks implement these UI highlights.",
+          "color": "amber",
+          "image": "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
+    },
+    {
+      "_id": "6",
+      "title": "Securing Node.js and Express REST APIs",
+      "slug": "securing-nodejs-and-express-rest-apis",
+      "shortDescription": "Security is paramount when configuring authentication middleware and JSON Web Tokens.",
+      "category": "Security",
+      "author": "DevSecOps Team",
+      "date": "June 14, 2026",
+      "readTime": "8 min read",
+      "thumbnail": "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80",
+      "tags": ["security", "nodejs", "express"],
+      "homepage": false,
+      "status": "PUBLISHED",
+      "views": 1340,
+      "content": [
+        {
+          "title": "Authentication Middleware Best Practices",
+          "des": "Security is paramount when configuring authentication middleware and JSON Web Tokens. This guide covers helmet configurations, rate limiting, and sanitization against NoSQL injection.",
+          "color": "red",
+          "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
+    },
+    {
+      "_id": "7",
+      "title": "Mastering Responsive Layouts with Tailwind CSS Grid",
+      "slug": "mastering-responsive-layouts-with-tailwind-css-grid",
+      "shortDescription": "Tailwind utility classes simplify responsive design across mobile, tablet, and desktop viewports.",
+      "category": "Frontend",
+      "author": "Kashish Pahuja",
+      "date": "July 01, 2026",
+      "readTime": "4 min read",
+      "thumbnail": "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80",
+      "tags": ["tailwind", "css", "layouts"],
+      "homepage": true,
+      "status": "PUBLISHED",
+      "views": 910,
+      "content": [
+        {
+          "title": "Fluid Scaling and Grid Auto-Fit",
+          "des": "Tailwind utility classes simplify responsive design across mobile, tablet, and desktop viewports. Discover advanced grid auto-fit patterns and fluid typography scaling techniques.",
+          "color": "indigo",
+          "image": null
+        }
+      ]
+    },
+    {
+      "_id": "8",
+      "title": "Scaling Healthcare Portals: Lessons from BIMB Carebridge",
+      "slug": "scaling-healthcare-portals-lessons-from-bimb-carebridge",
+      "shortDescription": "Building healthcare tech requires strict data compliance, reliable API endpoints, and clean frontend user dashboards.",
+      "category": "Case Study",
+      "author": "Engineering Lead",
+      "date": "August 10, 2026",
+      "readTime": "6 min read",
+      "thumbnail": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80",
+      "tags": ["healthcare", "case study", "fullstack"],
+      "homepage": false,
+      "status": "PUBLISHED",
+      "views": 750,
+      "content": [
+        {
+          "title": "Architecture for Medical Records",
+          "des": "Building healthcare tech requires strict data compliance, reliable API endpoints, and clean frontend user dashboards. A deep dive into structuring modular records for medical care platforms.",
+          "color": "teal",
+          "image": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
+    },
+    {
+      "_id": "9",
+      "title": "The Art of Branding: Logos and Visual Identity",
+      "slug": "the-art-of-branding-logos-and-visual-identity",
+      "shortDescription": "From custom vector SVGs to minimalist typography, establishing cohesive brand identity for enterprises.",
+      "category": "Branding",
+      "author": "Design Studio",
+      "date": "August 22, 2026",
+      "readTime": "5 min read",
+      "thumbnail": "https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=800&q=80",
+      "tags": ["branding", "svg", "design"],
+      "homepage": false,
+      "status": "PUBLISHED",
+      "views": 530,
+      "content": [
+        {
+          "title": "Vector Scalability and Motif Integration",
+          "des": "From custom vector SVGs to minimalist typography, establishing a cohesive brand identity for enterprises requires balancing cultural motifs with timeless digital scalability.",
+          "color": "orange",
+          "image": null
+        }
+      ]
+    },
+    {
+      "_id": "10",
+      "title": "Future Trends in Full-Stack JavaScript Development",
+      "slug": "future-trends-in-full-stack-javascript-development",
+      "shortDescription": "As JavaScript tooling matures, unified frameworks continue dominating enterprise stacks.",
+      "category": "Technology",
+      "author": "Kashish Pahuja",
+      "date": "September 05, 2026",
+      "readTime": "5 min read",
+      "thumbnail": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80",
+      "tags": ["javascript", "fullstack", "trends"],
+      "homepage": true,
+      "status": "PUBLISHED",
+      "views": 1600,
+      "content": [
+        {
+          "title": "The Unified Full-Stack Paradigm",
+          "des": "As JavaScript tooling matures, unified frameworks continue dominating enterprise stacks. Here is what developers need to know about upcoming engine upgrades and serverless deployment models.",
+          "color": "sky",
+          "image": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
+    }
+  ],
+    "news": [
+    {
+      "_id": "n1",
+      "featuredImage": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80",
+      "title": "New Shagun Enterprises Launches Expanded Digital Collection",
+      "slug": "new-shagun-enterprises-launches-expanded-digital-collection",
+      "rejected": false,
+      "homepage": true,
+      "publicationDate": "2026-09-10T00:00:00.000Z",
+      "category": "Company News",
+      "description": [
+        {
+          "title": "Fresh Branding and Custom Motif Integrations",
+          "des": "New Shagun Enterprises has officially rolled out its refreshed digital catalog featuring custom PNG branding, integrated lotus motifs, and expanded furniture showcases designed for modern interior layouts.",
+          "color": "emerald",
+          "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "title": "Streamlining Client Orders Online",
+          "des": "The digital rollout aims to streamline client orders and offer interactive product preview grids across all online channels, making customer engagement seamless and efficient.",
+          "color": null,
+          "image": null
+        },
+                {
+          "title": "Fresh Branding and Custom Motif Integrations",
+          "des": "New Shagun Enterprises has officially rolled out its refreshed digital catalog featuring custom PNG branding, integrated lotus motifs, and expanded furniture showcases designed for modern interior layouts.",
+          "color": "emerald",
+          "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "title": "Streamlining Client Orders Online",
+          "des": "The digital rollout aims to streamline client orders and offer interactive product preview grids across all online channels, making customer engagement seamless and efficient.",
+          "color": null,
+          "image": null
+        }
+      ]
+    },
+    {
+      "_id": "n2",
+      "featuredImage": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80",
+      "title": "Prodsol Biotech Expands Corporate Outreach & Cosmetic Line",
+      "slug": "prodsol-biotech-expands-corporate-outreach-cosmetic-line",
+      "rejected": false,
+      "homepage": false,
+      "publicationDate": "2026-08-28T00:00:00.000Z",
+      "category": "Corporate",
+      "description": [
+        {
+          "title": "Advanced Web Components for Global Partners",
+          "des": "Prodsol Biotech Pvt. Ltd. announces the rollout of its specialized cosmetic range web components and updated corporate contact modules for international partners and medical distributors.",
+          "color": "blue",
+          "image": null
+        },
+        {
+          "title": "Strengthening International Presence",
+          "des": "The expanded outreach initiative focuses on high-grade formulation showcases, clear regulatory compliance metrics, and responsive digital catalogs.",
+          "color": null,
+          "image": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
+    },
+    {
+      "_id": "n3",
+      "featuredImage": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80",
+      "title": "Pahuja Vaishno Dhaba Introduces Homemade Delivery Service",
+      "slug": "pahuja-vaishno-dhaba-introduces-homemade-delivery-service",
+      "rejected": false,
+      "homepage": true,
+      "publicationDate": "2026-08-15T00:00:00.000Z",
+      "category": "Hospitality",
+      "description": [
+        {
+          "title": "Authentic Flavors Straight to Your Doorstep",
+          "des": "Celebrating authentic flavors, Pahuja Vaishno Dhaba has launched its dedicated online branding and local food delivery initiative focused on wholesome, homemade culinary services.",
+          "color": "amber",
+          "image": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "title": "Commitment to Quality and Tradition",
+          "des": "Every meal is prepared under strict hygiene standards while preserving traditional recipes that have delighted food lovers for years.",
+          "color": null,
+          "image": null
+        }
+      ]
+    },
+    {
+      "_id": "n4",
+      "featuredImage": "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80",
+      "title": "BNI Divine Patiala Chapter Hosts Annual Networking Gala",
+      "slug": "bni-divine-patiala-chapter-hosts-annual-networking-gala",
+      "rejected": false,
+      "homepage": false,
+      "publicationDate": "2026-08-02T00:00:00.000Z",
+      "category": "Community",
+      "description": [
+        {
+          "title": "Empowering Local Business Connections",
+          "des": "Local business leaders gathered for the BNI Divine Patiala Chapter meetup, introducing automated digital member registries and streamlined birthday and anniversary tracking forms.",
+          "color": "purple",
+          "image": "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+          "title": "Empowering Local Business Connections",
+          "des": "Local business leaders gathered for the BNI Divine Patiala Chapter meetup, introducing automated digital member registries and streamlined birthday and anniversary tracking forms.",
+          "color": "purple",
+          "image": null
+        },
+        {
+          "title": "Empowering Local Business Connections",
+          "des": "Local business leaders gathered for the BNI Divine Patiala Chapter meetup, introducing automated digital member registries and streamlined birthday and anniversary tracking forms.",
+          "color": "purple",
+          "image": null
+        }
+
+      ]
+    },
+    {
+      "_id": "n5",
+      "featuredImage": "https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&q=80",
+      "title": "Prnaam Travels Unveils New Tailored Tour Package Portals",
+      "slug": "prnaam-travels-unveils-new-tailored-tour-package-portals",
+      "rejected": false,
+      "homepage": false,
+      "publicationDate": "2026-07-22T00:00:00.000Z",
+      "category": "Tourism",
+      "description": [
+        {
+          "title": "Redefining Vacation Planning",
+          "des": "Prnaam Travels has revamped its booking interface, launching clean Tailwind CSS tour package cards and interactive destination header layouts for travelers.",
+          "color": "cyan",
+          "image": null
+        }
+      ]
+    },
+    {
+      "_id": "n6",
+      "featuredImage": "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80",
+      "title": "Saaj Riwaaj Debuts Exclusive Jewelry and Artisan Grid",
+      "slug": "saaj-riwaaj-debuts-exclusive-jewelry-and-artisan-grid",
+      "rejected": false,
+      "homepage": true,
+      "publicationDate": "2026-07-11T00:00:00.000Z",
+      "category": "Fashion",
+      "description": [
+        {
+          "title": "Tradition Meets Modern UI",
+          "des": "Saaj Riwaaj has integrated responsive Swiper coverflow carousels and curated category grids to showcase traditional jewelry collections and promotional seasonal banners.",
+          "color": "rose",
+          "image": "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
+    },
+    {
+      "_id": "n7",
+      "featuredImage": "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=800&q=80",
+      "title": "Artisan Kitchenware Trend: Copper and Brass Utensils Surge",
+      "slug": "artisan-kitchenware-trend-copper-and-brass-utensils-surge",
+      "rejected": false,
+      "homepage": false,
+      "publicationDate": "2026-06-30T00:00:00.000Z",
+      "category": "Lifestyle",
+      "description": [
+        {
+          "title": "The Return of Traditional Cookware",
+          "des": "Consumer interest in traditional copper hammered water jugs, brass cookware, and heavy-duty saucepans has surged as households prioritize classic metallic kitchenware.",
+          "color": "orange",
+          "image": null
+        }
+      ]
+    },
+    {
+      "_id": "n8",
+      "featuredImage": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
+      "title": "The Begum's Makeover Announces Bridal Service Packages",
+      "slug": "the-begums-makeover-announces-bridal-service-packages",
+      "rejected": false,
+      "homepage": false,
+      "publicationDate": "2026-06-18T00:00:00.000Z",
+      "category": "Beauty",
+      "description": [
+        {
+          "title": "Elevating Bridal Consultations",
+          "des": "The Begum's Makeover has updated its responsive portfolio layouts and structured service packages, providing brides with seamless digital consultation access.",
+          "color": "pink",
+          "image": null
+        }
+      ]
+    },
+    {
+      "_id": "n9",
+      "featuredImage": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80",
+      "title": "BIMB Carebridge Rolls Out Telehealth Support Infrastructure",
+      "slug": "bimb-carebridge-rolls-out-telehealth-support-infrastructure",
+      "rejected": false,
+      "homepage": false,
+      "publicationDate": "2026-05-30T00:00:00.000Z",
+      "category": "Healthcare",
+      "description": [
+        {
+          "title": "Expanding Remote Care Capabilities",
+          "des": "BIMB Carebridge has successfully deployed its integrated Express backend API and Mongoose database architecture to support expanding remote healthcare services.",
+          "color": "teal",
+          "image": null
+        }
+      ]
+    },
+    {
+      "_id": "n10",
+      "featuredImage": "https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=800&q=80",
+      "title": "Family Milestone: Welcoming New Arrival to the Attley Family",
+      "slug": "family-milestone-welcoming-new-arrival-to-the-attley-family",
+      "rejected": false,
+      "homepage": true,
+      "publicationDate": "2026-04-20T00:00:00.000Z",
+      "category": "Community",
+      "description": [
+        {
+          "title": "Joyful Celebrations for Kajal and Satnam Attley",
+          "des": "Heartfelt celebrations filled the month as family and friends shared custom Instagram story announcements and graphics welcoming the newborn daughter of Kajal and Satnam Attley.",
+          "color": "yellow",
+          "image": "https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=800&q=80"
+        }
+      ]
+    }
+  ]
+}

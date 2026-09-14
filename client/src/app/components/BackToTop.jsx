@@ -38,8 +38,8 @@ export default function BackToTop() {
         z-50
         w-11
         h-11
-        sm:w-12
-        sm:h-12
+        sm:w-10
+        sm:h-10
         rounded-full
         bg-[#143A2F]
         text-white
@@ -60,7 +60,7 @@ export default function BackToTop() {
         }
       `}
     >
-      <FiArrowUp className="text-lg sm:text-xl" />
+      <FiArrowUp className="text-md sm:text-lg" />
     </button>
   );
 }
