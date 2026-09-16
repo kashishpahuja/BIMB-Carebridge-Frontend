@@ -1,592 +1,1068 @@
 {
   "jobs": [
     {
-      "_id": "job_005",
       "title": "Registered Nurse (RN) - Acute Care",
-      "sector": "Healthcare",
-      "category": "Registered Nurses (RN)",
-      "employmentType": "Full-time",
-      "location": "Mississauga, Ontario, Canada",
-      "salary": "$40 - $48 / hour",
-      "shiftDetails": "12-hour Day & Night Rotational Shifts",
+      "slug": "registered-nurse-rn-acute-care-mississauga",
       "description": "Provide direct patient care in an acute care environment, administer medications, monitor patient conditions, and collaborate with physicians and healthcare teams.",
-      "status": "Active",
-      "employer": "emp_001",
-      "company": "CareFirst Health Systems",
+      "companyName": "CareFirst Health Systems",
+      "companyLogo": null,
       "companyWebsite": "https://carefirsthealth.example.com",
+      "location": {
+        "city": "Mississauga",
+        "state": "Ontario",
+        "country": "Canada",
+        "address": ""
+      },
+      "jobType": "FULL_TIME",
+      "workMode": "ONSITE",
+      "category": "507f1f77bcf86cd799439011",
+      "skills": ["Acute Care", "Patient Monitoring", "Medication Administration", "Critical Thinking", "Communication"],
+      "experience": {
+        "min": 2,
+        "max": 5
+      },
+      "salary": {
+        "min": 40,
+        "max": 48,
+        "currency": "CAD",
+        "period": "HOURLY"
+      },
       "requirements": [
         "Current certificate of registration with the College of Nurses of Ontario (CNO)",
         "Minimum 2 years of acute care clinical experience",
         "Valid BCLS-HCP certification",
         "Strong critical thinking and communication skills"
-      ]
+      ],
+      "vacancies": 1,
+      "status": "PUBLISHED",
+      "isFeatured": false,
+      "isUrgent": false
     },
     {
-      "_id": "job_006",
       "title": "Registered Nurse (RN) - Community Care",
-      "sector": "Healthcare",
-      "category": "Registered Nurses (RN)",
-      "employmentType": "Part-time",
-      "location": "Brampton, Ontario, Canada",
-      "salary": "$38 - $44 / hour",
-      "shiftDetails": "Flexible Day and Evening Shifts",
+      "slug": "registered-nurse-rn-community-care-brampton",
       "description": "Deliver professional nursing services to patients in community and home care settings, including assessments, medication administration, and care planning.",
-      "status": "Active",
-      "employer": "emp_001",
-      "company": "CareFirst Health Systems",
+      "companyName": "CareFirst Health Systems",
+      "companyLogo": null,
       "companyWebsite": "https://carefirsthealth.example.com",
+      "location": {
+        "city": "Brampton",
+        "state": "Ontario",
+        "country": "Canada",
+        "address": ""
+      },
+      "jobType": "PART_TIME",
+      "workMode": "ONSITE",
+      "category": "507f1f77bcf86cd799439011",
+      "skills": ["Community Healthcare", "Home Care", "Patient Assessment", "Care Planning", "Autonomy"],
+      "experience": {
+        "min": 1,
+        "max": 3
+      },
+      "salary": {
+        "min": 38,
+        "max": 44,
+        "currency": "CAD",
+        "period": "HOURLY"
+      },
       "requirements": [
         "Valid CNO license in good standing",
         "Previous experience in home or community healthcare",
         "Valid driver's license and reliable vehicle access",
         "Demonstrated autonomy and client-centered approach"
-      ]
+      ],
+      "vacancies": 1,
+      "status": "PUBLISHED",
+      "isFeatured": false,
+      "isUrgent": false
     },
     {
-      "_id": "job_007",
       "title": "Personal Support Worker (PSW) - Home Care",
-      "sector": "Healthcare",
-      "category": "Personal Support Workers (PSW)",
-      "employmentType": "Full-time",
-      "location": "Brampton, Ontario, Canada",
-      "salary": "$25 - $29 / hour",
-      "shiftDetails": "Morning, Evening and Weekend Shifts",
+      "slug": "personal-support-worker-psw-home-care-brampton",
       "description": "Provide compassionate personal care and daily living assistance to clients in their homes, including mobility support, hygiene, meal assistance, and companionship.",
-      "status": "Active",
-      "employer": "emp_001",
-      "company": "CareFirst Health Systems",
+      "companyName": "CareFirst Health Systems",
+      "companyLogo": null,
       "companyWebsite": "https://carefirsthealth.example.com",
+      "location": {
+        "city": "Brampton",
+        "state": "Ontario",
+        "country": "Canada",
+        "address": ""
+      },
+      "jobType": "FULL_TIME",
+      "workMode": "ONSITE",
+      "category": "507f1f77bcf86cd799439012",
+      "skills": ["Personal Care", "Mobility Support", "Meal Assistance", "Companionship", "First Aid"],
+      "experience": {
+        "min": 0,
+        "max": 2
+      },
+      "salary": {
+        "min": 25,
+        "max": 29,
+        "currency": "CAD",
+        "period": "HOURLY"
+      },
       "requirements": [
         "Recognized PSW certificate or equivalent personal support credentials",
         "Current First Aid and CPR certification",
         "Vulnerable Sector Check (VSC) clearance",
         "Empathetic, reliable, and patient-focused attitude"
-      ]
+      ],
+      "vacancies": 1,
+      "status": "PUBLISHED",
+      "isFeatured": false,
+      "isUrgent": false
     },
     {
-      "_id": "job_008",
       "title": "Personal Support Worker (PSW) - Long Term Care",
-      "sector": "Healthcare",
-      "category": "Personal Support Workers (PSW)",
-      "employmentType": "Temporary",
-      "location": "Oakville, Ontario, Canada",
-      "salary": "$24 - $30 / hour",
-      "shiftDetails": "Day, Evening and Night Shifts",
+      "slug": "personal-support-worker-psw-long-term-care-oakville",
       "description": "Support residents in a long-term care environment with personal hygiene, mobility, meals, companionship, and other daily living requirements.",
-      "status": "Active",
-      "employer": "emp_001",
-      "company": "CareFirst Health Systems",
+      "companyName": "CareFirst Health Systems",
+      "companyLogo": null,
       "companyWebsite": "https://carefirsthealth.example.com",
+      "location": {
+        "city": "Oakville",
+        "state": "Ontario",
+        "country": "Canada",
+        "address": ""
+      },
+      "jobType": "CONTRACT",
+      "workMode": "ONSITE",
+      "category": "507f1f77bcf86cd799439012",
+      "skills": ["Long-Term Care", "Resident Care", "Personal Hygiene", "Patient Support"],
+      "experience": {
+        "min": 1,
+        "max": 3
+      },
+      "salary": {
+        "min": 24,
+        "max": 30,
+        "currency": "CAD",
+        "period": "HOURLY"
+      },
       "requirements": [
         "Certified Personal Support Worker diploma",
         "Experience working within long-term care facilities",
         "Ability to handle physical demands, including bending and lifting",
         "Strong team player with positive communication skills"
-      ]
+      ],
+      "vacancies": 1,
+      "status": "PUBLISHED",
+      "isFeatured": false,
+      "isUrgent": false
     },
     {
-      "_id": "job_009",
       "title": "Fine Dining Server",
-      "sector": "Hospitality",
-      "category": "Wait Staff",
-      "employmentType": "Full-time",
-      "location": "Mississauga, Ontario, Canada",
-      "salary": "$19 - $23 + Tips / hour",
-      "shiftDetails": "Evening, Weekend and Holiday Shifts",
+      "slug": "fine-dining-server-mississauga",
       "description": "Deliver premium dining experiences by greeting guests, taking orders, serving meals and beverages, and ensuring exceptional customer satisfaction.",
-      "status": "Active",
-      "employer": "emp_002",
-      "company": "Apex Hospitality Group",
+      "companyName": "Apex Hospitality Group",
+      "companyLogo": null,
       "companyWebsite": "https://apexhospitality.example.com",
+      "location": {
+        "city": "Mississauga",
+        "state": "Ontario",
+        "country": "Canada",
+        "address": ""
+      },
+      "jobType": "FULL_TIME",
+      "workMode": "ONSITE",
+      "category": "507f1f77bcf86cd799439013",
+      "skills": ["Fine Dining", "Food Pairings", "Customer Service", "Smart Serve", "Upscale Service"],
+      "experience": {
+        "min": 2,
+        "max": 4
+      },
+      "salary": {
+        "min": 19,
+        "max": 23,
+        "currency": "CAD",
+        "period": "HOURLY"
+      },
       "requirements": [
         "Minimum 2 years of fine dining serving experience",
         "Extensive knowledge of food pairings and upscale service etiquette",
         "Smart Serve certification",
         "Immaculate grooming and professional demeanor"
-      ]
+      ],
+      "vacancies": 1,
+      "status": "PUBLISHED",
+      "isFeatured": false,
+      "isUrgent": false
     },
     {
-      "_id": "job_010",
       "title": "Banquet Server",
-      "sector": "Hospitality",
-      "category": "Wait Staff",
-      "employmentType": "On-call",
-      "location": "Vaughan, Ontario, Canada",
-      "salary": "$20 - $25 / hour",
-      "shiftDetails": "Weekends, Weddings and Special Events",
+      "slug": "banquet-server-vaughan",
       "description": "Set up banquet spaces, serve food and beverages at events, assist guests, and maintain professional service standards throughout functions.",
-      "status": "Active",
-      "employer": "emp_002",
-      "company": "Apex Hospitality Group",
+      "companyName": "Apex Hospitality Group",
+      "companyLogo": null,
       "companyWebsite": "https://apexhospitality.example.com",
+      "location": {
+        "city": "Vaughan",
+        "state": "Ontario",
+        "country": "Canada",
+        "address": ""
+      },
+      "jobType": "FREELANCE",
+      "workMode": "ONSITE",
+      "category": "507f1f77bcf86cd799439013",
+      "skills": ["Banquet Operations", "Catering Service", "Event Setup", "Smart Serve"],
+      "experience": {
+        "min": 1,
+        "max": 3
+      },
+      "salary": {
+        "min": 20,
+        "max": 25,
+        "currency": "CAD",
+        "period": "HOURLY"
+      },
       "requirements": [
         "Previous banquet or catering service experience",
         "Ability to carry heavy trays and stand for long periods",
         "Flexible availability for weekend and evening event shifts",
         "Smart Serve certification"
-      ]
+      ],
+      "vacancies": 1,
+      "status": "PUBLISHED",
+      "isFeatured": false,
+      "isUrgent": false
     },
     {
-      "_id": "job_011",
       "title": "Restaurant Wait Staff",
-      "sector": "Hospitality",
-      "category": "Wait Staff",
-      "employmentType": "Part-time",
-      "location": "Markham, Ontario, Canada",
-      "salary": "$18 - $22 + Tips / hour",
-      "shiftDetails": "Lunch and Evening Shifts",
+      "slug": "restaurant-wait-staff-markham",
       "description": "Take customer orders, serve food and beverages efficiently, process requests, and maintain a welcoming dining environment.",
-      "status": "Active",
-      "employer": "emp_002",
-      "company": "Apex Hospitality Group",
+      "companyName": "Apex Hospitality Group",
+      "companyLogo": null,
       "companyWebsite": "https://apexhospitality.example.com",
+      "location": {
+        "city": "Markham",
+        "state": "Ontario",
+        "country": "Canada",
+        "address": ""
+      },
+      "jobType": "PART_TIME",
+      "workMode": "ONSITE",
+      "category": "507f1f77bcf86cd799439013",
+      "skills": ["Customer Service", "POS Systems", "Smart Serve", "Multitasking"],
+      "experience": {
+        "min": 0,
+        "max": 2
+      },
+      "salary": {
+        "min": 18,
+        "max": 22,
+        "currency": "CAD",
+        "period": "HOURLY"
+      },
       "requirements": [
         "Friendly personality and customer-centric attitude",
         "Basic POS system operation experience",
         "Smart Serve certification",
         "Ability to multitask in a fast-paced environment"
-      ]
+      ],
+      "vacancies": 1,
+      "status": "PUBLISHED",
+      "isFeatured": false,
+      "isUrgent": false
     },
     {
-      "_id": "job_012",
       "title": "Event Bartender",
-      "sector": "Hospitality",
-      "category": "Bartenders",
-      "employmentType": "Temporary",
-      "location": "Mississauga, Ontario, Canada",
-      "salary": "$24 - $30 / hour",
-      "shiftDetails": "Evenings, Weekends and Private Events",
+      "slug": "event-bartender-mississauga",
       "description": "Prepare and serve alcoholic and non-alcoholic beverages at corporate functions, weddings, and private events while maintaining professional service standards.",
-      "status": "Active",
-      "employer": "emp_002",
-      "company": "Apex Hospitality Group",
+      "companyName": "Apex Hospitality Group",
+      "companyLogo": null,
       "companyWebsite": "https://apexhospitality.example.com",
+      "location": {
+        "city": "Mississauga",
+        "state": "Ontario",
+        "country": "Canada",
+        "address": ""
+      },
+      "jobType": "CONTRACT",
+      "workMode": "ONSITE",
+      "category": "507f1f77bcf86cd799439014",
+      "skills": ["Bartending", "Mixology", "Smart Serve", "Cash Handling", "Inventory Management"],
+      "experience": {
+        "min": 2,
+        "max": 4
+      },
+      "salary": {
+        "min": 24,
+        "max": 30,
+        "currency": "CAD",
+        "period": "HOURLY"
+      },
       "requirements": [
         "Proven high-volume bartending experience",
         "Mandatory Smart Serve certification",
         "Expert knowledge of mixology and cocktail recipes",
         "Cash handling and inventory management skills"
-      ]
+      ],
+      "vacancies": 1,
+      "status": "PUBLISHED",
+      "isFeatured": false,
+      "isUrgent": false
     },
     {
-      "_id": "job_013",
       "title": "Hotel Lounge Bartender",
-      "sector": "Hospitality",
-      "category": "Bartenders",
-      "employmentType": "Full-time",
-      "location": "Toronto, Ontario, Canada",
-      "salary": "$22 - $28 + Tips / hour",
-      "shiftDetails": "Afternoon and Night Shifts",
+      "slug": "hotel-lounge-bartender-toronto",
       "description": "Prepare cocktails and beverages for hotel guests, maintain bar inventory, process orders, and provide an excellent guest experience.",
-      "status": "Active",
-      "employer": "emp_002",
-      "company": "Apex Hospitality Group",
+      "companyName": "Apex Hospitality Group",
+      "companyLogo": null,
       "companyWebsite": "https://apexhospitality.example.com",
+      "location": {
+        "city": "Toronto",
+        "state": "Ontario",
+        "country": "Canada",
+        "address": ""
+      },
+      "jobType": "FULL_TIME",
+      "workMode": "ONSITE",
+      "category": "507f1f77bcf86cd799439014",
+      "skills": ["Hotel Lounge Operations", "Cocktail Preparation", "Beverage Management", "Smart Serve"],
+      "experience": {
+        "min": 3,
+        "max": 6
+      },
+      "salary": {
+        "min": 22,
+        "max": 28,
+        "currency": "CAD",
+        "period": "HOURLY"
+      },
       "requirements": [
         "Minimum 3 years working in upscale hotel lounges",
         "In-depth beverage menu knowledge",
         "Smart Serve certification",
         "Exceptional conversational skills and polished presentation"
-      ]
+      ],
+      "vacancies": 1,
+      "status": "PUBLISHED",
+      "isFeatured": false,
+      "isUrgent": false
     },
     {
-      "_id": "job_014",
       "title": "Senior Registered Nurse (RN) - Long Term Care",
-      "sector": "Healthcare",
-      "category": "Registered Nurses (RN)",
-      "employmentType": "Full-time",
-      "location": "Hamilton, Ontario, Canada",
-      "salary": "$42 - $50 / hour",
-      "shiftDetails": "Rotational Day and Night Shifts",
+      "slug": "senior-registered-nurse-rn-long-term-care-hamilton",
       "description": "Lead nursing activities in a long-term care facility, oversee resident care, administer treatments, mentor support staff, and maintain accurate clinical documentation.",
-      "status": "Active",
-      "employer": "emp_001",
-      "company": "CareFirst Health Systems",
+      "companyName": "CareFirst Health Systems",
+      "companyLogo": null,
       "companyWebsite": "https://carefirsthealth.example.com",
+      "location": {
+        "city": "Hamilton",
+        "state": "Ontario",
+        "country": "Canada",
+        "address": ""
+      },
+      "jobType": "FULL_TIME",
+      "workMode": "ONSITE",
+      "category": "507f1f77bcf86cd799439011",
+      "skills": ["Geriatric Care", "Nursing Leadership", "EHR", "Clinical Documentation", "CNO"],
+      "experience": {
+        "min": 4,
+        "max": 8
+      },
+      "salary": {
+        "min": 42,
+        "max": 50,
+        "currency": "CAD",
+        "period": "HOURLY"
+      },
       "requirements": [
         "Current CNO registration",
         "Minimum 4 years of clinical experience, preferably in geriatric care",
         "Proven leadership or charge nurse background",
         "Proficiency in electronic health records (EHR)"
-      ]
+      ],
+      "vacancies": 1,
+      "status": "PUBLISHED",
+      "isFeatured": true,
+      "isUrgent": true
     },
     {
-      "_id": "job_015",
       "title": "Personal Support Worker (PSW) - Retirement Residence",
-      "sector": "Healthcare",
-      "category": "Personal Support Workers (PSW)",
-      "employmentType": "On-call",
-      "location": "Richmond Hill, Ontario, Canada",
-      "salary": "$25 - $31 / hour",
-      "shiftDetails": "Flexible Day, Evening and Weekend Shifts",
+      "slug": "personal-support-worker-psw-retirement-residence-richmond-hill",
       "description": "Assist retirement residence clients with personal care, medication reminders, mobility, meals, and social activities while promoting independence.",
-      "status": "Active",
-      "employer": "emp_001",
-      "company": "CareFirst Health Systems",
+      "companyName": "CareFirst Health Systems",
+      "companyLogo": null,
       "companyWebsite": "https://carefirsthealth.example.com",
+      "location": {
+        "city": "Richmond Hill",
+        "state": "Ontario",
+        "country": "Canada",
+        "address": ""
+      },
+      "jobType": "FREELANCE",
+      "workMode": "ONSITE",
+      "category": "507f1f77bcf86cd799439012",
+      "skills": ["Senior Living", "Personal Care", "Medication Reminders", "Independent Living Support"],
+      "experience": {
+        "min": 1,
+        "max": 3
+      },
+      "salary": {
+        "min": 25,
+        "max": 31,
+        "currency": "CAD",
+        "period": "HOURLY"
+      },
       "requirements": [
         "Certified PSW qualification",
         "Experience in senior living communities",
         "Strong interpersonal and patience-driven skills",
         "Vulnerable Sector Check verification"
-      ]
+      ],
+      "vacancies": 1,
+      "status": "PUBLISHED",
+      "isFeatured": false,
+      "isUrgent": false
     },
     {
-      "_id": "job_016",
       "title": "Cocktail Bartender - Special Events",
-      "sector": "Hospitality",
-      "category": "Bartenders",
-      "employmentType": "On-call",
-      "location": "Oakville, Ontario, Canada",
-      "salary": "$25 - $32 + Tips / hour",
-      "shiftDetails": "Evenings, Weekends and Event-Based Shifts",
+      "slug": "cocktail-bartender-special-events-oakville",
       "description": "Create and serve cocktails for upscale events and private functions, manage bar setup, maintain inventory, and deliver a high-quality guest experience.",
-      "status": "Active",
-      "employer": "emp_002",
-      "company": "Apex Hospitality Group",
+      "companyName": "Apex Hospitality Group",
+      "companyLogo": null,
       "companyWebsite": "https://apexhospitality.example.com",
+      "location": {
+        "city": "Oakville",
+        "state": "Ontario",
+        "country": "Canada",
+        "address": ""
+      },
+      "jobType": "FREELANCE",
+      "workMode": "ONSITE",
+      "category": "507f1f77bcf86cd799439014",
+      "skills": ["Craft Cocktails", "Event Management", "Smart Serve", "Time Management"],
+      "experience": {
+        "min": 2,
+        "max": 5
+      },
+      "salary": {
+        "min": 25,
+        "max": 32,
+        "currency": "CAD",
+        "period": "HOURLY"
+      },
       "requirements": [
         "Specialized craft cocktail mixing experience",
         "Smart Serve certification",
         "Ability to adapt to dynamic event environments",
         "Strong time-management capacity"
-      ]
+      ],
+      "vacancies": 1,
+      "status": "PUBLISHED",
+      "isFeatured": false,
+      "isUrgent": false
     },
     {
-      "_id": "job_017",
       "title": "Registered Nurse (RN) - Emergency Department",
-      "sector": "Healthcare",
-      "category": "Registered Nurses (RN)",
-      "employmentType": "Full-time",
-      "location": "Toronto, Ontario, Canada",
-      "salary": "$41 - $50 / hour",
-      "shiftDetails": "12-hour Day, Evening and Night Rotational Shifts",
+      "slug": "registered-nurse-rn-emergency-department-toronto",
       "description": "Provide nursing care to patients in a fast-paced emergency department, perform assessments, administer treatments, monitor vital signs, and collaborate with emergency care teams.",
-      "status": "Active",
-      "employer": "emp_001",
-      "company": "CareFirst Health Systems",
+      "companyName": "CareFirst Health Systems",
+      "companyLogo": null,
       "companyWebsite": "https://carefirsthealth.example.com",
+      "location": {
+        "city": "Toronto",
+        "state": "Ontario",
+        "country": "Canada",
+        "address": ""
+      },
+      "jobType": "FULL_TIME",
+      "workMode": "ONSITE",
+      "category": "507f1f77bcf86cd799439011",
+      "skills": ["Emergency Nursing", "ACLS", "BLS", "Triage", "Crisis Management"],
+      "experience": {
+        "min": 2,
+        "max": 5
+      },
+      "salary": {
+        "min": 41,
+        "max": 50,
+        "currency": "CAD",
+        "period": "HOURLY"
+      },
       "requirements": [
         "Active CNO license",
         "ACLS and BLS certifications",
         "Minimum 2 years of emergency department nursing experience",
         "High-stress tolerance and rapid prioritization skills"
-      ]
+      ],
+      "vacancies": 1,
+      "status": "PUBLISHED",
+      "isFeatured": true,
+      "isUrgent": true
     },
     {
-      "_id": "job_018",
       "title": "Registered Nurse (RN) - Surgical Unit",
-      "sector": "Healthcare",
-      "category": "Registered Nurses (RN)",
-      "employmentType": "Full-time",
-      "location": "Burlington, Ontario, Canada",
-      "salary": "$40 - $49 / hour",
-      "shiftDetails": "Day and Evening Shifts",
+      "slug": "registered-nurse-rn-surgical-unit-burlington",
       "description": "Provide pre-operative and post-operative nursing care, monitor patient recovery, administer medications, document clinical information, and support surgical care teams.",
-      "status": "Active",
-      "employer": "emp_001",
-      "company": "CareFirst Health Systems",
+      "companyName": "CareFirst Health Systems",
+      "companyLogo": null,
       "companyWebsite": "https://carefirsthealth.example.com",
+      "location": {
+        "city": "Burlington",
+        "state": "Ontario",
+        "country": "Canada",
+        "address": ""
+      },
+      "jobType": "FULL_TIME",
+      "workMode": "ONSITE",
+      "category": "507f1f77bcf86cd799439011",
+      "skills": ["Surgical Nursing", "Wound Care", "Medication Management", "Post-Operative Care"],
+      "experience": {
+        "min": 2,
+        "max": 5
+      },
+      "salary": {
+        "min": 40,
+        "max": 49,
+        "currency": "CAD",
+        "period": "HOURLY"
+      },
       "requirements": [
         "Current CNO registration",
         "Experience in post-surgical patient monitoring",
         "Strong background in wound care and medication management",
         "Collaborative attitude with multidisciplinary surgical teams"
-      ]
+      ],
+      "vacancies": 1,
+      "status": "PUBLISHED",
+      "isFeatured": false,
+      "isUrgent": false
     },
     {
-      "_id": "job_019",
       "title": "Registered Nurse (RN) - Mental Health",
-      "sector": "Healthcare",
-      "category": "Registered Nurses (RN)",
-      "employmentType": "Part-time",
-      "location": "Hamilton, Ontario, Canada",
-      "salary": "$39 - $47 / hour",
-      "shiftDetails": "Day, Evening and Weekend Shifts",
+      "slug": "registered-nurse-rn-mental-health-hamilton",
       "description": "Provide patient-centered nursing care in a mental health setting, complete assessments, administer medications, monitor patient progress, and work with multidisciplinary teams.",
-      "status": "Active",
-      "employer": "emp_001",
-      "company": "CareFirst Health Systems",
+      "companyName": "CareFirst Health Systems",
+      "companyLogo": null,
       "companyWebsite": "https://carefirsthealth.example.com",
+      "location": {
+        "city": "Hamilton",
+        "state": "Ontario",
+        "country": "Canada",
+        "address": ""
+      },
+      "jobType": "PART_TIME",
+      "workMode": "ONSITE",
+      "category": "507f1f77bcf86cd799439011",
+      "skills": ["Psychiatric Nursing", "Mental Health", "De-escalation", "Active Listening"],
+      "experience": {
+        "min": 2,
+        "max": 4
+      },
+      "salary": {
+        "min": 39,
+        "max": 47,
+        "currency": "CAD",
+        "period": "HOURLY"
+      },
       "requirements": [
         "CNO certificate of registration",
         "Specialized coursework or experience in psychiatric/mental health nursing",
         "Exceptional de-escalation and active listening abilities",
         "Compassionate and trauma-informed approach"
-      ]
+      ],
+      "vacancies": 1,
+      "status": "PUBLISHED",
+      "isFeatured": false,
+      "isUrgent": false
     },
     {
-      "_id": "job_020",
       "title": "Personal Support Worker (PSW) - Hospital Support",
-      "sector": "Healthcare",
-      "category": "Personal Support Workers (PSW)",
-      "employmentType": "Full-time",
-      "location": "Toronto, Ontario, Canada",
-      "salary": "$26 - $31 / hour",
-      "shiftDetails": "Day, Evening and Night Shifts",
+      "slug": "personal-support-worker-psw-hospital-support-toronto",
       "description": "Assist hospital patients with personal care, mobility, positioning, meals, comfort measures, and daily activities while supporting nursing staff.",
-      "status": "Active",
-      "employer": "emp_001",
-      "company": "CareFirst Health Systems",
+      "companyName": "CareFirst Health Systems",
+      "companyLogo": null,
       "companyWebsite": "https://carefirsthealth.example.com",
+      "location": {
+        "city": "Toronto",
+        "state": "Ontario",
+        "country": "Canada",
+        "address": ""
+      },
+      "jobType": "FULL_TIME",
+      "workMode": "ONSITE",
+      "category": "507f1f77bcf86cd799439012",
+      "skills": ["Hospital Support", "Patient Positioning", "Mobility Assistance", "CPR"],
+      "experience": {
+        "min": 1,
+        "max": 3
+      },
+      "salary": {
+        "min": 26,
+        "max": 31,
+        "currency": "CAD",
+        "period": "HOURLY"
+      },
       "requirements": [
         "PSW diploma from an accredited institution",
         "Hospital environment clinical rotation experience",
         "Strong physical stamina",
         "Current CPR certification"
-      ]
+      ],
+      "vacancies": 1,
+      "status": "PUBLISHED",
+      "isFeatured": false,
+      "isUrgent": false
     },
     {
-      "_id": "job_021",
       "title": "Personal Support Worker (PSW) - Assisted Living",
-      "sector": "Healthcare",
-      "category": "Personal Support Workers (PSW)",
-      "employmentType": "Part-time",
-      "location": "Vaughan, Ontario, Canada",
-      "salary": "$24 - $29 / hour",
-      "shiftDetails": "Flexible Morning, Evening and Weekend Shifts",
+      "slug": "personal-support-worker-psw-assisted-living-vaughan",
       "description": "Support residents with personal care, mobility, meals, household routines, and recreational activities while promoting dignity and independence.",
-      "status": "Active",
-      "employer": "emp_001",
-      "company": "CareFirst Health Systems",
+      "companyName": "CareFirst Health Systems",
+      "companyLogo": null,
       "companyWebsite": "https://carefirsthealth.example.com",
+      "location": {
+        "city": "Vaughan",
+        "state": "Ontario",
+        "country": "Canada",
+        "address": ""
+      },
+      "jobType": "PART_TIME",
+      "workMode": "ONSITE",
+      "category": "507f1f77bcf86cd799439012",
+      "skills": ["Assisted Living", "Personal Care", "Recreational Support", "Independent Living"],
+      "experience": {
+        "min": 0,
+        "max": 2
+      },
+      "salary": {
+        "min": 24,
+        "max": 29,
+        "currency": "CAD",
+        "period": "HOURLY"
+      },
       "requirements": [
         "Certified PSW",
         "Clean police background reference check",
         "Patient-centric focus on independent living support",
         "Clear verbal communication skills"
-      ]
+      ],
+      "vacancies": 1,
+      "status": "PUBLISHED",
+      "isFeatured": false,
+      "isUrgent": false
     },
     {
-      "_id": "job_022",
       "title": "Personal Support Worker (PSW) - Palliative Care",
-      "sector": "Healthcare",
-      "category": "Personal Support Workers (PSW)",
-      "employmentType": "Temporary",
-      "location": "Mississauga, Ontario, Canada",
-      "salary": "$26 - $32 / hour",
-      "shiftDetails": "Day, Evening and Night Shifts",
+      "slug": "personal-support-worker-psw-palliative-care-mississauga",
       "description": "Provide compassionate personal care and comfort support to clients receiving palliative care while assisting families and healthcare professionals with daily care needs.",
-      "status": "Active",
-      "employer": "emp_001",
-      "company": "CareFirst Health Systems",
+      "companyName": "CareFirst Health Systems",
+      "companyLogo": null,
       "companyWebsite": "https://carefirsthealth.example.com",
+      "location": {
+        "city": "Mississauga",
+        "state": "Ontario",
+        "country": "Canada",
+        "address": ""
+      },
+      "jobType": "CONTRACT",
+      "workMode": "ONSITE",
+      "category": "507f1f77bcf86cd799439012",
+      "skills": ["Palliative Care", "Hospice Support", "Empathy", "Compassionate Care"],
+      "experience": {
+        "min": 2,
+        "max": 4
+      },
+      "salary": {
+        "min": 26,
+        "max": 32,
+        "currency": "CAD",
+        "period": "HOURLY"
+      },
       "requirements": [
         "PSW certification with specialized hospice/palliative training",
         "Exceptional emotional resilience and empathy",
         "Ability to coordinate effectively with nursing staff and families",
         "Reliable transportation"
-      ]
+      ],
+      "vacancies": 1,
+      "status": "PUBLISHED",
+      "isFeatured": false,
+      "isUrgent": false
     },
     {
-      "_id": "job_023",
       "title": "Hotel Server",
-      "sector": "Hospitality",
-      "category": "Wait Staff",
-      "employmentType": "Full-time",
-      "location": "Toronto, Ontario, Canada",
-      "salary": "$19 - $24 + Tips / hour",
-      "shiftDetails": "Morning, Evening and Weekend Shifts",
+      "slug": "hotel-server-toronto",
       "description": "Provide attentive food and beverage service to hotel guests, take orders, deliver meals, respond to guest requests, and maintain a clean and welcoming dining area.",
-      "status": "Active",
-      "employer": "emp_002",
-      "company": "Apex Hospitality Group",
+      "companyName": "Apex Hospitality Group",
+      "companyLogo": null,
       "companyWebsite": "https://apexhospitality.example.com",
+      "location": {
+        "city": "Toronto",
+        "state": "Ontario",
+        "country": "Canada",
+        "address": ""
+      },
+      "jobType": "FULL_TIME",
+      "workMode": "ONSITE",
+      "category": "507f1f77bcf86cd799439013",
+      "skills": ["Hotel Dining", "Food and Beverage Service", "Smart Serve", "Customer Service"],
+      "experience": {
+        "min": 1,
+        "max": 3
+      },
+      "salary": {
+        "min": 19,
+        "max": 24,
+        "currency": "CAD",
+        "period": "HOURLY"
+      },
       "requirements": [
         "1+ year hospitality experience in hotel dining",
         "Smart Serve certification",
         "Professional customer service orientation",
         "Flexible shift availability"
-      ]
+      ],
+      "vacancies": 1,
+      "status": "PUBLISHED",
+      "isFeatured": false,
+      "isUrgent": false
     },
     {
-      "_id": "job_024",
       "title": "Catering Server",
-      "sector": "Hospitality",
-      "category": "Wait Staff",
-      "employmentType": "Temporary",
-      "location": "Brampton, Ontario, Canada",
-      "salary": "$19 - $24 / hour",
-      "shiftDetails": "Weekends, Evenings and Special Events",
+      "slug": "catering-server-brampton",
       "description": "Assist with event setup, serve food and beverages, clear tables, respond to guest needs, and maintain professional service standards during catered events.",
-      "status": "Active",
-      "employer": "emp_002",
-      "company": "Apex Hospitality Group",
+      "companyName": "Apex Hospitality Group",
+      "companyLogo": null,
       "companyWebsite": "https://apexhospitality.example.com",
+      "location": {
+        "city": "Brampton",
+        "state": "Ontario",
+        "country": "Canada",
+        "address": ""
+      },
+      "jobType": "CONTRACT",
+      "workMode": "ONSITE",
+      "category": "507f1f77bcf86cd799439013",
+      "skills": ["Catering", "Banquet Service", "Smart Serve", "Teamwork"],
+      "experience": {
+        "min": 0,
+        "max": 2
+      },
+      "salary": {
+        "min": 19,
+        "max": 24,
+        "currency": "CAD",
+        "period": "HOURLY"
+      },
       "requirements": [
         "Catering or banquet serving background",
         "Smart Serve certification",
         "Punctual, energetic, and organized workflow style",
         "Team player ethos"
-      ]
+      ],
+      "vacancies": 1,
+      "status": "PUBLISHED",
+      "isFeatured": false,
+      "isUrgent": false
     },
     {
-      "_id": "job_025",
       "title": "Fine Dining Waiter",
-      "sector": "Hospitality",
-      "category": "Wait Staff",
-      "employmentType": "Full-time",
-      "location": "Oakville, Ontario, Canada",
-      "salary": "$20 - $26 + Tips / hour",
-      "shiftDetails": "Evening, Weekend and Holiday Shifts",
+      "slug": "fine-dining-waiter-oakville",
       "description": "Deliver high-end dining service by assisting guests with menu selections, taking orders, serving courses, and ensuring an exceptional restaurant experience.",
-      "status": "Active",
-      "employer": "emp_002",
-      "company": "Apex Hospitality Group",
+      "companyName": "Apex Hospitality Group",
+      "companyLogo": null,
       "companyWebsite": "https://apexhospitality.example.com",
+      "location": {
+        "city": "Oakville",
+        "state": "Ontario",
+        "country": "Canada",
+        "address": ""
+      },
+      "jobType": "FULL_TIME",
+      "workMode": "ONSITE",
+      "category": "507f1f77bcf86cd799439013",
+      "skills": ["Fine Dining", "Wine Knowledge", "Upscale Cuisine", "Smart Serve"],
+      "experience": {
+        "min": 2,
+        "max": 5
+      },
+      "salary": {
+        "min": 20,
+        "max": 26,
+        "currency": "CAD",
+        "period": "HOURLY"
+      },
       "requirements": [
         "Extensive fine dining experience",
         "Superior knowledge of upscale cuisine and wines",
         "Smart Serve certification",
         "Immaculate presentation and communication"
-      ]
+      ],
+      "vacancies": 1,
+      "status": "PUBLISHED",
+      "isFeatured": false,
+      "isUrgent": false
     },
     {
-      "_id": "job_026",
       "title": "Restaurant Server",
-      "sector": "Hospitality",
-      "category": "Wait Staff",
-      "employmentType": "Part-time",
-      "location": "Richmond Hill, Ontario, Canada",
-      "salary": "$18 - $23 + Tips / hour",
-      "shiftDetails": "Lunch, Evening and Weekend Shifts",
+      "slug": "restaurant-server-richmond-hill",
       "description": "Welcome guests, take food and beverage orders, deliver meals efficiently, assist with customer requests, and maintain a positive dining environment.",
-      "status": "Active",
-      "employer": "emp_002",
-      "company": "Apex Hospitality Group",
+      "companyName": "Apex Hospitality Group",
+      "companyLogo": null,
       "companyWebsite": "https://apexhospitality.example.com",
+      "location": {
+        "city": "Richmond Hill",
+        "state": "Ontario",
+        "country": "Canada",
+        "address": ""
+      },
+      "jobType": "PART_TIME",
+      "workMode": "ONSITE",
+      "category": "507f1f77bcf86cd799439013",
+      "skills": ["Casual Dining", "Customer Service", "Smart Serve", "Adaptability"],
+      "experience": {
+        "min": 0,
+        "max": 2
+      },
+      "salary": {
+        "min": 18,
+        "max": 23,
+        "currency": "CAD",
+        "period": "HOURLY"
+      },
       "requirements": [
         "Previous serving experience in casual or family dining",
         "Smart Serve certification",
         "Positive customer-facing demeanor",
         "Adaptable team player"
-      ]
+      ],
+      "vacancies": 1,
+      "status": "PUBLISHED",
+      "isFeatured": false,
+      "isUrgent": false
     },
     {
-      "_id": "job_027",
       "title": "Lead Bartender - Hotel Events",
-      "sector": "Hospitality",
-      "category": "Bartenders",
-      "employmentType": "Full-time",
-      "location": "Vaughan, Ontario, Canada",
-      "salary": "$25 - $32 + Tips / hour",
-      "shiftDetails": "Evenings, Weekends and Special Events",
+      "slug": "lead-bartender-hotel-events-vaughan",
       "description": "Lead beverage service for hotel events, coordinate bar setup, manage inventory, prepare beverages, and ensure consistent service quality throughout events.",
-      "status": "Active",
-      "employer": "emp_002",
-      "company": "Apex Hospitality Group",
+      "companyName": "Apex Hospitality Group",
+      "companyLogo": null,
       "companyWebsite": "https://apexhospitality.example.com",
+      "location": {
+        "city": "Vaughan",
+        "state": "Ontario",
+        "country": "Canada",
+        "address": ""
+      },
+      "jobType": "FULL_TIME",
+      "workMode": "ONSITE",
+      "category": "507f1f77bcf86cd799439014",
+      "skills": ["Bartending", "Inventory Tracking", "Stock Ordering", "Cocktail Formulation", "Smart Serve"],
+      "experience": {
+        "min": 3,
+        "max": 6
+      },
+      "salary": {
+        "min": 25,
+        "max": 32,
+        "currency": "CAD",
+        "period": "HOURLY"
+      },
       "requirements": [
         "Minimum 3 years bartending with leadership/supervisor experience",
         "Comprehensive stock ordering and inventory tracking skills",
         "Smart Serve certification",
         "Expert cocktail formulation skills"
-      ]
+      ],
+      "vacancies": 1,
+      "status": "PUBLISHED",
+      "isFeatured": false,
+      "isUrgent": false
     },
     {
-      "_id": "job_028",
       "title": "Banquet Bartender",
-      "sector": "Hospitality",
-      "category": "Bartenders",
-      "employmentType": "Temporary",
-      "location": "Markham, Ontario, Canada",
-      "salary": "$23 - $29 / hour",
-      "shiftDetails": "Evenings, Weekends and Event-Based Shifts",
+      "slug": "banquet-bartender-markham",
       "description": "Set up and operate event bars, prepare beverages, maintain clean service areas, monitor inventory, and provide professional guest service during banquets and functions.",
-      "status": "Active",
-      "employer": "emp_002",
-      "company": "Apex Hospitality Group",
+      "companyName": "Apex Hospitality Group",
+      "companyLogo": null,
       "companyWebsite": "https://apexhospitality.example.com",
+      "location": {
+        "city": "Markham",
+        "state": "Ontario",
+        "country": "Canada",
+        "address": ""
+      },
+      "jobType": "CONTRACT",
+      "workMode": "ONSITE",
+      "category": "507f1f77bcf86cd799439014",
+      "skills": ["Event Bartending", "Smart Serve", "Work Under Pressure", "Communication"],
+      "experience": {
+        "min": 1,
+        "max": 3
+      },
+      "salary": {
+        "min": 23,
+        "max": 29,
+        "currency": "CAD",
+        "period": "HOURLY"
+      },
       "requirements": [
         "Event bartending experience",
         "Smart Serve mandatory",
         "High efficiency under pressure",
         "Strong interpersonal communication"
-      ]
+      ],
+      "vacancies": 1,
+      "status": "PUBLISHED",
+      "isFeatured": false,
+      "isUrgent": false
     },
     {
-      "_id": "job_029",
       "title": "Lounge Bartender",
-      "sector": "Hospitality",
-      "category": "Bartenders",
-      "employmentType": "Part-time",
-      "location": "Mississauga, Ontario, Canada",
-      "salary": "$22 - $28 + Tips / hour",
-      "shiftDetails": "Afternoon, Evening and Weekend Shifts",
+      "slug": "lounge-bartender-mississauga",
       "description": "Prepare and serve beverages in a hotel or lounge environment, process guest orders, maintain the bar area, and provide friendly and professional service.",
-      "status": "Active",
-      "employer": "emp_002",
-      "company": "Apex Hospitality Group",
+      "companyName": "Apex Hospitality Group",
+      "companyLogo": null,
       "companyWebsite": "https://apexhospitality.example.com",
+      "location": {
+        "city": "Mississauga",
+        "state": "Ontario",
+        "country": "Canada",
+        "address": ""
+      },
+      "jobType": "PART_TIME",
+      "workMode": "ONSITE",
+      "category": "507f1f77bcf86cd799439014",
+      "skills": ["Lounge Mixing", "Smart Serve", "Guest Service", "Workspace Maintenance"],
+      "experience": {
+        "min": 2,
+        "max": 4
+      },
+      "salary": {
+        "min": 22,
+        "max": 28,
+        "currency": "CAD",
+        "period": "HOURLY"
+      },
       "requirements": [
         "2+ years lounge or bar mixing experience",
         "Smart Serve certification",
         "Personable and welcoming communication approach",
         "Clean workspace maintenance habits"
-      ]
+      ],
+      "vacancies": 1,
+      "status": "PUBLISHED",
+      "isFeatured": false,
+      "isUrgent": false
     },
     {
-      "_id": "job_030",
       "title": "Event Service Staff",
-      "sector": "Hospitality",
-      "category": "Wait Staff",
-      "employmentType": "On-call",
-      "location": "Hamilton, Ontario, Canada",
-      "salary": "$19 - $25 / hour",
-      "shiftDetails": "Evenings, Weekends and Special Events",
+      "slug": "event-service-staff-hamilton",
       "description": "Support event operations by preparing service areas, assisting guests, serving food and beverages, clearing tables, and helping maintain a professional event environment.",
-      "status": "Active",
-      "employer": "emp_002",
-      "company": "Apex Hospitality Group",
+      "companyName": "Apex Hospitality Group",
+      "companyLogo": null,
       "companyWebsite": "https://apexhospitality.example.com",
+      "location": {
+        "city": "Hamilton",
+        "state": "Ontario",
+        "country": "Canada",
+        "address": ""
+      },
+      "jobType": "FREELANCE",
+      "workMode": "ONSITE",
+      "category": "507f1f77bcf86cd799439013",
+      "skills": ["Event Support", "Heavy Lifting", "Collaboration", "Smart Serve"],
+      "experience": {
+        "min": 0,
+        "max": 2
+      },
+      "salary": {
+        "min": 19,
+        "max": 25,
+        "currency": "CAD",
+        "period": "HOURLY"
+      },
       "requirements": [
         "General banquet or event support experience",
         "Physical capability to handle heavy lifting and long shifts",
         "Smart Serve is an asset",
         "Strong collaborative work ethos"
-      ]
+      ],
+      "vacancies": 1,
+      "status": "PUBLISHED",
+      "isFeatured": false,
+      "isUrgent": false
     },
     {
-      "_id": "job_031",
       "title": "Full Stack Software Engineer",
-      "sector": "Technology",
-      "category": "Software Development",
-      "employmentType": "Full-time",
-      "location": "Toronto, Ontario, Canada",
-      "salary": "$90,000 - $120,000 / year",
-      "shiftDetails": "Standard Core Business Hours (Hybrid)",
+      "slug": "full-stack-software-engineer-toronto",
       "description": "Design, develop, and scale robust web applications utilizing Next.js, Node.js, Express, and MongoDB to deliver high-performance user experiences.",
-      "status": "Active",
-      "employer": "emp_003",
-      "company": "Innovatech Solutions",
+      "companyName": "Innovatech Solutions",
+      "companyLogo": null,
       "companyWebsite": "https://innovatechsolutions.example.com",
+      "location": {
+        "city": "Toronto",
+        "state": "Ontario",
+        "country": "Canada",
+        "address": ""
+      },
+      "jobType": "FULL_TIME",
+      "workMode": "HYBRID",
+      "category": "507f1f77bcf86cd799439015",
+      "skills": ["Next.js", "React", "Node.js", "Express", "MongoDB", "REST APIs", "Git"],
+      "experience": {
+        "min": 3,
+        "max": 6
+      },
+      "salary": {
+        "min": 90000,
+        "max": 120000,
+        "currency": "CAD",
+        "period": "YEARLY"
+      },
       "requirements": [
         "Minimum 3 years of full-stack development experience",
         "Proficiency in React, Next.js, Node.js, and MongoDB/Mongoose",
         "Experience building and consuming RESTful APIs",
         "Strong debugging, testing, and Git version control workflows"
-      ]
+      ],
+      "vacancies": 1,
+      "status": "PUBLISHED",
+      "isFeatured": true,
+      "isUrgent": true
     },
     {
-      "_id": "job_032",
       "title": "Frontend UI/UX Developer",
-      "sector": "Technology",
-      "category": "Software Development",
-      "employmentType": "Full-time",
-      "location": "Mississauga, Ontario, Canada",
-      "salary": "$80,000 - $105,000 / year",
-      "shiftDetails": "Monday to Friday, Flexible Hours",
+      "slug": "frontend-ui-ux-developer-mississauga",
       "description": "Craft responsive user interfaces, custom landing page designs, and fluid layouts using Tailwind CSS, Next.js, and modern animation libraries.",
-      "status": "Active",
-      "employer": "emp_003",
-      "company": "Innovatech Solutions",
+      "companyName": "Innovatech Solutions",
+      "companyLogo": null,
       "companyWebsite": "https://innovatechsolutions.example.com",
+      "location": {
+        "city": "Mississauga",
+        "state": "Ontario",
+        "country": "Canada",
+        "address": ""
+      },
+      "jobType": "FULL_TIME",
+      "workMode": "HYBRID",
+      "category": "507f1f77bcf86cd799439015",
+      "skills": ["Tailwind CSS", "Next.js", "React", "GSAP", "Framer Motion", "UI/UX Design"],
+      "experience": {
+        "min": 2,
+        "max": 5
+      },
+      "salary": {
+        "min": 80000,
+        "max": 105000,
+        "currency": "CAD",
+        "period": "YEARLY"
+      },
       "requirements": [
         "Strong portfolio demonstrating advanced Tailwind CSS and React component layouts",
         "Experience implementing GSAP or Framer Motion animations",
         "Deep understanding of cross-browser compatibility and mobile-first design",
         "Bachelor's degree in Computer Science or equivalent practical experience"
-      ]
+      ],
+      "vacancies": 1,
+      "status": "PUBLISHED",
+      "isFeatured": false,
+      "isUrgent": false
     }
   ]
 }

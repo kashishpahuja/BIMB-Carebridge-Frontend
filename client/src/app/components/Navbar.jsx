@@ -3,8 +3,10 @@ import React, { useState, useEffect, useRef } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { LiaTimesSolid } from "react-icons/lia";
 import Link from "next/link";
+import { toast } from "react-toastify";
 import Image from "next/image";
 import gsap from "gsap";
+
 import {
   FaInstagram,
   FaPhoneAlt,
@@ -13,45 +15,94 @@ import {
   FaRegLightbulb,
   FaEnvelope,
 } from "react-icons/fa";
-import jobData from "../data/sampleJobs.json"; // Adjust path based on your folder structure
 import AuthModal from "./AuthModal";
+import axios from "axios";
 
 function Navbar({ openPopup }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const btnRef = useRef(null);
   const borderRef = useRef(null);
   const dropdownRef = useRef(null);
+  const [allCategory, setAllCategory] = useState([]);
+  const [allSubCategory, setAllSubCategory] = useState([]);
+  const [allJobs, setAllJobs] = useState([]);
+
+  const base_url =
+    process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1/admin";
 
   const [courseMenuOpen, setCourseMenuOpen] = useState(false);
   const [updateMenuOpen, setUpdateMenuOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authModalTab, setAuthModalTab] = useState("login");
-  // Dynamically extract unique categories from sampleJobs.json
-  const dynamicCategories = React.useMemo(() => {
-    const jobs = jobData.jobs || [];
-    const uniqueCats = [
-      ...new Set(jobs.map((j) => j.category).filter(Boolean)),
-    ];
 
-    // Map each category to a display profile with default subtitles
-    return uniqueCats.map((cat) => {
-      let subtitle = "Professional Opportunities";
-      if (cat.includes("Registered Nurses"))
-        subtitle = "Hospitals & Healthcare Facilities";
-      else if (cat.includes("Personal Support Workers"))
-        subtitle = "Long-Term Care Homes";
-      else if (cat.includes("Wait Staff"))
-        subtitle = "Hotels, Resorts & Restaurants";
-      else if (cat.includes("Bartenders")) subtitle = "Lounges & Event Venues";
-      else if (cat.includes("Software")) subtitle = "Tech & Engineering";
+  const fetchAllCate = async () => {
+    try {
+      const response = await axios.get(`${base_url}/category/get`);
 
-      return {
-        name: cat,
-        slug: encodeURIComponent(cat),
-        subtitle,
-      };
-    });
+      const data = response.data;
+
+      if (data.success) {
+        setAllCategory(data.allCategory || []);
+      } else {
+        setAllCategory([]);
+        toast.error(data.message);
+      }
+    } catch (error) {
+      setAllCategory([]);
+
+      toast.error(
+        error?.response?.data?.message || "Failed to fetch categories",
+      );
+    }
+  };
+
+  const fetchAllSubCate = async () => {
+    try {
+      const response = await axios.get(`${base_url}/category/sub/get`);
+
+      const data = response.data;
+
+      if (data.success) {
+        setAllSubCategory(data.subCategory || []);
+      } else {
+        setAllSubCategory([]);
+        toast.error(data.message);
+      }
+    } catch (error) {
+      setAllSubCategory([]);
+
+      toast.error(
+        error?.response?.data?.message || "Failed to fetch subcategories",
+      );
+    }
+  };
+
+  useEffect(() => {
+    fetchAllCate();
+    fetchAllSubCate();
   }, []);
+
+  // Dynamically extract unique categories from sampleJobs.json
+const dynamicCategories = React.useMemo(() => {
+  return allCategory.map((category) => {
+    const subcategories = allSubCategory.filter((subCat) => {
+      const categoryId =
+        typeof subCat.category === "string"
+          ? subCat.category
+          : subCat.category?._id;
+
+      return categoryId === category._id;
+    });
+
+    return {
+      ...category,
+      name: category.title,
+      slug: category.slug,
+      subcategories,
+    };
+  });
+}, [allCategory, allSubCategory]);
+
 
   useEffect(() => {
     if (menuOpen) {
@@ -206,16 +257,16 @@ function Navbar({ openPopup }) {
               />
             </div>
           </Link>
-        <div className="block lg:hidden relative z-20">
-  <button
-    onClick={() => {
-      setAuthModalTab("login");
-      setIsAuthModalOpen(true);
-    }}
-    ref={btnRef}
-    onMouseEnter={handleMouseEnter}
-    onMouseLeave={handleMouseLeave}
-    className="
+          <div className="block lg:hidden relative z-20">
+            <button
+              onClick={() => {
+                setAuthModalTab("login");
+                setIsAuthModalOpen(true);
+              }}
+              ref={btnRef}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              className="
       relative inline-flex 
       items-center justify-center
       overflow-hidden rounded-md
@@ -227,26 +278,44 @@ function Navbar({ openPopup }) {
       animate-fadeUp
       cursor-pointer
     "
-  >
-    <span className="absolute w-0 h-0 rounded-full bg-[#01193B] transition-all duration-500 ease-out group-hover:w-56 group-hover:h-56" />
+            >
+              <span className="absolute w-0 h-0 rounded-full bg-[#01193B] transition-all duration-500 ease-out group-hover:w-56 group-hover:h-56" />
 
-    <span className="absolute bottom-0 left-0 h-full -ml-2 pointer-events-none">
-      <svg xmlns="http://www.w3.org/2000/svg" className="w-auto h-full opacity-100 object-stretch" viewBox="0 0 487 487">
-        <path fillOpacity=".1" fillRule="nonzero" fill="#FFF" d="M0 .3c67 2.1 134.1 4.3 186.3 37 52.2 32.7 89.6 95.8 112.8 150.6 23.2 54.8 32.3 101.4 61.2 149.9 28.9 48.4 77.7 98.8 126.4 149.2H0V.3z" />
-      </svg>
-    </span>
+              <span className="absolute bottom-0 left-0 h-full -ml-2 pointer-events-none">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-auto h-full opacity-100 object-stretch"
+                  viewBox="0 0 487 487"
+                >
+                  <path
+                    fillOpacity=".1"
+                    fillRule="nonzero"
+                    fill="#FFF"
+                    d="M0 .3c67 2.1 134.1 4.3 186.3 37 52.2 32.7 89.6 95.8 112.8 150.6 23.2 54.8 32.3 101.4 61.2 149.9 28.9 48.4 77.7 98.8 126.4 149.2H0V.3z"
+                  />
+                </svg>
+              </span>
 
-    <span className="absolute top-0 right-0 w-12 h-full -mr-3 pointer-events-none">
-      <svg xmlns="http://www.w3.org/2000/svg" className="object-cover w-full h-full" viewBox="0 0 487 487">
-        <path fillOpacity=".1" fillRule="nonzero" fill="#FFF" d="M487 486.7c-66.1-3.6-132.3-7.3-186.3-37s-95.9-85.3-126.2-137.2c-30.4-51.8-49.3-99.9-76.5-151.4C70.9 109.6 35.6 54.8.3 0H487v486.7z" />
-      </svg>
-    </span>
+              <span className="absolute top-0 right-0 w-12 h-full -mr-3 pointer-events-none">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="object-cover w-full h-full"
+                  viewBox="0 0 487 487"
+                >
+                  <path
+                    fillOpacity=".1"
+                    fillRule="nonzero"
+                    fill="#FFF"
+                    d="M487 486.7c-66.1-3.6-132.3-7.3-186.3-37s-95.9-85.3-126.2-137.2c-30.4-51.8-49.3-99.9-76.5-151.4C70.9 109.6 35.6 54.8.3 0H487v486.7z"
+                  />
+                </svg>
+              </span>
 
-    <span className="relative z-10 font-['Poppins'] text-sm xl:text-base">
-      Log In
-    </span>
-  </button>
-</div>
+              <span className="relative z-10 font-['Poppins'] text-sm xl:text-base">
+                Log In
+              </span>
+            </button>
+          </div>
 
           <ul className="poppins text-[#01193B] hidden xl:flex space-x-8 font-medium text-base xl:text-md">
             {/* Job Categories Mega Dropdown */}
@@ -259,20 +328,45 @@ function Navbar({ openPopup }) {
               {/* Mega Dropdown Menu - Dynamically Populated */}
               <div className="absolute left-0 top-full mt-2 w-[600px] bg-white/95 backdrop-blur-sm border border-[#467B23]/30 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 p-6">
                 <div className="grid grid-cols-2 gap-4">
-                  {dynamicCategories.map((cat, idx) => (
-                    <Link
-                      key={idx}
-                      href={`/jobs?category=${cat.slug}`}
-                      className="block p-3 hover:bg-[#467B23]/10 rounded-lg transition-colors duration-300"
-                    >
-                      <h4 className="text-[#467B23] font-semibold text-sm">
-                        {cat.name}
-                      </h4>
-                      <p className="text-gray-800 text-xs mt-1">
-                        {cat.subtitle}
-                      </p>
-                    </Link>
-                  ))}
+                 {dynamicCategories.map((category) => (
+  <div
+    key={category._id}
+    className="p-3 rounded-lg hover:bg-[#467B23]/10 transition-all duration-300"
+  >
+    {/* CATEGORY */}
+    <Link
+      href={`/jobs?category=${category.slug}`}
+      onClick={() => {
+        setMenuOpen(false);
+        setCourseMenuOpen(false);
+      }}
+      className="block text-left"
+    >
+      <span className="font-semibold block text-[#467B23]">
+        {category.title}
+      </span>
+    </Link>
+
+    {/* SUBCATEGORIES */}
+    {category.subcategories?.length > 0 && (
+      <div className="mt-2 ml-3 space-y-1 border-l border-[#467B23]/20 pl-3">
+        {category.subcategories.map((subCat) => (
+          <Link
+            key={subCat._id}
+            href={`/jobs?subcategory=${subCat.slug}`}
+            onClick={() => {
+              setMenuOpen(false);
+              setCourseMenuOpen(false);
+            }}
+            className="block text-left text-sm text-gray-700 hover:text-[#467B23] py-1"
+          >
+            {subCat.title}
+          </Link>
+        ))}
+      </div>
+    )}
+  </div>
+))}
                 </div>
 
                 <div className="mt-4 pt-4 border-t border-[#467B23]/30 text-center">
@@ -330,16 +424,16 @@ function Navbar({ openPopup }) {
           </ul>
 
           {/* Post a Job / Register Right Button */}
-             <div className="hidden lg:block relative z-20">
-  <button
-    onClick={() => {
-      setAuthModalTab("login");
-      setIsAuthModalOpen(true);
-    }}
-    ref={btnRef}
-    onMouseEnter={handleMouseEnter}
-    onMouseLeave={handleMouseLeave}
-    className="
+          <div className="hidden lg:block relative z-20">
+            <button
+              onClick={() => {
+                setAuthModalTab("login");
+                setIsAuthModalOpen(true);
+              }}
+              ref={btnRef}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              className="
       relative inline-flex 
       items-center justify-center
       overflow-hidden rounded-md
@@ -351,26 +445,44 @@ function Navbar({ openPopup }) {
       animate-fadeUp
       cursor-pointer
     "
-  >
-    <span className="absolute w-0 h-0 rounded-full bg-[#01193B] transition-all duration-500 ease-out group-hover:w-56 group-hover:h-56" />
+            >
+              <span className="absolute w-0 h-0 rounded-full bg-[#01193B] transition-all duration-500 ease-out group-hover:w-56 group-hover:h-56" />
 
-    <span className="absolute bottom-0 left-0 h-full -ml-2 pointer-events-none">
-      <svg xmlns="http://www.w3.org/2000/svg" className="w-auto h-full opacity-100 object-stretch" viewBox="0 0 487 487">
-        <path fillOpacity=".1" fillRule="nonzero" fill="#FFF" d="M0 .3c67 2.1 134.1 4.3 186.3 37 52.2 32.7 89.6 95.8 112.8 150.6 23.2 54.8 32.3 101.4 61.2 149.9 28.9 48.4 77.7 98.8 126.4 149.2H0V.3z" />
-      </svg>
-    </span>
+              <span className="absolute bottom-0 left-0 h-full -ml-2 pointer-events-none">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-auto h-full opacity-100 object-stretch"
+                  viewBox="0 0 487 487"
+                >
+                  <path
+                    fillOpacity=".1"
+                    fillRule="nonzero"
+                    fill="#FFF"
+                    d="M0 .3c67 2.1 134.1 4.3 186.3 37 52.2 32.7 89.6 95.8 112.8 150.6 23.2 54.8 32.3 101.4 61.2 149.9 28.9 48.4 77.7 98.8 126.4 149.2H0V.3z"
+                  />
+                </svg>
+              </span>
 
-    <span className="absolute top-0 right-0 w-12 h-full -mr-3 pointer-events-none">
-      <svg xmlns="http://www.w3.org/2000/svg" className="object-cover w-full h-full" viewBox="0 0 487 487">
-        <path fillOpacity=".1" fillRule="nonzero" fill="#FFF" d="M487 486.7c-66.1-3.6-132.3-7.3-186.3-37s-95.9-85.3-126.2-137.2c-30.4-51.8-49.3-99.9-76.5-151.4C70.9 109.6 35.6 54.8.3 0H487v486.7z" />
-      </svg>
-    </span>
+              <span className="absolute top-0 right-0 w-12 h-full -mr-3 pointer-events-none">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="object-cover w-full h-full"
+                  viewBox="0 0 487 487"
+                >
+                  <path
+                    fillOpacity=".1"
+                    fillRule="nonzero"
+                    fill="#FFF"
+                    d="M487 486.7c-66.1-3.6-132.3-7.3-186.3-37s-95.9-85.3-126.2-137.2c-30.4-51.8-49.3-99.9-76.5-151.4C70.9 109.6 35.6 54.8.3 0H487v486.7z"
+                  />
+                </svg>
+              </span>
 
-    <span className="relative z-10 font-['Poppins'] text-sm xl:text-base">
-      Log In
-    </span>
-  </button>
-</div>
+              <span className="relative z-10 font-['Poppins'] text-sm xl:text-base">
+                Log In
+              </span>
+            </button>
+          </div>
 
           {/* Hamburger Icon - Mobile */}
           <button
@@ -445,31 +557,39 @@ function Navbar({ openPopup }) {
               className={`overflow-hidden transition-all duration-500 ease-in-out ${courseMenuOpen ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"}`}
             >
               <div className="mt-2 p-2 bg-gray-100/50 rounded-lg border border-gray-50/20">
-                <div className="grid grid-cols-1 gap-2">
-                  {dynamicCategories.map((cat, idx) => (
-                    <Link
-                      key={idx}
-                      href={`/jobs?category=${cat.slug}`}
-                      onClick={() => {
-                        setMenuOpen(false);
-                        setCourseMenuOpen(false);
-                      }}
-                      className="block p-3 rounded-lg hover:bg-[#467B23]/10 transition-all duration-300 group"
-                    >
-                      <div className="flex items-start gap-3">
-                        <div className="flex-1 text-left">
-                          <span className="font-semibold block group-hover:text-[#467B23] transition-colors">
-                            {cat.name}
-                          </span>
-                          <span className="text-gray-800 text-xs">
-                            {cat.subtitle}
-                          </span>
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
+<div className="grid grid-cols-2 gap-4">
+  {dynamicCategories.map((category) => (
+    <div
+      key={category._id}
+      className="p-3 rounded-lg hover:bg-[#467B23]/10 transition-colors duration-300"
+    >
+      {/* CATEGORY */}
+      <Link
+        href={`/jobs?category=${category.slug}`}
+        className="block"
+      >
+        <h4 className="text-[#467B23] font-semibold text-sm">
+          {category.title}
+        </h4>
+      </Link>
 
+      {/* SUBCATEGORIES */}
+      {category.subcategories?.length > 0 && (
+        <div className="mt-2 space-y-1">
+          {category.subcategories.map((subCat) => (
+            <Link
+              key={subCat._id}
+              href={`/jobs?subcategory=${subCat.slug}`}
+              className="block text-gray-700 text-xs hover:text-[#467B23] transition-colors"
+            >
+              {subCat.title}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  ))}
+</div>
                 <Link
                   href="/jobs"
                   onClick={() => {

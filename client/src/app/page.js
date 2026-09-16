@@ -36,12 +36,30 @@ export default function LandingPage() {
     fetchJobs();
   }, []);
 
-  // Safe filtering based on keyword, location, and selected category
+  // Safe filtering based on keyword, location, and selected category with updated schema structure
   const filteredJobs = (jobs || []).filter((job) => {
-    const matchesKeyword = keyword === '' || job.title?.toLowerCase().includes(keyword.toLowerCase()) || job.description?.toLowerCase().includes(keyword.toLowerCase());
-    const matchesLocation = location === '' || job.location?.toLowerCase().includes(location.toLowerCase());
-    const matchesCategory = selectedCategory === '' || job.category === selectedCategory || job.sector === selectedCategory;
-    return matchesKeyword && matchesLocation && matchesCategory;
+    const matchesKeyword = 
+      keyword === '' || 
+      job.title?.toLowerCase().includes(keyword.toLowerCase()) || 
+      job.description?.toLowerCase().includes(keyword.toLowerCase()) ||
+      (job.skills && job.skills.some(skill => skill.toLowerCase().includes(keyword.toLowerCase())));
+
+    // Handle location as an object or string
+    const locationString = typeof job.location === 'object' && job.location !== null
+      ? `${job.location.city || ''} ${job.location.state || ''} ${job.location.country || ''}`.toLowerCase()
+      : (job.location || '').toLowerCase();
+    const matchesLocation = location === '' || locationString.includes(location.toLowerCase());
+
+    // Handle category as ObjectId or string comparison
+    const matchesCategory = 
+      selectedCategory === '' || 
+      job.category === selectedCategory || 
+      job.sector === selectedCategory;
+
+    // Only show published jobs if the status field exists
+    const isPublished = job.status ? job.status === 'PUBLISHED' : true;
+
+    return matchesKeyword && matchesLocation && matchesCategory && isPublished;
   });
 
   const handleReset = () => {
@@ -70,7 +88,6 @@ export default function LandingPage() {
         setSelectedCategory={setSelectedCategory} 
       />
 
-
       <FeaturedJobs 
         jobs={dataSource}
         filteredJobs={filteredJobs}
@@ -79,7 +96,8 @@ export default function LandingPage() {
         setSelectedCategory={setSelectedCategory}
         onReset={handleReset} 
       /> 
-      <PartnershipSection/>
+      
+      <PartnershipSection />
       <Organization />
 
     </div>
