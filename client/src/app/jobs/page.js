@@ -1,201 +1,613 @@
-'use client';
+"use client";
 
-import { useState, useMemo, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
-import Link from 'next/link';
-import { MapPin, DollarSign, Search, Briefcase, Filter, X } from 'lucide-react';
-// Import the JSON data directly. Adjust the path if your components folder is nested differently.
-import jobData from '../data/sampleJobs.json';
+import { useContext, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
+import {
+  FiMapPin,
+  FiDollarSign,
+  FiSearch,
+  FiBriefcase,
+  FiFilter,
+  FiX,
+  FiClock,
+} from "react-icons/fi";
+import { JobDataContext } from "../context/JobDataContext";
 
 export default function JobsPage() {
   const searchParams = useSearchParams();
-  const categoryParam = searchParams.get('category');
 
-  const [jobs, setJobs] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const categoryParam = searchParams.get("category");
+  const subcategoryParam = searchParams.get("subcategory");
+
+  const { jobs, subcategories: allSubcategories } = useContext(JobDataContext);
+
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
-  // Filter States
-  const [searchQuery, setSearchQuery] = useState('');
-  const [locationQuery, setLocationQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const [selectedType, setSelectedType] = useState('All');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [locationQuery, setLocationQuery] = useState("");
 
-  // Load initial data and map URL category parameters to exact JSON matches
-  useEffect(() => {
-    const fetchTimer = setTimeout(() => {
-      const allJobs = jobData.jobs || [];
-      setJobs(allJobs);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedSubcategory, setSelectedSubcategory] =
+    useState("All");
+  const [selectedType, setSelectedType] = useState("All");
 
-      if (categoryParam) {
-        // Decode URL string (e.g., "Registered+Nurses" -> "Registered Nurses")
-        const decodedCategory = decodeURIComponent(categoryParam).toLowerCase();
-        
-        // Find a matching category or sector from the JSON data dynamically
-        const matchedJob = allJobs.find(
-          (j) => 
-            (j.category && j.category.toLowerCase().includes(decodedCategory)) ||
-            (j.sector && j.sector.toLowerCase().includes(decodedCategory))
-        );
+  /*
+   * Only published jobs.
+   */
+  const publishedJobs = useMemo(() => {
+    return jobs.filter((job) => job?.status === "PUBLISHED");
+  }, [jobs]);
 
-        if (matchedJob) {
-          setSelectedCategory(matchedJob.category);
-        } else {
-          // Fallback direct match attempt
-          setSelectedCategory(categoryParam);
-        }
-      }
-
-      setLoading(false);
-    }, 600);
-
-    return () => clearTimeout(fetchTimer);
-  }, [categoryParam]);
-
-  // Prevent background scrolling when filter menu is open (Mobile only)
-  useEffect(() => {
-    if (isFilterOpen && window.innerWidth < 1024) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isFilterOpen]);
-
-  // Dynamically extract unique categories and employment types from the JSON
+  /*
+   * Categories from actual backend data.
+   */
   const categories = useMemo(() => {
-    const cats = jobs.map((job) => job.category).filter(Boolean);
-    return ['All', ...new Set(cats)];
-  }, [jobs]);
+    const values = publishedJobs
+      .map((job) => job?.category?.title)
+      .filter(Boolean);
 
+    return ["All", ...new Set(values)];
+  }, [publishedJobs]);
+
+  /*
+   * All subcategories from actual backend data.
+   */
+const subcategories = useMemo(() => {
+  const values = publishedJobs
+    .map((job) => job?.subcategory?.title)
+    .filter(Boolean);
+
+  return ["All", ...new Set(values)];
+}, [publishedJobs]);
+
+  /*
+   * Employment types from actual backend data.
+   */
   const employmentTypes = useMemo(() => {
-    const types = jobs.map((job) => job.employmentType).filter(Boolean);
-    return ['All', ...new Set(types)];
-  }, [jobs]);
+    const values = publishedJobs
+      .map((job) => job?.jobType)
+      .filter(Boolean);
 
-  // Filtering Logic
+    return ["All", ...new Set(values)];
+  }, [publishedJobs]);
+
+  /*
+   * Convert text to a URL/search-friendly value.
+   *
+   * Example:
+   * "Registered Nurses (RN)"
+   * becomes:
+   * "registered-nurses-rn"
+   */
+  const normalizeValue = (value = "") => {
+    return decodeURIComponent(value)
+      .replace(/\+/g, " ")
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  };
+
+
+  useEffect(() => {
+    if (
+      selectedCategory === "All" ||
+      selectedSubcategory === "All"
+    ) {
+      return;
+    }
+
+    const exists = publishedJobs.some(
+      (job) =>
+        job?.category?.title === selectedCategory &&
+        job?.subcategory?.title === selectedSubcategory
+    );
+
+    if (!exists) {
+      setSelectedSubcategory("All");
+    }
+  }, [
+    selectedCategory,
+    selectedSubcategory,
+    publishedJobs,
+  ]);
+
+
+  const availableSubcategories = useMemo(() => {
+    if (selectedCategory === "All") {
+      return allSubcategories;
+    }
+
+    const values = publishedJobs
+      .filter(
+        (job) =>
+          job?.category?.title === selectedCategory
+      )
+      .map((job) => job?.subcategory?.title)
+      .filter(Boolean);
+
+    return ["All", ...new Set(values)];
+  }, [
+    publishedJobs,
+    selectedCategory,
+    allSubcategories,
+  ]);
+
   const filteredJobs = useMemo(() => {
-    return jobs.filter((job) => {
-      const searchSource = `${job.title} ${job.description} ${job.sector}`.toLowerCase();
-      const matchesSearch = searchSource.includes(searchQuery.toLowerCase());
-      
-      // Corrected: job.location is an object in the new schema, format it properly or check city/state/country
-      const locationString = typeof job.location === 'object' 
-        ? `${job.location.city || ''} ${job.location.state || ''} ${job.location.country || ''}`.toLowerCase()
-        : (job.location || '').toLowerCase();
-      const matchesLocation = locationString.includes(locationQuery.toLowerCase());
-      
-      const matchesCategory = selectedCategory === 'All' || job.category === selectedCategory || job.sector === selectedCategory;
-      const matchesType = selectedType === 'All' || job.employmentType === selectedType;
-      
-      // Corrected: status values in new schema are uppercase strings like 'PUBLISHED' instead of 'Active'
-      const isPublished = job.status === 'PUBLISHED';
+    const search = searchQuery.trim().toLowerCase();
+    const location = locationQuery.trim().toLowerCase();
 
-      return matchesSearch && matchesLocation && matchesCategory && matchesType && isPublished;
+    return publishedJobs.filter((job) => {
+      /*
+       * Search EVERYTHING returned by backend.
+       */
+      const searchableJob = JSON.stringify(job)
+        .toLowerCase();
+
+      const matchesSearch =
+        !search || searchableJob.includes(search);
+
+
+      const locationSource = [
+        job?.location?.city,
+        job?.location?.state,
+        job?.location?.country,
+        job?.location?.address,
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+
+      const matchesLocation =
+        !location ||
+        locationSource.includes(location);
+
+      /*
+       * Category.
+       */
+      const matchesCategory =
+        selectedCategory === "All" ||
+        job?.category?.title === selectedCategory;
+
+      /*
+       * Subcategory.
+       */
+      const matchesSubcategory =
+        selectedSubcategory === "All" ||
+        job?.subcategory?.title ===
+          selectedSubcategory;
+
+      /*
+       * Employment type.
+       */
+      const matchesType =
+        selectedType === "All" ||
+        job?.jobType === selectedType;
+
+      return (
+        matchesSearch &&
+        matchesLocation &&
+        matchesCategory &&
+        matchesSubcategory &&
+        matchesType
+      );
     });
-  }, [jobs, searchQuery, locationQuery, selectedCategory, selectedType]);
+  }, [
+    publishedJobs,
+    searchQuery,
+    locationQuery,
+    selectedCategory,
+    selectedSubcategory,
+    selectedType,
+  ]);
 
+  /*
+   * Reset filters.
+   */
   const resetFilters = () => {
-    setSearchQuery('');
-    setLocationQuery('');
-    setSelectedCategory('All');
-    setSelectedType('All');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setSearchQuery("");
+    setLocationQuery("");
+    setSelectedCategory("All");
+    setSelectedSubcategory("All");
+    setSelectedType("All");
   };
 
-  // Scroll to top when clicking a category or type
-  const handleCategoryClick = (tab) => {
-    setSelectedCategory(tab);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  const handleCategoryClick = (category) => {
+    setSelectedCategory(category);
+    setSelectedSubcategory("All");
   };
 
+  /*
+   * Subcategory click.
+   */
+  const handleSubcategoryClick = (subcategory) => {
+    setSelectedSubcategory(subcategory);
+  };
+
+  /*
+   * Employment type click.
+   */
   const handleTypeClick = (type) => {
     setSelectedType(type);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Calculate active filter count for the sticky button badge (Mobile)
-  const activeFilterCount = 
-    (searchQuery ? 1 : 0) + 
-    (locationQuery ? 1 : 0) + 
-    (selectedCategory !== 'All' ? 1 : 0) + 
-    (selectedType !== 'All' ? 1 : 0);
+  /*
+   * Mobile filter badge.
+   */
+  const activeFilterCount =
+    (searchQuery ? 1 : 0) +
+    (locationQuery ? 1 : 0) +
+    (selectedCategory !== "All" ? 1 : 0) +
+    (selectedSubcategory !== "All" ? 1 : 0) +
+    (selectedType !== "All" ? 1 : 0);
 
-  // Extracted filter content to avoid massive duplication between Desktop Sidebar and Mobile Drawer
-  const FilterContent = () => (
+  /*
+   * FULL_TIME -> Full Time
+   */
+  const formatJobType = (type) => {
+    if (!type) return "";
+
+    return type
+      .toLowerCase()
+      .split("_")
+      .map(
+        (word) =>
+          word.charAt(0).toUpperCase() +
+          word.slice(1)
+      )
+      .join(" ");
+  };
+
+  /*
+   * ONSITE -> Onsite
+   */
+  const formatWorkMode = (mode) => {
+    if (!mode) return "";
+
+    return (
+      mode.charAt(0) +
+      mode.slice(1).toLowerCase()
+    );
+  };
+
+  /*
+   * Format backend salary object.
+   */
+  const formatSalary = (salary) => {
+    if (!salary) return "Competitive";
+
+    const {
+      min,
+      max,
+      currency,
+      period,
+    } = salary;
+
+    if (!min && !max) {
+      return "Competitive";
+    }
+
+    const formatAmount = (amount) =>
+      new Intl.NumberFormat("en-CA", {
+        maximumFractionDigits: 0,
+      }).format(amount);
+
+    let amount = "";
+
+    if (min && max) {
+      amount = `${formatAmount(min)} - ${formatAmount(
+        max
+      )}`;
+    } else if (min) {
+      amount = `${formatAmount(min)}+`;
+    } else {
+      amount = `Up to ${formatAmount(max)}`;
+    }
+
+    const periodText = {
+      YEARLY: "/ year",
+      MONTHLY: "/ month",
+      WEEKLY: "/ week",
+      HOURLY: "/ hour",
+    };
+
+    return `${currency || "CAD"} ${amount} ${
+      periodText[period] || ""
+    }`;
+  };
+
+  /*
+   * Posted time from createdAt.
+   */
+  const getPostedTime = (createdAt) => {
+    if (!createdAt) return "";
+
+    const createdDate = new Date(createdAt);
+    const now = new Date();
+
+    const difference = now - createdDate;
+
+    if (difference < 0) {
+      return "Posted recently";
+    }
+
+    const hours = Math.floor(
+      difference / (1000 * 60 * 60)
+    );
+
+    const days = Math.floor(
+      difference / (1000 * 60 * 60 * 24)
+    );
+
+    if (hours < 1) {
+      return "Posted just now";
+    }
+
+    if (hours < 24) {
+      return `Posted ${hours} ${
+        hours === 1 ? "hour" : "hours"
+      } ago`;
+    }
+
+    if (days < 7) {
+      return `Posted ${days} ${
+        days === 1 ? "day" : "days"
+      } ago`;
+    }
+
+    const weeks = Math.floor(days / 7);
+
+    if (weeks < 4) {
+      return `Posted ${weeks} ${
+        weeks === 1 ? "week" : "weeks"
+      } ago`;
+    }
+
+    const months = Math.floor(days / 30);
+
+    return `Posted ${months} ${
+      months === 1 ? "month" : "months"
+    } ago`;
+  };
+
+useEffect(() => {
+  if (!subcategoryParam && !categoryParam) return;
+
+  if (subcategoryParam) {
+    const urlSubcategory = normalizeValue(subcategoryParam);
+
+    const matchedSubcategory = allSubcategories.find((subcat) => {
+      const slug = normalizeValue(subcat?.slug);
+      const title = normalizeValue(subcat?.title);
+
+      return (
+        slug === urlSubcategory ||
+        slug.startsWith(urlSubcategory) ||
+        urlSubcategory.startsWith(slug) ||
+        title === urlSubcategory ||
+        urlSubcategory.includes(title)
+      );
+    });
+
+    if (matchedSubcategory) {
+      setSelectedSubcategory(matchedSubcategory.title);
+
+      if (matchedSubcategory.category?.title) {
+        setSelectedCategory(
+          matchedSubcategory.category.title
+        );
+      }
+
+      return;
+    }
+
+    const matchedJob = publishedJobs.find((job) => {
+      const title = normalizeValue(
+        job?.subcategory?.title
+      );
+
+      return (
+        title === urlSubcategory ||
+        urlSubcategory.includes(title)
+      );
+    });
+
+    if (matchedJob?.subcategory?.title) {
+      setSelectedSubcategory(
+        matchedJob.subcategory.title
+      );
+
+      if (matchedJob.category?.title) {
+        setSelectedCategory(
+          matchedJob.category.title
+        );
+      }
+    }
+
+    return;
+  }
+
+  if (categoryParam) {
+    const urlCategory = normalizeValue(categoryParam);
+
+    const matchedJob = publishedJobs.find((job) => {
+      const categoryTitle = normalizeValue(
+        job?.category?.title
+      );
+
+      return (
+        categoryTitle === urlCategory ||
+        categoryTitle.includes(urlCategory) ||
+        urlCategory.includes(categoryTitle)
+      );
+    });
+
+    if (matchedJob?.category?.title) {
+      setSelectedCategory(matchedJob.category.title);
+      setSelectedSubcategory("All");
+    }
+  }
+}, [
+  categoryParam,
+  subcategoryParam,
+  allSubcategories,
+  publishedJobs,
+]);
+
+
+  /*
+   * Shared filter UI.
+   */
+  const renderFilterContent  = () => (
     <div className="space-y-8">
       {/* Keyword Search */}
       <div>
-        <label className="text-xs font-bold text-[#01193B]/50 uppercase tracking-wider mb-3 block">Keyword / Job Title</label>
+        <label className="text-xs font-bold text-[#01193B]/50 uppercase tracking-wider mb-3 block">
+          Keyword / Job Title
+        </label>
+
         <div className="flex items-center bg-[#F8FAFC] px-4 py-3.5 border border-[#01193B]/10 focus-within:border-[#467B23]/50 transition-all">
-          <Search className="text-[#01193B]/40 shrink-0 mr-3" size={20} />
-          <input 
-            type="text" 
-            placeholder="E.g. Registered Nurse..." 
+          <FiSearch
+            className="text-[#01193B]/40 shrink-0 mr-3"
+            size={20}
+          />
+
+          <input
+            type="text"
+            placeholder="Search anything..."
             className="bg-transparent border-none outline-none w-full text-[#01193B] placeholder:text-[#01193B]/40 text-sm lg:text-base"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) =>
+              setSearchQuery(e.target.value)
+            }
           />
         </div>
       </div>
 
-      {/* Location Search */}
+      {/* Location */}
       <div>
-        <label className="text-xs font-bold text-[#01193B]/50 uppercase tracking-wider mb-3 block">Location</label>
+        <label className="text-xs font-bold text-[#01193B]/50 uppercase tracking-wider mb-3 block">
+          Location
+        </label>
+
         <div className="flex items-center bg-[#F8FAFC] px-4 py-3.5 border border-[#01193B]/10 focus-within:border-[#467B23]/50 transition-all">
-          <MapPin className="text-[#01193B]/40 shrink-0 mr-3" size={20} />
-          <input 
-            type="text" 
-            placeholder="City, province..." 
+          <FiMapPin
+            className="text-[#01193B]/40 shrink-0 mr-3"
+            size={20}
+          />
+
+          <input
+            type="text"
+            placeholder="City, province, country..."
             className="bg-transparent border-none outline-none w-full text-[#01193B] placeholder:text-[#01193B]/40 text-sm lg:text-base"
             value={locationQuery}
-            onChange={(e) => setLocationQuery(e.target.value)}
+            onChange={(e) =>
+              setLocationQuery(e.target.value)
+            }
           />
         </div>
       </div>
 
-      {/* Category Filter */}
+      {/* Category */}
       <div>
-        <label className="text-xs font-bold text-[#01193B]/50 uppercase tracking-wider mb-3 block">Job Category</label>
+        <label className="text-xs font-bold text-[#01193B]/50 uppercase tracking-wider mb-3 block">
+          Job Category
+        </label>
+
         <div className="flex flex-wrap gap-2">
-          {categories.map((tab) => {
-            const isSelected = selectedCategory === tab;
+          {categories.map((category) => {
+            const isSelected =
+              selectedCategory === category;
+
             return (
               <button
-                key={tab}
-                onClick={() => handleCategoryClick(tab)}
+                key={category}
+                type="button"
+                onClick={() =>
+                  handleCategoryClick(category)
+                }
                 className={`px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all border ${
                   isSelected
-                    ? 'bg-[#01193B] text-white border-[#01193B]'
-                    : 'bg-white text-[#01193B]/70 border-[#01193B]/10 hover:border-[#01193B]/30'
+                    ? "bg-[#01193B] text-white border-[#01193B]"
+                    : "bg-white text-[#01193B]/70 border-[#01193B]/10 hover:border-[#01193B]/30"
                 }`}
               >
-                {tab}
+                {category}
               </button>
             );
           })}
         </div>
       </div>
 
-      {/* Employment Type Filter */}
+      {/* Subcategory */}
+
+
+ {availableSubcategories.length > 1 && (
+        <div>
+          <label className="text-xs font-bold text-[#01193B]/50 uppercase tracking-wider mb-3 block">
+            Job Subcategory
+          </label>
+
+          <div className="flex flex-wrap gap-2">
+            {availableSubcategories.map(
+              (subcategory) => {
+                const isSelected =
+                  selectedSubcategory ===
+                  subcategory;
+
+                return (
+                  <button
+                    key={subcategory}
+                    type="button"
+                    onClick={() =>
+                      handleSubcategoryClick(
+                        subcategory
+                      )
+                    }
+                    className={`px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all border ${
+                      isSelected
+                        ? "bg-[#467B23] text-white border-[#467B23]"
+                        : "bg-white text-[#01193B]/70 border-[#01193B]/10 hover:border-[#467B23]/40"
+                    }`}
+                  >
+                    {subcategory}
+                  </button>
+                );
+              }
+            )}
+          </div>
+        </div>
+      )} 
+
+      {/* Employment Type */}
       <div>
-        <label className="text-xs font-bold text-[#01193B]/50 uppercase tracking-wider mb-3 block">Employment Type</label>
+        <label className="text-xs font-bold text-[#01193B]/50 uppercase tracking-wider mb-3 block">
+          Employment Type
+        </label>
+
         <div className="flex flex-wrap gap-2">
           {employmentTypes.map((type) => {
-            const isSelected = selectedType === type;
+            const isSelected =
+              selectedType === type;
+
             return (
               <button
                 key={type}
-                onClick={() => handleTypeClick(type)}
+                type="button"
+                onClick={() =>
+                  handleTypeClick(type)
+                }
                 className={`px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all border ${
                   isSelected
-                    ? 'bg-[#467B23] text-white border-[#467B23]'
-                    : 'bg-white text-[#01193B]/70 border-[#01193B]/10 hover:border-[#01193B]/30'
+                    ? "bg-[#467B23] text-white border-[#467B23]"
+                    : "bg-white text-[#01193B]/70 border-[#01193B]/10 hover:border-[#01193B]/30"
                 }`}
               >
-                {type}
+                {type === "All"
+                  ? "All"
+                  : formatJobType(type)}
               </button>
             );
           })}
@@ -204,136 +616,220 @@ export default function JobsPage() {
     </div>
   );
 
+
+  const loading = jobs.length === 0;
+
   return (
     <div className="min-h-screen bg-[#F8FAFC] pb-24 relative pt-12 md:pt-20 lg:pt-24">
-      
       <section className="px-5 md:px-12 lg:px-16 xl:px-24 2xl:px-40 max-w-[1920px] mx-auto">
-        
         <div className="flex flex-col lg:flex-row gap-8 xl:gap-12 relative">
-          
-          {/* ========================================= */}
-          {/* LEFT SIDEBAR (Desktop Only - sticky) */}
-          {/* ========================================= */}
+
+          {/* Desktop Sidebar */}
           <aside className="hidden lg:block w-72 xl:w-80 shrink-0">
             <div className="sticky top-28 bg-white p-6 border border-[#01193B]/10 shadow-sm flex flex-col max-h-[85vh] overflow-y-auto hide-scrollbar">
+
               <div className="flex items-center justify-between mb-8 shrink-0">
                 <h3 className="font-semibold text-[#01193B] flex items-center gap-2 text-lg">
-                  <Filter size={18} className="text-[#467B23]" /> Filters
+                  <FiFilter
+                    size={18}
+                    className="text-[#467B23]"
+                  />
+                  Filters
                 </h3>
+
                 {activeFilterCount > 0 && (
-                  <button onClick={resetFilters} className="text-xs font-bold text-[#01193B]/50 hover:text-[#467B23] uppercase tracking-wider flex items-center gap-1 transition-colors">
-                    <X size={14} /> Clear
+                  <button
+                    type="button"
+                    onClick={resetFilters}
+                    className="text-xs font-bold text-[#01193B]/50 hover:text-[#467B23] uppercase tracking-wider flex items-center gap-1 transition-colors"
+                  >
+                    <FiX size={14} />
+                    Clear
                   </button>
                 )}
               </div>
-              
+
               <div className="flex-1">
-               {FilterContent ()}
+          {renderFilterContent()}
               </div>
             </div>
           </aside>
 
-          {/* ========================================= */}
-          {/* MAIN CONTENT AREA - Job Grid */}
-          {/* ========================================= */}
+          {/* Main Content */}
           <div className="flex-1 min-w-0">
-            
-            {/* Header & Results Count */}
+
+            {/* Header */}
             <div className="mb-8 pb-4 flex flex-col md:flex-row md:items-end justify-between border-b border-[#01193B]/10 gap-4">
               <div>
                 <h1 className="text-3xl font-medium text-[#01193B] tracking-tight mb-2">
-                  Open <span className="font-semibold text-[#467B23]">Positions</span>
+                  Open{" "}
+                  <span className="font-semibold text-[#467B23]">
+                    Positions
+                  </span>
                 </h1>
+
                 <p className="text-[#01193B]/70 text-sm">
-                  Showing <span className="font-semibold text-[#01193B]">{filteredJobs.length}</span> active jobs
+                  Showing{" "}
+                  <span className="font-semibold text-[#01193B]">
+                    {filteredJobs.length}
+                  </span>{" "}
+                  active jobs
                 </p>
               </div>
             </div>
 
-            {/* Job Grid */}
+            {/* Loading */}
             {loading ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6">
-                {[1, 2, 3, 4, 5, 6].map((skeleton) => (
-                  <div key={skeleton} className="bg-white p-6 rounded-3xl border border-[#01193B]/5 h-56 animate-pulse flex flex-col justify-between">
-                    <div className="space-y-4">
-                      <div className="flex justify-between"><div className="w-20 h-6 bg-gray-200"></div><div className="w-16 h-4 bg-gray-200 rounded-lg"></div></div>
-                      <div className="w-3/4 h-5 bg-gray-200 rounded-lg"></div>
-                      <div className="w-1/3 h-4 bg-gray-200 rounded-lg"></div>
-                      <div className="w-full h-10 bg-gray-200 rounded-lg"></div>
+                {[1, 2, 3, 4, 5, 6].map(
+                  (skeleton) => (
+                    <div
+                      key={skeleton}
+                      className="bg-white p-6 rounded-3xl border border-[#01193B]/5 h-56 animate-pulse"
+                    >
+                      <div className="space-y-4">
+                        <div className="w-20 h-6 bg-gray-200" />
+                        <div className="w-3/4 h-5 bg-gray-200 rounded-lg" />
+                        <div className="w-1/3 h-4 bg-gray-200 rounded-lg" />
+                        <div className="w-full h-10 bg-gray-200 rounded-lg" />
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  )
+                )}
               </div>
             ) : filteredJobs.length === 0 ? (
+              /* Empty State */
               <div className="bg-white p-12 lg:p-16 rounded-3xl text-center border border-[#01193B]/10 shadow-sm w-full mx-auto">
-                <div className="w-20 h-20 bg-[#467B23]/10  flex items-center justify-center mx-auto mb-6">
-                  <Briefcase size={32} className="text-[#467B23]" />
+                <div className="w-20 h-20 bg-[#467B23]/10 flex items-center justify-center mx-auto mb-6">
+                  <FiBriefcase
+                    size={32}
+                    className="text-[#467B23]"
+                  />
                 </div>
-                <h3 className="text-xl lg:text-2xl font-medium text-[#01193B] mb-3">No jobs found</h3>
+
+                <h3 className="text-xl lg:text-2xl font-medium text-[#01193B] mb-3">
+                  No jobs found
+                </h3>
+
                 <p className="text-[#01193B]/60 mb-8 text-sm lg:text-base max-w-md mx-auto">
-                  We couldn&apos;t find any positions matching your current filters. Try adjusting your search criteria.
+                  We couldn&apos;t find any positions
+                  matching your current filters. Try
+                  adjusting your search criteria.
                 </p>
-                <button 
-                  onClick={resetFilters} 
+
+                <button
+                  type="button"
+                  onClick={resetFilters}
                   className="bg-[#467B23] hover:bg-[#3b681d] text-white px-8 py-3.5 text-sm font-semibold uppercase tracking-wider transition-all shadow-sm cursor-pointer inline-flex"
                 >
                   Clear All Filters
                 </button>
               </div>
             ) : (
+              /* Job Grid */
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6">
                 {filteredJobs.map((job) => {
-                  // Format location string safely from object structure
-                  const locationText = typeof job.location === 'object'
-                    ? [job.location.city, job.location.state, job.location.country].filter(Boolean).join(', ')
-                    : job.location;
-
-                  // Format salary string safely from object structure
-                  const salaryText = typeof job.salary === 'object' && job.salary !== null
-                    ? `${job.salary.min ? `${job.salary.currency || 'INR'} ${job.salary.min}` : ''}${job.salary.max ? ` - ${job.salary.max}` : ''} / ${job.salary.period ? job.salary.period.toLowerCase() : 'year'}`
-                    : (job.salary || 'Competitive Rate');
+                  const locationText = [
+                    job?.location?.city,
+                    job?.location?.state,
+                    job?.location?.country,
+                  ]
+                    .filter(Boolean)
+                    .join(", ");
 
                   return (
-                    <div 
-                      key={job._id || job.slug} 
+                    <div
+                      key={job._id || job.slug}
                       className="bg-white p-6 rounded-3xl border border-[#01193B]/10 hover:border-[#467B23]/40 hover:shadow-xl shadow-sm flex flex-col justify-between transition-all duration-300 group hover:-translate-y-1"
                     >
                       <div className="space-y-3">
+
+                        {/* Category + Type */}
                         <div className="flex justify-between items-start gap-2">
                           <span className="bg-[#467B23]/10 text-[#467B23] px-3 py-1.5 rounded-xl text-[11px] font-semibold inline-block line-clamp-1">
-                            {job.category}
+                            {job?.category?.title || "Job"}
                           </span>
-                          <span className="text-[11px] font-medium text-[#01193B]/50 bg-gray-100 px-2.5 py-1.5 rounded-xl shrink-0">
-                            {job.employmentType}
-                          </span>
+
+                          {job?.jobType && (
+                            <span className="text-[11px] font-medium text-[#01193B]/50 bg-gray-100 px-2.5 py-1.5 rounded-xl shrink-0">
+                              {formatJobType(
+                                job.jobType
+                              )}
+                            </span>
+                          )}
                         </div>
 
+                        {/* Title */}
                         <h3 className="font-semibold text-lg text-[#01193B] transition-colors line-clamp-2 pt-2">
-                          {job.title}
+                          {job?.title}
                         </h3>
 
-                        <p className="text-sm text-[#01193B]/60 flex items-center gap-1.5">
-                          <MapPin size={14} className="text-[#467B23] shrink-0" /> 
-                          <span className="truncate">{locationText}</span>
+                        {/* Company */}
+                        <p className="text-sm font-medium text-[#01193B]/60">
+                          {job?.companyName}
                         </p>
 
-                        <p className="text-sm text-[#01193B]/70 line-clamp-2 leading-relaxed font-light pt-2">
-                          {job.description}
+                        {/* Location */}
+                        {locationText && (
+                          <p className="text-sm text-[#01193B]/60 flex items-center gap-1.5">
+                            <FiMapPin
+                              size={14}
+                              className="text-[#467B23] shrink-0"
+                            />
+
+                            <span className="truncate">
+                              {locationText}
+                            </span>
+                          </p>
+                        )}
+
+                        {/* Subcategory + Work Mode */}
+                        <div className="flex flex-wrap gap-2">
+                          {job?.subcategory?.title && (
+                            <span className="text-[10px] font-semibold bg-[#01193B]/5 text-[#01193B]/70 px-2.5 py-1.5 rounded-lg">
+                              {job.subcategory.title}
+                            </span>
+                          )}
+
+                          {job?.workMode && (
+                            <span className="inline-flex items-center gap-1.5 bg-[#01193B]/5 text-[#01193B]/70 px-2.5 py-1.5 rounded-lg text-[10px] font-semibold">
+                              <FiClock size={11} />
+                              {formatWorkMode(
+                                job.workMode
+                              )}
+                            </span>
+                          )}
+                        </div>
+
+                        {/* Posted */}
+                        <p className="text-xs text-[#01193B]/50">
+                          {getPostedTime(
+                            job?.createdAt
+                          )}
                         </p>
                       </div>
-                      
+
+                      {/* Bottom */}
                       <div className="pt-6 mt-6 border-t border-[#01193B]/10 flex flex-col gap-4">
+
                         <div className="flex flex-col gap-1">
                           <span className="text-sm font-bold text-[#467B23] flex items-center gap-1">
-                            <DollarSign size={14} /> {salaryText}
+                            <FiDollarSign size={14} />
+
+                            {formatSalary(
+                              job?.salary
+                            )}
                           </span>
+
                           <span className="text-[11px] text-[#01193B]/50">
-                            {job.companyName}
+                            {job?.companyName}
                           </span>
                         </div>
-                        
-                        <Link 
-                          href={`/jobs/${job.slug || encodeURIComponent(job.title.toLowerCase().replace(/[()]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''))}`} 
+
+                        <Link
+                          href={`/jobs/${
+                            job?.slug || job?._id
+                          }`}
                           className="border border-[#01193B] text-[#01193B] hover:bg-[#01193B]/90 hover:text-white px-5 py-3 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-300 w-full text-center shadow-sm"
                         >
                           View Details & Apply
@@ -348,67 +844,77 @@ export default function JobsPage() {
         </div>
       </section>
 
-      {/* ========================================= */}
-      {/* MOBILE STICKY BOTTOM BUTTON (Hidden on lg) */}
-      {/* ========================================= */}
+      {/* Mobile Filter Button */}
       <div className="lg:hidden fixed bottom-6 left-0 right-0 px-5 flex justify-center z-40 pointer-events-none">
-        <button 
+        <button
+          type="button"
           onClick={() => setIsFilterOpen(true)}
-          className="pointer-events-auto bg-[#01193B] hover:bg-[#022454] text-white px-8 py-4  shadow-2xl flex items-center gap-3 transition-transform duration-300 hover:scale-105"
+          className="pointer-events-auto bg-[#01193B] hover:bg-[#022454] text-white px-8 py-4 shadow-2xl flex items-center gap-3 transition-transform duration-300 hover:scale-105"
         >
-          <Filter size={18} />
-          <span className="font-semibold tracking-wider text-sm uppercase">Filters</span>
+          <FiFilter size={18} />
+
+          <span className="font-semibold tracking-wider text-sm uppercase">
+            Filters
+          </span>
+
           {activeFilterCount > 0 && (
-            <span className="bg-[#467B23] text-white w-6 h-6  flex items-center justify-center text-xs font-bold ml-1">
+            <span className="bg-[#467B23] text-white w-6 h-6 flex items-center justify-center text-xs font-bold ml-1">
               {activeFilterCount}
             </span>
           )}
         </button>
       </div>
 
-      {/* ========================================= */}
-      {/* MOBILE BOTTOM SHEET OVERLAY & MENU (Hidden on lg) */}
-      {/* ========================================= */}
-      
-      {/* Backdrop Overlay */}
-      <div 
+      {/* Mobile Backdrop */}
+      <div
         className={`lg:hidden fixed inset-0 bg-[#01193B]/40 backdrop-blur-sm z-50 transition-opacity duration-300 ${
-          isFilterOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+          isFilterOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
         }`}
         onClick={() => setIsFilterOpen(false)}
       />
 
-      {/* Drawer */}
-      <div 
+      {/* Mobile Drawer */}
+      <div
         className={`lg:hidden fixed bottom-0 left-0 right-0 h-[80vh] bg-white z-[60] rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.15)] flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
-          isFilterOpen ? 'translate-y-0' : 'translate-y-full'
+          isFilterOpen
+            ? "translate-y-0"
+            : "translate-y-full"
         }`}
       >
         {/* Drawer Header */}
         <div className="flex items-center justify-between p-6 border-b border-[#01193B]/10 shrink-0">
-          <h2 className="text-xl font-bold text-[#01193B]">Search & Filters</h2>
-          <button 
+          <h2 className="text-xl font-bold text-[#01193B]">
+            Search & Filters
+          </h2>
+
+          <button
+            type="button"
             onClick={() => setIsFilterOpen(false)}
-            className="w-8 h-8 flex items-center justify-center  bg-[#F8FAFC] hover:bg-gray-200 text-[#01193B] transition-colors"
+            className="w-8 h-8 flex items-center justify-center bg-[#F8FAFC] hover:bg-gray-200 text-[#01193B] transition-colors"
           >
-            <X size={18} />
+            <FiX size={18} />
           </button>
         </div>
 
-        {/* Drawer Scrollable Content */}
+        {/* Drawer Content */}
         <div className="flex-1 overflow-y-auto p-6">
-          {FilterContent ()}
+        {renderFilterContent()}
         </div>
 
-        {/* Drawer Footer Actions */}
+        {/* Drawer Footer */}
         <div className="p-6 border-t border-[#01193B]/10 bg-white flex items-center gap-4 shrink-0 pb-10">
-          <button 
+          <button
+            type="button"
             onClick={resetFilters}
             className="w-1/3 py-4 text-sm font-semibold uppercase tracking-wider text-[#01193B] bg-[#F8FAFC] hover:bg-gray-200 transition-colors"
           >
             Clear All
           </button>
-          <button 
+
+          <button
+            type="button"
             onClick={() => setIsFilterOpen(false)}
             className="w-2/3 py-4 text-sm font-semibold uppercase tracking-wider text-white bg-[#467B23] hover:bg-[#3b681d] shadow-lg transition-colors flex justify-center items-center gap-2"
           >
@@ -416,438 +922,22 @@ export default function JobsPage() {
           </button>
         </div>
       </div>
-      
-      {/* Hide Scrollbar for Desktop Sidebar */}
-      <style dangerouslySetInnerHTML={{__html: `
-        .hide-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .hide-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}} />
+
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+            .hide-scrollbar::-webkit-scrollbar {
+              display: none;
+            }
+
+            .hide-scrollbar {
+              -ms-overflow-style: none;
+              scrollbar-width: none;
+            }
+          `,
+        }}
+      />
     </div>
   );
 }
 
-
-
-// 'use client';
-
-// import { useState, useMemo, useEffect } from 'react';
-// import { useSearchParams } from 'next/navigation';
-// import Link from 'next/link';
-// import { MapPin, DollarSign, Search, Briefcase, Filter, X } from 'lucide-react';
-// // Import the JSON data directly. Adjust the path if your components folder is nested differently.
-// import jobData from '../data/sampleJobs.json';
-
-// export default function JobsPage() {
-//   const searchParams = useSearchParams();
-//   const categoryParam = searchParams.get('category');
-
-//   const [jobs, setJobs] = useState([]);
-//   const [loading, setLoading] = useState(true);
-//   const [isFilterOpen, setIsFilterOpen] = useState(false);
-
-//   // Filter States
-//   const [searchQuery, setSearchQuery] = useState('');
-//   const [locationQuery, setLocationQuery] = useState('');
-//   const [selectedCategory, setSelectedCategory] = useState('All');
-//   const [selectedType, setSelectedType] = useState('All');
-
-//   // Load initial data and map URL category parameters to exact JSON matches
-//   useEffect(() => {
-//     const fetchTimer = setTimeout(() => {
-//       const allJobs = jobData.jobs || [];
-//       setJobs(allJobs);
-
-//       if (categoryParam) {
-//         // Decode URL string (e.g., "Registered+Nurses" -> "Registered Nurses")
-//         const decodedCategory = decodeURIComponent(categoryParam).toLowerCase();
-        
-//         // Find a matching category or sector from the JSON data dynamically
-//         const matchedJob = allJobs.find(
-//           (j) => 
-//             (j.category && j.category.toLowerCase().includes(decodedCategory)) ||
-//             (j.sector && j.sector.toLowerCase().includes(decodedCategory))
-//         );
-
-//         if (matchedJob) {
-//           setSelectedCategory(matchedJob.category);
-//         } else {
-//           // Fallback direct match attempt
-//           setSelectedCategory(categoryParam);
-//         }
-//       }
-
-//       setLoading(false);
-//     }, 600);
-
-//     return () => clearTimeout(fetchTimer);
-//   }, [categoryParam]);
-
-//   // Prevent background scrolling when filter menu is open (Mobile only)
-//   useEffect(() => {
-//     if (isFilterOpen && window.innerWidth < 1024) {
-//       document.body.style.overflow = 'hidden';
-//     } else {
-//       document.body.style.overflow = 'unset';
-//     }
-//     return () => {
-//       document.body.style.overflow = 'unset';
-//     };
-//   }, [isFilterOpen]);
-
-//   // Dynamically extract unique categories and employment types from the JSON
-//   const categories = useMemo(() => {
-//     const cats = jobs.map((job) => job.category).filter(Boolean);
-//     return ['All', ...new Set(cats)];
-//   }, [jobs]);
-
-//   const employmentTypes = useMemo(() => {
-//     const types = jobs.map((job) => job.employmentType).filter(Boolean);
-//     return ['All', ...new Set(types)];
-//   }, [jobs]);
-
-//   // Filtering Logic
-//   const filteredJobs = useMemo(() => {
-//     return jobs.filter((job) => {
-//       const searchSource = `${job.title} ${job.description} ${job.sector}`.toLowerCase();
-//       const matchesSearch = searchSource.includes(searchQuery.toLowerCase());
-      
-//       const locationSource = (job.location || '').toLowerCase();
-//       const matchesLocation = locationSource.includes(locationQuery.toLowerCase());
-      
-//       const matchesCategory = selectedCategory === 'All' || job.category === selectedCategory || job.sector === selectedCategory;
-//       const matchesType = selectedType === 'All' || job.employmentType === selectedType;
-      
-//       const isActive = job.status === 'Active';
-
-//       return matchesSearch && matchesLocation && matchesCategory && matchesType && isActive;
-//     });
-//   }, [jobs, searchQuery, locationQuery, selectedCategory, selectedType]);
-
-//   const resetFilters = () => {
-//     setSearchQuery('');
-//     setLocationQuery('');
-//     setSelectedCategory('All');
-//     setSelectedType('All');
-//     window.scrollTo({ top: 0, behavior: 'smooth' });
-//   };
-
-//   // Scroll to top when clicking a category or type
-//   const handleCategoryClick = (tab) => {
-//     setSelectedCategory(tab);
-//     window.scrollTo({ top: 0, behavior: 'smooth' });
-//   };
-
-//   const handleTypeClick = (type) => {
-//     setSelectedType(type);
-//     window.scrollTo({ top: 0, behavior: 'smooth' });
-//   };
-
-//   // Calculate active filter count for the sticky button badge (Mobile)
-//   const activeFilterCount = 
-//     (searchQuery ? 1 : 0) + 
-//     (locationQuery ? 1 : 0) + 
-//     (selectedCategory !== 'All' ? 1 : 0) + 
-//     (selectedType !== 'All' ? 1 : 0);
-
-//   // Extracted filter content to avoid massive duplication between Desktop Sidebar and Mobile Drawer
-//   const FilterContent = () => (
-//     <div className="space-y-8">
-//       {/* Keyword Search */}
-//       <div>
-//         <label className="text-xs font-bold text-[#01193B]/50 uppercase tracking-wider mb-3 block">Keyword / Job Title</label>
-//         <div className="flex items-center bg-[#F8FAFC] px-4 py-3.5 border border-[#01193B]/10 focus-within:border-[#467B23]/50 transition-all">
-//           <Search className="text-[#01193B]/40 shrink-0 mr-3" size={20} />
-//           <input 
-//             type="text" 
-//             placeholder="E.g. Registered Nurse..." 
-//             className="bg-transparent border-none outline-none w-full text-[#01193B] placeholder:text-[#01193B]/40 text-sm lg:text-base"
-//             value={searchQuery}
-//             onChange={(e) => setSearchQuery(e.target.value)}
-//           />
-//         </div>
-//       </div>
-
-//       {/* Location Search */}
-//       <div>
-//         <label className="text-xs font-bold text-[#01193B]/50 uppercase tracking-wider mb-3 block">Location</label>
-//         <div className="flex items-center bg-[#F8FAFC] px-4 py-3.5 border border-[#01193B]/10 focus-within:border-[#467B23]/50 transition-all">
-//           <MapPin className="text-[#01193B]/40 shrink-0 mr-3" size={20} />
-//           <input 
-//             type="text" 
-//             placeholder="City, province..." 
-//             className="bg-transparent border-none outline-none w-full text-[#01193B] placeholder:text-[#01193B]/40 text-sm lg:text-base"
-//             value={locationQuery}
-//             onChange={(e) => setLocationQuery(e.target.value)}
-//           />
-//         </div>
-//       </div>
-
-//       {/* Category Filter */}
-//       <div>
-//         <label className="text-xs font-bold text-[#01193B]/50 uppercase tracking-wider mb-3 block">Job Category</label>
-//         <div className="flex flex-wrap gap-2">
-//           {categories.map((tab) => {
-//             const isSelected = selectedCategory === tab;
-//             return (
-//               <button
-//                 key={tab}
-//                 onClick={() => handleCategoryClick(tab)}
-//                 className={`px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all border ${
-//                   isSelected
-//                     ? 'bg-[#01193B] text-white border-[#01193B]'
-//                     : 'bg-white text-[#01193B]/70 border-[#01193B]/10 hover:border-[#01193B]/30'
-//                 }`}
-//               >
-//                 {tab}
-//               </button>
-//             );
-//           })}
-//         </div>
-//       </div>
-
-//       {/* Employment Type Filter */}
-//       <div>
-//         <label className="text-xs font-bold text-[#01193B]/50 uppercase tracking-wider mb-3 block">Employment Type</label>
-//         <div className="flex flex-wrap gap-2">
-//           {employmentTypes.map((type) => {
-//             const isSelected = selectedType === type;
-//             return (
-//               <button
-//                 key={type}
-//                 onClick={() => handleTypeClick(type)}
-//                 className={`px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all border ${
-//                   isSelected
-//                     ? 'bg-[#467B23] text-white border-[#467B23]'
-//                     : 'bg-white text-[#01193B]/70 border-[#01193B]/10 hover:border-[#01193B]/30'
-//                 }`}
-//               >
-//                 {type}
-//               </button>
-//             );
-//           })}
-//         </div>
-//       </div>
-//     </div>
-//   );
-
-//   return (
-//     <div className="min-h-screen bg-[#F8FAFC] pb-24 relative pt-12 md:pt-20 lg:pt-24">
-      
-//       <section className="px-5 md:px-12 lg:px-16 xl:px-24 2xl:px-40 max-w-[1920px] mx-auto">
-        
-//         <div className="flex flex-col lg:flex-row gap-8 xl:gap-12 relative">
-          
-//           {/* ========================================= */}
-//           {/* LEFT SIDEBAR (Desktop Only - sticky) */}
-//           {/* ========================================= */}
-//           <aside className="hidden lg:block w-72 xl:w-80 shrink-0">
-//             <div className="sticky top-28 bg-white p-6 border border-[#01193B]/10 shadow-sm flex flex-col max-h-[85vh] overflow-y-auto hide-scrollbar">
-//               <div className="flex items-center justify-between mb-8 shrink-0">
-//                 <h3 className="font-semibold text-[#01193B] flex items-center gap-2 text-lg">
-//                   <Filter size={18} className="text-[#467B23]" /> Filters
-//                 </h3>
-//                 {activeFilterCount > 0 && (
-//                   <button onClick={resetFilters} className="text-xs font-bold text-[#01193B]/50 hover:text-[#467B23] uppercase tracking-wider flex items-center gap-1 transition-colors">
-//                     <X size={14} /> Clear
-//                   </button>
-//                 )}
-//               </div>
-              
-//               <div className="flex-1">
-//                {FilterContent ()}
-//               </div>
-//             </div>
-//           </aside>
-
-//           {/* ========================================= */}
-//           {/* MAIN CONTENT AREA - Job Grid */}
-//           {/* ========================================= */}
-//           <div className="flex-1 min-w-0">
-            
-//             {/* Header & Results Count */}
-//             <div className="mb-8 pb-4 flex flex-col md:flex-row md:items-end justify-between border-b border-[#01193B]/10 gap-4">
-//               <div>
-//                 <h1 className="text-3xl font-medium text-[#01193B] tracking-tight mb-2">
-//                   Open <span className="font-semibold text-[#467B23]">Positions</span>
-//                 </h1>
-//                 <p className="text-[#01193B]/70 text-sm">
-//                   Showing <span className="font-semibold text-[#01193B]">{filteredJobs.length}</span> active jobs
-//                 </p>
-//               </div>
-//             </div>
-
-//             {/* Job Grid */}
-//             {loading ? (
-//               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6">
-//                 {[1, 2, 3, 4, 5, 6].map((skeleton) => (
-//                   <div key={skeleton} className="bg-white p-6 rounded-3xl border border-[#01193B]/5 h-56 animate-pulse flex flex-col justify-between">
-//                     <div className="space-y-4">
-//                       <div className="flex justify-between"><div className="w-20 h-6 bg-gray-200"></div><div className="w-16 h-4 bg-gray-200 rounded-lg"></div></div>
-//                       <div className="w-3/4 h-5 bg-gray-200 rounded-lg"></div>
-//                       <div className="w-1/3 h-4 bg-gray-200 rounded-lg"></div>
-//                       <div className="w-full h-10 bg-gray-200 rounded-lg"></div>
-//                     </div>
-//                   </div>
-//                 ))}
-//               </div>
-//             ) : filteredJobs.length === 0 ? (
-//               <div className="bg-white p-12 lg:p-16 rounded-3xl text-center border border-[#01193B]/10 shadow-sm w-full mx-auto">
-//                 <div className="w-20 h-20 bg-[#467B23]/10  flex items-center justify-center mx-auto mb-6">
-//                   <Briefcase size={32} className="text-[#467B23]" />
-//                 </div>
-//                 <h3 className="text-xl lg:text-2xl font-medium text-[#01193B] mb-3">No jobs found</h3>
-//                 <p className="text-[#01193B]/60 mb-8 text-sm lg:text-base max-w-md mx-auto">
-//                   We couldn&apos;t find any positions matching your current filters. Try adjusting your search criteria.
-//                 </p>
-//                 <button 
-//                   onClick={resetFilters} 
-//                   className="bg-[#467B23] hover:bg-[#3b681d] text-white px-8 py-3.5 text-sm font-semibold uppercase tracking-wider transition-all shadow-sm cursor-pointer inline-flex"
-//                 >
-//                   Clear All Filters
-//                 </button>
-//               </div>
-//             ) : (
-//               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6">
-//                 {filteredJobs.map((job) => (
-//                   <div 
-//                     key={job._id} 
-//                     className="bg-white p-6 rounded-3xl border border-[#01193B]/10 hover:border-[#467B23]/40 hover:shadow-xl shadow-sm flex flex-col justify-between transition-all duration-300 group hover:-translate-y-1"
-//                   >
-//                     <div className="space-y-3">
-//                       <div className="flex justify-between items-start gap-2">
-//                         <span className="bg-[#467B23]/10 text-[#467B23] px-3 py-1.5 rounded-xl text-[11px] font-semibold inline-block line-clamp-1">
-//                           {job.category}
-//                         </span>
-//                         <span className="text-[11px] font-medium text-[#01193B]/50 bg-gray-100 px-2.5 py-1.5 rounded-xl shrink-0">
-//                           {job.employmentType}
-//                         </span>
-//                       </div>
-
-//                       <h3 className="font-semibold text-lg text-[#01193B] transition-colors line-clamp-2 pt-2">
-//                         {job.title}
-//                       </h3>
-
-//                       <p className="text-sm text-[#01193B]/60 flex items-center gap-1.5">
-//                         <MapPin size={14} className="text-[#467B23] shrink-0" /> 
-//                         <span className="truncate">{job.location}</span>
-//                       </p>
-
-//                       <p className="text-sm text-[#01193B]/70 line-clamp-2 leading-relaxed font-light pt-2">
-//                         {job.description}
-//                       </p>
-//                     </div>
-                    
-//                     <div className="pt-6 mt-6 border-t border-[#01193B]/10 flex flex-col gap-4">
-//                       <div className="flex flex-col gap-1">
-//                         <span className="text-sm font-bold text-[#467B23] flex items-center gap-1">
-//                           <DollarSign size={14} /> {job.salary || 'Competitive Rate'}
-//                         </span>
-//                         <span className="text-[11px] text-[#01193B]/50">
-//                           {job.shiftDetails}
-//                         </span>
-//                       </div>
-                      
-//                       <Link 
-//                         href={`/jobs/${encodeURIComponent(job.title.toLowerCase().replace(/[()]/g, '')
-//       .replace(/[^a-z0-9]+/g, '-')
-//       .replace(/^-+|-+$/g, ''))}`} 
-//                         className="border border-[#01193B] text-[#01193B] hover:bg-[#01193B]/90 hover:text-white px-5 py-3 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-300 w-full text-center shadow-sm"
-//                       >
-//                         View Details & Apply
-//                       </Link>
-//                     </div>
-//                   </div>
-//                 ))}
-//               </div>
-//             )}
-//           </div>
-//         </div>
-//       </section>
-
-//       {/* ========================================= */}
-//       {/* MOBILE STICKY BOTTOM BUTTON (Hidden on lg) */}
-//       {/* ========================================= */}
-//       <div className="lg:hidden fixed bottom-6 left-0 right-0 px-5 flex justify-center z-40 pointer-events-none">
-//         <button 
-//           onClick={() => setIsFilterOpen(true)}
-//           className="pointer-events-auto bg-[#01193B] hover:bg-[#022454] text-white px-8 py-4  shadow-2xl flex items-center gap-3 transition-transform duration-300 hover:scale-105"
-//         >
-//           <Filter size={18} />
-//           <span className="font-semibold tracking-wider text-sm uppercase">Filters</span>
-//           {activeFilterCount > 0 && (
-//             <span className="bg-[#467B23] text-white w-6 h-6  flex items-center justify-center text-xs font-bold ml-1">
-//               {activeFilterCount}
-//             </span>
-//           )}
-//         </button>
-//       </div>
-
-//       {/* ========================================= */}
-//       {/* MOBILE BOTTOM SHEET OVERLAY & MENU (Hidden on lg) */}
-//       {/* ========================================= */}
-      
-//       {/* Backdrop Overlay */}
-//       <div 
-//         className={`lg:hidden fixed inset-0 bg-[#01193B]/40 backdrop-blur-sm z-50 transition-opacity duration-300 ${
-//           isFilterOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-//         }`}
-//         onClick={() => setIsFilterOpen(false)}
-//       />
-
-//       {/* Drawer */}
-//       <div 
-//         className={`lg:hidden fixed bottom-0 left-0 right-0 h-[80vh] bg-white z-[60] rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.15)] flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
-//           isFilterOpen ? 'translate-y-0' : 'translate-y-full'
-//         }`}
-//       >
-//         {/* Drawer Header */}
-//         <div className="flex items-center justify-between p-6 border-b border-[#01193B]/10 shrink-0">
-//           <h2 className="text-xl font-bold text-[#01193B]">Search & Filters</h2>
-//           <button 
-//             onClick={() => setIsFilterOpen(false)}
-//             className="w-8 h-8 flex items-center justify-center  bg-[#F8FAFC] hover:bg-gray-200 text-[#01193B] transition-colors"
-//           >
-//             <X size={18} />
-//           </button>
-//         </div>
-
-//         {/* Drawer Scrollable Content */}
-//         <div className="flex-1 overflow-y-auto p-6">
-//           {FilterContent ()}
-//         </div>
-
-//         {/* Drawer Footer Actions */}
-//         <div className="p-6 border-t border-[#01193B]/10 bg-white flex items-center gap-4 shrink-0 pb-10">
-//           <button 
-//             onClick={resetFilters}
-//             className="w-1/3 py-4 text-sm font-semibold uppercase tracking-wider text-[#01193B] bg-[#F8FAFC] hover:bg-gray-200 transition-colors"
-//           >
-//             Clear All
-//           </button>
-//           <button 
-//             onClick={() => setIsFilterOpen(false)}
-//             className="w-2/3 py-4 text-sm font-semibold uppercase tracking-wider text-white bg-[#467B23] hover:bg-[#3b681d] shadow-lg transition-colors flex justify-center items-center gap-2"
-//           >
-//             View {filteredJobs.length} Jobs
-//           </button>
-//         </div>
-//       </div>
-      
-//       {/* Hide Scrollbar for Desktop Sidebar */}
-//       <style dangerouslySetInnerHTML={{__html: `
-//         .hide-scrollbar::-webkit-scrollbar {
-//           display: none;
-//         }
-//         .hide-scrollbar {
-//           -ms-overflow-style: none;
-//           scrollbar-width: none;
-//         }
-//       `}} />
-//     </div>
-//   );
-// }

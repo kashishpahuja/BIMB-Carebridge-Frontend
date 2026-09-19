@@ -3,106 +3,27 @@ import React, { useState, useEffect, useRef } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { LiaTimesSolid } from "react-icons/lia";
 import Link from "next/link";
-import { toast } from "react-toastify";
 import Image from "next/image";
 import gsap from "gsap";
-
 import {
-  FaInstagram,
   FaPhoneAlt,
-  FaUserTie,
-  FaBriefcase,
   FaRegLightbulb,
   FaEnvelope,
 } from "react-icons/fa";
 import AuthModal from "./AuthModal";
-import axios from "axios";
+import { useContext } from "react";
+import { JobDataContext } from "../context/JobDataContext";
 
 function Navbar({ openPopup }) {
+  const {subcategories} = useContext(JobDataContext)
   const [menuOpen, setMenuOpen] = useState(false);
   const btnRef = useRef(null);
   const borderRef = useRef(null);
   const dropdownRef = useRef(null);
-  const [allCategory, setAllCategory] = useState([]);
-  const [allSubCategory, setAllSubCategory] = useState([]);
-  const [allJobs, setAllJobs] = useState([]);
-
-  const base_url =
-    process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1/admin";
-
   const [courseMenuOpen, setCourseMenuOpen] = useState(false);
   const [updateMenuOpen, setUpdateMenuOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authModalTab, setAuthModalTab] = useState("login");
-
-  const fetchAllCate = async () => {
-    try {
-      const response = await axios.get(`${base_url}/category/get`);
-
-      const data = response.data;
-
-      if (data.success) {
-        setAllCategory(data.allCategory || []);
-      } else {
-        setAllCategory([]);
-        toast.error(data.message);
-      }
-    } catch (error) {
-      setAllCategory([]);
-
-      toast.error(
-        error?.response?.data?.message || "Failed to fetch categories",
-      );
-    }
-  };
-
-  const fetchAllSubCate = async () => {
-    try {
-      const response = await axios.get(`${base_url}/category/sub/get`);
-
-      const data = response.data;
-
-      if (data.success) {
-        setAllSubCategory(data.subCategory || []);
-      } else {
-        setAllSubCategory([]);
-        toast.error(data.message);
-      }
-    } catch (error) {
-      setAllSubCategory([]);
-
-      toast.error(
-        error?.response?.data?.message || "Failed to fetch subcategories",
-      );
-    }
-  };
-
-  useEffect(() => {
-    fetchAllCate();
-    fetchAllSubCate();
-  }, []);
-
-  // Dynamically extract unique categories from sampleJobs.json
-const dynamicCategories = React.useMemo(() => {
-  return allCategory.map((category) => {
-    const subcategories = allSubCategory.filter((subCat) => {
-      const categoryId =
-        typeof subCat.category === "string"
-          ? subCat.category
-          : subCat.category?._id;
-
-      return categoryId === category._id;
-    });
-
-    return {
-      ...category,
-      name: category.title,
-      slug: category.slug,
-      subcategories,
-    };
-  });
-}, [allCategory, allSubCategory]);
-
 
   useEffect(() => {
     if (menuOpen) {
@@ -193,6 +114,9 @@ const dynamicCategories = React.useMemo(() => {
       });
     }
   }, [menuOpen]);
+
+
+
 
   return (
     <>
@@ -319,54 +243,31 @@ const dynamicCategories = React.useMemo(() => {
 
           <ul className="poppins text-[#01193B] hidden xl:flex space-x-8 font-medium text-base xl:text-md">
             {/* Job Categories Mega Dropdown */}
-            <li className="relative group">
-              <Link href="/jobs" className="relative inline-block group">
+            <li className="relative group ">
+              <Link href="/jobs"  className="relative inline-block group">
                 <span>Find Jobs</span>
                 <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#467B23] transition-[width] duration-300 group-hover:w-full"></span>
               </Link>
 
               {/* Mega Dropdown Menu - Dynamically Populated */}
               <div className="absolute left-0 top-full mt-2 w-[600px] bg-white/95 backdrop-blur-sm border border-[#467B23]/30 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 p-6">
-                <div className="grid grid-cols-2 gap-4">
-                 {dynamicCategories.map((category) => (
-  <div
-    key={category._id}
-    className="p-3 rounded-lg hover:bg-[#467B23]/10 transition-all duration-300"
-  >
-    {/* CATEGORY */}
-    <Link
-      href={`/jobs?category=${category.slug}`}
-      onClick={() => {
-        setMenuOpen(false);
-        setCourseMenuOpen(false);
-      }}
-      className="block text-left"
-    >
-      <span className="font-semibold block text-[#467B23]">
-        {category.title}
-      </span>
-    </Link>
+                <div className="grid grid-cols-2 gap-4 text-start">
+ {subcategories.map((subcat) => (
+  <Link href={`/jobs?subcategory=${subcat.slug}`} key={subcat._id} onClick={()=>{
+    setMenuOpen(false)
+    setCourseMenuOpen(false)
+className="p-3 rounded-lg hover:bg-[#467B23]/10 transition-all duration-300"
+  }}>
+<span className="rounded-lg capitalize font-semibold block text-[#467B23] transition-all duration-300">{subcat.title}</span>
 
-    {/* SUBCATEGORIES */}
-    {category.subcategories?.length > 0 && (
-      <div className="mt-2 ml-3 space-y-1 border-l border-[#467B23]/20 pl-3">
-        {category.subcategories.map((subCat) => (
-          <Link
-            key={subCat._id}
-            href={`/jobs?subcategory=${subCat.slug}`}
-            onClick={() => {
-              setMenuOpen(false);
-              setCourseMenuOpen(false);
-            }}
-            className="block text-left text-sm text-gray-700 hover:text-[#467B23] py-1"
-          >
-            {subCat.title}
-          </Link>
-        ))}
-      </div>
-    )}
-  </div>
-))}
+    {/* {subcat.subcategories.map((subCat) => ( key={subCat._id} */}
+      <p className="capitalize text-gray-600">
+       ({subcat.category?.title})
+      </p>
+    {/* ))} */}
+  </Link>
+))} 
+
                 </div>
 
                 <div className="mt-4 pt-4 border-t border-[#467B23]/30 text-center">
@@ -533,9 +434,9 @@ const dynamicCategories = React.useMemo(() => {
                     d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                   />
                 </svg>
-                <span className="group-hover:text-[#01193B] transition-colors">
+                <Link href={'/jobs'}  className="group-hover:text-[#01193B] transition-colors">
                   Find Jobs
-                </span>
+                </Link>
               </span>
 
               <svg
@@ -557,38 +458,22 @@ const dynamicCategories = React.useMemo(() => {
               className={`overflow-hidden transition-all duration-500 ease-in-out ${courseMenuOpen ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"}`}
             >
               <div className="mt-2 p-2 bg-gray-100/50 rounded-lg border border-gray-50/20">
-<div className="grid grid-cols-2 gap-4">
-  {dynamicCategories.map((category) => (
-    <div
-      key={category._id}
-      className="p-3 rounded-lg hover:bg-[#467B23]/10 transition-colors duration-300"
-    >
-      {/* CATEGORY */}
-      <Link
-        href={`/jobs?category=${category.slug}`}
-        className="block"
-      >
-        <h4 className="text-[#467B23] font-semibold text-sm">
-          {category.title}
-        </h4>
-      </Link>
+<div className="grid gap-4 text-start">
+ {subcategories.map((subcat) => (
+  <Link href={`/jobs?subcategory=${subcat.slug}`} key={subcat._id} onClick={()=>{
+    setMenuOpen(false)
+    setCourseMenuOpen(false)
+className="p-3 rounded-lg hover:bg-[#467B23]/10 transition-all duration-300"
+  }}>
+<span className="rounded-lg capitalize font-medium block text-[#467B23] transition-all duration-300">{subcat.title}</span>
 
-      {/* SUBCATEGORIES */}
-      {category.subcategories?.length > 0 && (
-        <div className="mt-2 space-y-1">
-          {category.subcategories.map((subCat) => (
-            <Link
-              key={subCat._id}
-              href={`/jobs?subcategory=${subCat.slug}`}
-              className="block text-gray-700 text-xs hover:text-[#467B23] transition-colors"
-            >
-              {subCat.title}
-            </Link>
-          ))}
-        </div>
-      )}
-    </div>
-  ))}
+    {/* {subcat.subcategories.map((subCat) => ( key={subCat._id} */}
+      <p className="capitalize text-gray-600">
+       ({subcat.category?.title})
+      </p>
+    {/* ))} */}
+  </Link>
+))} 
 </div>
                 <Link
                   href="/jobs"

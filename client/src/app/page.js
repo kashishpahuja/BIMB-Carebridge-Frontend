@@ -9,6 +9,7 @@ import FeaturedJobs from './components/FeaturedJobs';
 import Organization from './components/Organization';
 import HealthcareSolutionsSection from './components/Healthcare';
 import PartnershipSection from './components/Partnership';
+import axios from 'axios';
 
 export default function LandingPage() {
   const [jobs, setJobs] = useState([]);
@@ -16,24 +17,26 @@ export default function LandingPage() {
   const [keyword, setKeyword] = useState('');
   const [location, setLocation] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
-
+  const base_url = process.env.NEXT_PUBLIC_SERVER_URL;
   useEffect(() => {
     const fetchJobs = async () => {
-      try {
-        const { data } = await API.get('/jobs');
-        if (data && Array.isArray(data) && data.length > 0) {
-          setJobs(data);
-        } else {
-          setJobs(sampleData?.jobs || []);
-        }
-      } catch (err) {
-        console.warn('Backend offline. Loading local sample jobs data from sampleJobs.json.');
-        setJobs(sampleData?.jobs || []);
-      } finally {
-        setLoading(false);
+        try{
+      const response = await axios.get(`${base_url}/job/alljobs?page&limit&search&category&subcategory&JobType&WorkMode`);
+      if(response.data?.success){
+    const data = response.data.data || []
+    setJobs(data);
+    console.log("Fetched Jobs:", response.data.data);
+
+      }else{
+        setJobs([])
       }
+    }catch(err){
+      console.error('Error fetching jobs',err);
+      setJobs([])
+    }
     };
     fetchJobs();
+   
   }, []);
 
   // Safe filtering based on keyword, location, and selected category with updated schema structure
@@ -82,14 +85,10 @@ export default function LandingPage() {
 
       <HealthcareSolutionsSection />
 
-      <CategorySection 
-        jobs={dataSource}
-        selectedCategory={selectedCategory} 
-        setSelectedCategory={setSelectedCategory} 
-      />
+      <CategorySection />
 
       <FeaturedJobs 
-        jobs={dataSource}
+        jobs={jobs}
         filteredJobs={filteredJobs}
         loading={loading} 
         selectedCategory={selectedCategory}
