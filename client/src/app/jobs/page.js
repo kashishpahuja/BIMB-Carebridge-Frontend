@@ -90,49 +90,73 @@ const subcategories = useMemo(() => {
   };
 
 
-  useEffect(() => {
-    if (
-      selectedCategory === "All" ||
-      selectedSubcategory === "All"
-    ) {
-      return;
-    }
+useEffect(() => {
+  if (
+    selectedCategory === "All" ||
+    selectedSubcategory === "All"
+  ) {
+    return;
+  }
 
-    const exists = publishedJobs.some(
-      (job) =>
-        job?.category?.title === selectedCategory &&
-        job?.subcategory?.title === selectedSubcategory
-    );
+  const exists = allSubcategories.some(
+    (subcat) =>
+      subcat?.title === selectedSubcategory &&
+      subcat?.category?.title === selectedCategory
+  );
 
-    if (!exists) {
-      setSelectedSubcategory("All");
-    }
-  }, [
-    selectedCategory,
-    selectedSubcategory,
-    publishedJobs,
-  ]);
+  if (!exists) {
+    setSelectedSubcategory("All");
+  }
+}, [
+  selectedCategory,
+  selectedSubcategory,
+  allSubcategories,
+]);
 
 
   const availableSubcategories = useMemo(() => {
-    if (selectedCategory === "All") {
-      return allSubcategories;
-    }
-
-    const values = publishedJobs
-      .filter(
-        (job) =>
-          job?.category?.title === selectedCategory
-      )
-      .map((job) => job?.subcategory?.title)
+  if (selectedCategory === "All") {
+    const values = allSubcategories
+      .map((subcat) => subcat?.title)
       .filter(Boolean);
 
     return ["All", ...new Set(values)];
-  }, [
-    publishedJobs,
-    selectedCategory,
-    allSubcategories,
-  ]);
+  }
+
+  const values = publishedJobs
+    .filter(
+      (job) =>
+        job?.category?.title === selectedCategory
+    )
+    .map((job) => job?.subcategory?.title)
+    .filter(Boolean);
+
+  return ["All", ...new Set(values)];
+}, [
+  publishedJobs,
+  selectedCategory,
+  allSubcategories,
+]);
+
+  // const availableSubcategories = useMemo(() => {
+  //   if (selectedCategory === "All") {
+  //     return allSubcategories;
+  //   }
+
+  //   const values = publishedJobs
+  //     .filter(
+  //       (job) =>
+  //         job?.category?.title === selectedCategory
+  //     )
+  //     .map((job) => job?.subcategory?.title)
+  //     .filter(Boolean);
+
+  //   return ["All", ...new Set(values)];
+  // }, [
+  //   publishedJobs,
+  //   selectedCategory,
+  //   allSubcategories,
+  // ]);
 
   const filteredJobs = useMemo(() => {
     const search = searchQuery.trim().toLowerCase();
@@ -384,57 +408,32 @@ useEffect(() => {
 
       return (
         slug === urlSubcategory ||
+        title === urlSubcategory ||
         slug.startsWith(urlSubcategory) ||
         urlSubcategory.startsWith(slug) ||
-        title === urlSubcategory ||
         urlSubcategory.includes(title)
       );
     });
 
     if (matchedSubcategory) {
-      setSelectedSubcategory(matchedSubcategory.title);
-
+      // Select the CATEGORY of the clicked subcategory
       if (matchedSubcategory.category?.title) {
-        setSelectedCategory(
-          matchedSubcategory.category.title
-        );
+        setSelectedCategory(matchedSubcategory.category.title);
       }
+
+      // Important: don't restrict to the clicked subcategory
+      setSelectedSubcategory("All");
 
       return;
     }
-
-    const matchedJob = publishedJobs.find((job) => {
-      const title = normalizeValue(
-        job?.subcategory?.title
-      );
-
-      return (
-        title === urlSubcategory ||
-        urlSubcategory.includes(title)
-      );
-    });
-
-    if (matchedJob?.subcategory?.title) {
-      setSelectedSubcategory(
-        matchedJob.subcategory.title
-      );
-
-      if (matchedJob.category?.title) {
-        setSelectedCategory(
-          matchedJob.category.title
-        );
-      }
-    }
-
-    return;
   }
 
   if (categoryParam) {
     const urlCategory = normalizeValue(categoryParam);
 
-    const matchedJob = publishedJobs.find((job) => {
+    const matchedCategory = allSubcategories.find((subcat) => {
       const categoryTitle = normalizeValue(
-        job?.category?.title
+        subcat?.category?.title
       );
 
       return (
@@ -444,8 +443,8 @@ useEffect(() => {
       );
     });
 
-    if (matchedJob?.category?.title) {
-      setSelectedCategory(matchedJob.category.title);
+    if (matchedCategory?.category?.title) {
+      setSelectedCategory(matchedCategory.category.title);
       setSelectedSubcategory("All");
     }
   }
@@ -453,9 +452,7 @@ useEffect(() => {
   categoryParam,
   subcategoryParam,
   allSubcategories,
-  publishedJobs,
 ]);
-
 
   /*
    * Shared filter UI.
@@ -566,7 +563,7 @@ useEffect(() => {
                         subcategory
                       )
                     }
-                    className={`px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all border ${
+                    className={`px-4 py-2  rounded-xl text-xs font-semibold uppercase tracking-wider transition-all border ${
                       isSelected
                         ? "bg-[#467B23] text-white border-[#467B23]"
                         : "bg-white text-[#01193B]/70 border-[#01193B]/10 hover:border-[#467B23]/40"
@@ -680,7 +677,7 @@ useEffect(() => {
 
             {/* Loading */}
             {loading ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
                 {[1, 2, 3, 4, 5, 6].map(
                   (skeleton) => (
                     <div
@@ -727,7 +724,7 @@ useEffect(() => {
               </div>
             ) : (
               /* Job Grid */
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
                 {filteredJobs.map((job) => {
                   const locationText = [
                     job?.location?.city,
@@ -746,7 +743,7 @@ useEffect(() => {
 
                         {/* Category + Type */}
                         <div className="flex justify-between items-start gap-2">
-                          <span className="bg-[#467B23]/10 text-[#467B23] px-3 py-1.5 rounded-xl text-[11px] font-semibold inline-block line-clamp-1">
+                          <span className="bg-[#467B23]/10 capitalize text-[#467B23] px-3 py-1.5 rounded-xl text-[11px] font-semibold inline-block line-clamp-1">
                             {job?.category?.title || "Job"}
                           </span>
 
@@ -760,12 +757,12 @@ useEffect(() => {
                         </div>
 
                         {/* Title */}
-                        <h3 className="font-semibold text-lg text-[#01193B] transition-colors line-clamp-2 pt-2">
+                        <h3 className="font-semibold text-lg capitalize text-[#01193B] transition-colors line-clamp-2 pt-2">
                           {job?.title}
                         </h3>
 
                         {/* Company */}
-                        <p className="text-sm font-medium text-[#01193B]/60">
+                        <p className="text-sm font-medium capitalize text-[#01193B]/60">
                           {job?.companyName}
                         </p>
 
@@ -777,7 +774,7 @@ useEffect(() => {
                               className="text-[#467B23] shrink-0"
                             />
 
-                            <span className="truncate">
+                            <span className="capitalize">
                               {locationText}
                             </span>
                           </p>
@@ -786,13 +783,13 @@ useEffect(() => {
                         {/* Subcategory + Work Mode */}
                         <div className="flex flex-wrap gap-2">
                           {job?.subcategory?.title && (
-                            <span className="text-[10px] font-semibold bg-[#01193B]/5 text-[#01193B]/70 px-2.5 py-1.5 rounded-lg">
+                            <span className="text-[10px] capitalize font-semibold bg-[#01193B]/5 text-[#01193B]/70 px-2.5 py-1.5 rounded-lg">
                               {job.subcategory.title}
                             </span>
                           )}
 
                           {job?.workMode && (
-                            <span className="inline-flex items-center gap-1.5 bg-[#01193B]/5 text-[#01193B]/70 px-2.5 py-1.5 rounded-lg text-[10px] font-semibold">
+                            <span className="inline-flex capitalize items-center gap-1.5 bg-[#01193B]/5 text-[#01193B]/70 px-2.5 py-1.5 rounded-lg text-[10px] font-semibold">
                               <FiClock size={11} />
                               {formatWorkMode(
                                 job.workMode
@@ -821,9 +818,6 @@ useEffect(() => {
                             )}
                           </span>
 
-                          <span className="text-[11px] text-[#01193B]/50">
-                            {job?.companyName}
-                          </span>
                         </div>
 
                         <Link
