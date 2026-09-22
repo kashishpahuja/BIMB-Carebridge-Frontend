@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import API from './services/api';
+
 import sampleData from './data/sampleJobs.json';
 
 import HeroBanner from './components/HeroBanner';
@@ -10,6 +10,7 @@ import Organization from './components/Organization';
 import HealthcareSolutionsSection from './components/Healthcare';
 import PartnershipSection from './components/Partnership';
 import axios from 'axios';
+import JobDataProvider from './context/JobDataContext';
 
 export default function LandingPage() {
   const [jobs, setJobs] = useState([]);
@@ -75,7 +76,7 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen text-gray-900 flex flex-col font-sans">
-
+   <JobDataProvider>
       <HeroBanner 
         keyword={keyword} 
         setKeyword={setKeyword} 
@@ -98,7 +99,7 @@ export default function LandingPage() {
       
       <PartnershipSection />
       <Organization />
-
+</JobDataProvider>
     </div>
   );
 }

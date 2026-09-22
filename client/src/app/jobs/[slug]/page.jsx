@@ -31,10 +31,12 @@ export default function JobDetailPage() {
   const params = useParams();
   const rawSlug = params?.slug;
 
-  const {
-    jobs,
-    getJobBySlug,
-  } = useContext(JobDataContext);
+const {
+  jobs,
+  getJobBySlug,
+  user,
+  isAuthenticated,
+} = useContext(JobDataContext);
 
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [job, setJob] = useState(null);
@@ -70,6 +72,12 @@ export default function JobDetailPage() {
   const handleApply = (e) => {
     e.preventDefault();
     setIsAuthModalOpen(true);
+    if(!isAuthenticated){
+      setIsAuthModalOpen(true);
+      return;
+    }
+
+    // handleJobApplication()
   };
 
   /*
@@ -971,13 +979,13 @@ const companyLogo = useMemo(() => {
             : "Apply For This Job"}
         </button>
       </div>
-
+                                                                                                                                                                           
       <AuthModal
         isOpen={isAuthModalOpen}
         onClose={() =>
           setIsAuthModalOpen(false)
         }
-        initialTab="signup"
+        initialTab="login"
       />
     </div>
   );

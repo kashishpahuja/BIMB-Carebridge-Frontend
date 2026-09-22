@@ -256,13 +256,13 @@ const filteredJobs = jobs.filter((job) => {
         className="relative z-20 mt-12 lg:mt-4 max-w-7xl mx-auto"
       >
         <form
-          onSubmit={handleSearch}
+          onSubmit={handleSearch} 
           className="bg-white rounded-3xl shadow-2xl px-4 sm:px-5 py-8 border border-gray-300 grid grid-cols-1 lg:grid-cols-12 gap-4 items-center"
         >
           {/* Keyword */}
           <div
             ref={searchWrapperRef}
-            className="md:col-span-4 relative"
+            className="md:col-span-5 relative"
           >
             <div className="flex items-center gap-3 px-3 py-3 bg-gray-50/80 rounded-2xl border border-gray-300/70 focus-within:border-[#467B23]">
               <FiSearch className="text-gray-700 w-5 h-5 shrink-0" />
@@ -326,7 +326,7 @@ const filteredJobs = jobs.filter((job) => {
           </div>
 
           {/* Category */}
-          <div className="md:col-span-3 flex items-center gap-3 px-3 py-3 bg-gray-50/80 rounded-2xl border border-gray-300/70 focus-within:border-[#467B23]">
+          <div className="md:col-span-4 flex items-center gap-3 px-3 py-3 bg-gray-50/80 rounded-2xl border border-gray-300/70 focus-within:border-[#467B23]">
             <FiGrid className="text-gray-700 w-5 h-5 shrink-0" />
 
             <select
@@ -358,7 +358,7 @@ const filteredJobs = jobs.filter((job) => {
 
 
           {/* Search button */}
-          <div className="md:col-span-2">
+          <div className="md:col-span-3">
             <button
               type="submit"
               className="w-full bg-[#467B23] hover:bg-[#071610] text-white text-sm font-medium py-3.5 px-6 rounded-2xl transition-colors duration-300 shadow-sm cursor-pointer flex items-center justify-center"
