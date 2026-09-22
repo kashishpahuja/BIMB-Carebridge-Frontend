@@ -309,10 +309,7 @@ const updateUser = useCallback(
 
       return response.data;
     } catch (error) {
-      console.error(
-        "Update user error:",
-        error.response?.data || error
-      );
+      console.error("Update user error:", error);
 
       throw (
         error.response?.data || {
@@ -322,7 +319,7 @@ const updateUser = useCallback(
       );
     }
   },
-  [base_url, getCurrentUser]
+  [getCurrentUser]
 );
 
 

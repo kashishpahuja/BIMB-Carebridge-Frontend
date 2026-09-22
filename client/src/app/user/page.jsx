@@ -274,60 +274,50 @@ const handleSave = async () => {
           {/* Personal Details */}
           <section className="lg:col-span-2 bg-white rounded-2xl border border-gray-100 shadow-sm p-6 md:p-8">
 
-            <div className="flex items-center justify-between border-b border-gray-100 pb-4 mb-6">
-              <div>
-                <h2 className="text-xl font-semibold text-[#0b2345]">
-                  Personal Information
-                </h2>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 pb-4 mb-6">
+  <div>
+    <h2 className="text-xl font-semibold text-[#0b2345]">
+      Personal Information
+    </h2>
 
-                <p className="text-sm text-gray-500 mt-1">
-                  Your personal and contact details
-                </p>
-              </div>
+    <p className="text-sm text-gray-500 mt-1">
+      Your personal and contact details
+    </p>
+  </div>
 
-      {/* Profile Image */}
-<div className="md:col-span-2">
-  <FieldLabel
-    icon={<FaUser />}
-    label="Profile Image"
-  />
+  {isEditing && (
+    <div className="flex items-center gap-2">
+      <button
+        type="button"
+        onClick={handleCancel}
+        disabled={saving}
+        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-gray-200 text-gray-700 font-medium hover:bg-gray-50 transition disabled:opacity-50"
+      >
+        <FaTimes />
+        Cancel
+      </button>
 
-  {isEditing ? (
-    <div className="mt-2">
-      <input
-        type="file"
-        name="image"
-        accept="image/*"
-        onChange={handleFileChange}
-        className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white text-sm"
-      />
-
-      {formData.image && (
-        <p className="text-sm text-[#467B23] mt-2">
-          Selected: {formData.image.name}
-        </p>
-      )}
-
-      <p className="text-xs text-gray-500 mt-1">
-        Upload a JPG, PNG or other image file.
-      </p>
-    </div>
-  ) : user.image ? (
-    <div className="mt-2">
-      <img
-        src={user.image}
-        alt={user.fullname}
-        className="w-20 h-20 rounded-full object-cover border"
-      />
-    </div>
-  ) : (
-    <div className="mt-2 px-4 py-3 rounded-lg bg-gray-50 text-gray-500">
-      No profile image added
+      <button
+        type="button"
+        onClick={handleSave}
+        disabled={saving}
+        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#467B23] text-white font-medium hover:bg-[#37651c] transition disabled:opacity-60"
+      >
+        {saving ? (
+          <>
+            <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+            Saving...
+          </>
+        ) : (
+          <>
+            <FaSave />
+            Save Changes
+          </>
+        )}
+      </button>
     </div>
   )}
 </div>
-
-            </div>
 
             <div className="grid md:grid-cols-2 gap-5">
 
@@ -422,24 +412,7 @@ const handleSave = async () => {
                 )}
               </div>
 
-              {/* Image URL */}
-              {isEditing && (
-                <div className="md:col-span-2">
-                  <FieldLabel
-                    icon={<FaUser />}
-                    label="Profile Image URL"
-                  />
 
-                  <input
-                    type="text"
-                    name="image"
-                    value={formData.image}
-                    onChange={handleChange}
-                    placeholder="Enter profile image URL"
-                    className="w-full mt-2 px-4 py-3 rounded-lg border border-gray-200 outline-none focus:border-[#467B23]"
-                  />
-                </div>
-              )}
 
               
            {/* Resume */}
