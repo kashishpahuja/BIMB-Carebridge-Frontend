@@ -36,12 +36,30 @@ const {
   getJobBySlug,
   user,
   isAuthenticated,
+  authLoading,
+  applyJob,
 } = useContext(JobDataContext);
 
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isApplied, setIsApplied] = useState(false);
+  const [isApplying, setIsApplying] = useState(false);
+  const [error, setError] = useState("");
+
+useEffect(() => {
+  if (!job || !user?.jobappled) {
+    setIsApplied(false);
+    return;
+  }
+
+  const alreadyApplied = user.jobappled.some(
+    (jobId) =>
+      String(jobId?._id || jobId) === String(job._id)
+  );
+
+  setIsApplied(alreadyApplied);
+}, [job, user]);
 
   /*
    * Fetch complete job details using slug.
@@ -69,16 +87,45 @@ const {
     };
   }, [rawSlug, getJobBySlug]);
 
-  const handleApply = (e) => {
-    e.preventDefault();
-    setIsAuthModalOpen(true);
-    if(!isAuthenticated){
-      setIsAuthModalOpen(true);
-      return;
-    }
 
-    // handleJobApplication()
-  };
+
+
+const handleApply = async (e) => {
+  e.preventDefault();
+
+  if (authLoading || isApplying || isApplied) {
+    return;
+  }
+
+  // User is not logged in
+  if (!isAuthenticated) {
+    setIsAuthModalOpen(true);
+    return;
+  }
+
+  try {
+    setIsApplying(true);
+    setError("");
+
+    const response = await applyJob(job?._id);
+
+    if (response?.success) {
+      setIsApplied(true);
+    } else {
+      setError(
+        response?.message || "Unable to apply for this job."
+      );
+    }
+  } catch (error) {
+    setError(
+      error?.message ||
+        error?.error ||
+        "Unable to apply for this job."
+    );
+  } finally {
+    setIsApplying(false);
+  }
+};
 
   /*
    * Latest jobs:
@@ -419,20 +466,28 @@ const companyLogo = useMemo(() => {
 
           {/* Desktop Action Buttons */}
           <div className="hidden lg:flex flex-col gap-3 shrink-0 w-60">
-
-            <button
-              onClick={handleApply}
-              disabled={isApplied}
-              className={`px-6 py-4 text-xs font-semibold uppercase tracking-wider transition-all duration-300 shadow-sm text-center rounded-xl ${
-                isApplied
-                  ? "bg-[#467B23] text-white cursor-default"
-                  : "bg-[#01193B] hover:bg-[#01193B]/90 text-white"
-              }`}
-            >
-              {isApplied
-                ? "Application Submitted"
-                : "Apply For This Job"}
-            </button>
+{error && (
+  <p className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-xl px-4 py-3">
+    {error}
+  </p>
+)}
+<button
+  onClick={handleApply}
+  disabled={isApplied || isApplying || authLoading}
+  className={`px-6 py-4 text-xs font-semibold uppercase tracking-wider transition-all duration-300 shadow-sm text-center rounded-xl ${
+    isApplied
+      ? "bg-[#467B23] text-white cursor-default"
+      : "bg-[#01193B] hover:bg-[#01193B]/90 text-white"
+  }`}
+>
+  {authLoading
+    ? "Checking Login..."
+    : isApplying
+    ? "Applying..."
+    : isApplied
+    ? "Application Submitted"
+    : "Apply For This Job"}
+</button>
 
             <button
               onClick={() => {

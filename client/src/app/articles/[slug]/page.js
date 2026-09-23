@@ -13,19 +13,12 @@ import {
   Bookmark,
   ChevronRight,
 } from "lucide-react";
-import articleData from "@/app/data/sampleArticles.json"; // Adjust path if necessary
+import { useContext } from "react";
+import { JobDataContext } from "@/app/context/JobDataContext";
 import AuthModal from "@/app/components/AuthModal";
 import Image from "next/image";
 
-// Helper function to turn any title into a clean URL slug consistently
-const createSlug = (text) => {
-  if (!text) return "";
-  return text
-    .toLowerCase()
-    .replace(/[()]/g, "") // Remove parentheses completely
-    .replace(/[^a-z0-9]+/g, "-") // Replace spaces/special chars with hyphens
-    .replace(/^-+|-+$/g, ""); // Trim extra hyphens
-};
+
 
 export default function ArticleSlugPage() {
   const params = useParams();
@@ -36,27 +29,28 @@ export default function ArticleSlugPage() {
   const [loading, setLoading] = useState(true);
   const [isBookmarked, setIsBookmarked] = useState(false);
 
-  useEffect(() => {
-    if (!rawSlug) return;
+const { getArticleBySlug, articles, contentLoading } =
+  useContext(JobDataContext);
 
-    // Combine both articles and news arrays to search across both content types
-    const allEntries = [
-      ...(articleData.articles || []),
-      ...(articleData.news || []),
-    ];
+useEffect(() => {
+  if (!rawSlug) return;
 
-    // Find matching entry by comparing generated slugs against the URL slug
-    const foundItem = allEntries.find(
-      (entry) => entry.slug === rawSlug
-    );
+  const fetchArticle = async () => {
+    setLoading(true);
 
-    const timer = setTimeout(() => {
-      setItem(foundItem || null);
+    try {
+      const article = await getArticleBySlug(rawSlug);
+      setItem(article);
+    } catch (error) {
+      console.error("Error fetching article:", error);
+      setItem(null);
+    } finally {
       setLoading(false);
-    }, 300);
+    }
+  };
 
-    return () => clearTimeout(timer);
-  }, [rawSlug]);
+  fetchArticle();
+}, [rawSlug, getArticleBySlug]);
 
   const handleBookmark = (e) => {
     e.preventDefault();
@@ -64,19 +58,17 @@ export default function ArticleSlugPage() {
   };
 
   // Extract other related articles/news from the same category for the sidebar widget
-  const relatedItems = useMemo(() => {
-    if (!item) return [];
-    const allEntries = [
-      ...(articleData.articles || []),
-      ...(articleData.news || []),
-    ];
-    return allEntries
-      .filter(
-        (entry) =>
-          entry._id !== item._id && entry.category === item.category
-      )
-      .slice(0, 5);
-  }, [item]);
+const relatedItems = useMemo(() => {
+  if (!item || !Array.isArray(articles)) return [];
+
+  return articles
+    .filter(
+      (article) =>
+        article._id !== item._id &&
+        article.category === item.category
+    )
+    .slice(0, 5);
+}, [item, articles]);
 
   if (loading) {
     return (
@@ -151,10 +143,10 @@ export default function ArticleSlugPage() {
                 <Calendar size={15} className="text-[#467B23] shrink-0" />{" "}
                 {item.date || "Recent"}
               </span>
-              <span className="flex items-center gap-1.5 font-bold text-[#467B23]">
-                <Clock size={15} className="shrink-0" />{" "}
-                {item.readTime || "3 min read"}
-              </span>
+       <span className="flex items-center gap-1.5 font-bold text-[#467B23]">
+  <Clock size={15} className="shrink-0" />
+  3 min read
+</span>
             </div>
           </div>
 
@@ -279,7 +271,11 @@ export default function ArticleSlugPage() {
                     <Calendar size={16} className="text-[#467B23]" /> Date
                   </span>
                   <span className="font-semibold text-[#01193B] text-right">
-                    {item.date || "Recent"}
+                    {item.createdAt
+  ? new Date(item.createdAt).toLocaleDateString()
+  : "Recent"}
+                    
+                    {/* {item.date || "Recent"} */}
                   </span>
                 </div>
 

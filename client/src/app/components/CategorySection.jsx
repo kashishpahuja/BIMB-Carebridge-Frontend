@@ -185,7 +185,7 @@ export default function CategorySection({
                       {cat.count}
                     </span>
 
-                    <span
+                    {/* <span
                       className={`text-[10px] font-semibold px-3.5 py-1 rounded-2xl uppercase tracking-wider transition-colors ${
                         isSelected || isActive
                           ? "bg-[#467B23] text-white font-bold shadow-md"
@@ -197,7 +197,7 @@ export default function CategorySection({
                         : isActive
                         ? "Active"
                         : "Select"}
-                    </span>
+                    </span> */}
                   </div>
 
                   {/* Title */}

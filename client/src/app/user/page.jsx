@@ -189,6 +189,10 @@ const handleSave = async () => {
     });
   };
 
+    const resumeUrl = user.resume
+      ? `${process.env.NEXT_PUBLIC_LOCAL_URL}${user.resume}`
+      : null;
+
   return (
     <main className="min-h-screen bg-[#fafcf9] py-10 md:py-14 px-4 sm:px-6 lg:px-10">
       <div className="max-w-6xl mx-auto">
@@ -416,48 +420,49 @@ const handleSave = async () => {
 
               
            {/* Resume */}
-<div className="md:col-span-2">
-  <FieldLabel
-    icon={<FaFileAlt />}
-    label="Resume"
-  />
+  <div className="md:col-span-2">
+    <FieldLabel
+      icon={<FaFileAlt />}
+      label="Resume"
+    />
 
-  {isEditing ? (
-    <div className="mt-2">
-      <input
-        type="file"
-        name="resume"
-        accept=".pdf,application/pdf"
-        onChange={handleFileChange}
-        className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white text-sm"
-      />
+{isEditing ? (
+  <div className="mt-2">
+    <input
+      type="file"
+      name="resume"
+      accept=".pdf,application/pdf"
+      onChange={handleFileChange}
+      className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white text-sm"
+    />
 
-      {formData.resume && (
-        <div className="mt-2 text-sm text-[#467B23]">
-          Selected: {formData.resume.name}
-        </div>
-      )}
+    {formData.resume && (
+      <div className="mt-2 text-sm text-[#467B23]">
+        Selected: {formData.resume.name}
+      </div>
+    )}
 
-      <p className="text-xs text-gray-500 mt-1">
-        Upload your resume in PDF format only.
-      </p>
-    </div>
-  ) : user.resume ? (
-    <a
-      href={user.resume}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="mt-2 inline-flex items-center gap-2 bg-[#467B23] text-white px-4 py-2.5 rounded-lg font-medium hover:bg-[#37651c] transition"
-    >
-      <FaFileAlt />
-      View Resume
-    </a>
-  ) : (
-    <div className="mt-2 px-4 py-3 rounded-lg bg-gray-50 text-gray-500">
-      No resume uploaded
-    </div>
-  )}
-</div>
+    <p className="text-xs text-gray-500 mt-1">
+      Upload your resume in PDF format only.
+    </p>
+  </div>
+) : resumeUrl ? (
+  <a
+    href={resumeUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="mt-2 inline-flex items-center gap-2 bg-[#467B23] text-white px-4 py-2.5 rounded-lg font-medium hover:bg-[#37651c] transition"
+  >
+    <FaFileAlt />
+    View Resume
+  </a>
+) : (
+  <div className="mt-2 px-4 py-3 rounded-lg bg-gray-50 text-gray-500">
+    No resume uploaded
+  </div>
+)}
+      
+  </div>
             </div>
           </section>
 
