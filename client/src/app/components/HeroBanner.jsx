@@ -205,7 +205,7 @@ const filteredJobs = jobs.filter((job) => {
   return (
     <section
       ref={containerRef}
-      className="w-full relative bg-cover bg-top bg-no-repeat px-5 md:px-12 lg:px-24 xl:px-40 pt-16 pb-28 font-['Poppins'] overflow-hidden"
+      className="w-full relative bg-cover bg-top bg-no-repeat px-5 md:px-12 lg:px-24 xl:px-40 pt-16 pb-28 font-['Poppins'] "
       style={{
         backgroundImage:
           "url('/Images/banner1.webp')",
@@ -283,7 +283,7 @@ const filteredJobs = jobs.filter((job) => {
 
             {/* Job Suggestions */}
             {showJobDropdown && keyword.trim() && (
-              <div className="absolute left-0 right-0 top-full mt-2 bg-white rounded-2xl border border-gray-200 shadow-2xl overflow-hidden z-50">
+              <div className="absolute left-0 right-0 top-full mt-2 bg-white rounded-2xl border border-gray-200 shadow-2xl z-50">
                 {suggestedJobs.length > 0 ? (
                   <div className="max-h-[320px] overflow-y-auto">
                     {suggestedJobs.map((job) => (

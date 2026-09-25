@@ -20,9 +20,11 @@ import {
 } from "react-icons/fa";
 
 import { JobDataContext } from "../context/JobDataContext";
+import { ArrowRight } from "lucide-react";
 
 export default function UserPage() {
   const {
+    jobs,
     user,
     authLoading,
     isAuthenticated,
@@ -517,16 +519,52 @@ const handleSave = async () => {
                   Applied Jobs
                 </h3>
 
-                <div className="space-y-2">
-                  {user.jobappled.map((jobId, index) => (
-                    <div
-                      key={jobId?._id || jobId || index}
-                      className="text-xs bg-gray-50 rounded-lg px-3 py-2 text-gray-600 break-all"
-                    >
-                      {jobId?._id || jobId}
-                    </div>
-                  ))}
-                </div>
+<div className="space-y-2">
+  {user?.jobappled?.map((jobId, index) => {
+    const appliedJobId = jobId?._id || jobId;
+
+    const job = jobs?.find(
+      (job) => job?._id === appliedJobId
+    );
+
+    // If the applied job no longer exists
+    if (!job) {
+      return (
+        <div
+          key={appliedJobId || index}
+          className="text-xs bg-gray-50 rounded-lg px-3 py-2 text-gray-400"
+        >
+          Job no longer available
+        </div>
+      );
+    }
+
+    return (
+      <Link
+        key={job._id || index}
+        href={`/jobs/${job.slug || job._id}`}
+        className="block bg-gray-50 hover:bg-[#467B23]/10 border border-transparent hover:border-[#467B23]/30 rounded-lg px-3 py-2 transition-all group"
+      >
+        <div className="flex items-center justify-between gap-3">
+          <div className="min-w-0">
+            <p className="text-sm font-semibold text-[#01193B] group-hover:text-[#467B23] transition-colors truncate">
+              {job.title}
+            </p>
+
+            <p className="text-xs text-gray-500 mt-0.5 truncate">
+              {job.companyName}
+            </p>
+          </div>
+
+          <ArrowRight
+            size={14}
+            className="text-[#467B23] shrink-0 group-hover:translate-x-1 transition-transform"
+          />
+        </div>
+      </Link>
+    );
+  })}
+</div>
               </div>
             )}
           </section>

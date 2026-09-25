@@ -480,11 +480,7 @@ const getArticleBySlug = useCallback(async (slug) => {
     );
 
     if (response.data?.success) {
-      return (
-        response.data?.article ||
-        response.data?.data ||
-        null
-      );
+      return response.data?.data || null;
     }
 
     return null;
@@ -497,6 +493,34 @@ const getArticleBySlug = useCallback(async (slug) => {
     return null;
   }
 }, []);
+
+
+// const getArticleBySlug = useCallback(async (slug) => {
+//   if (!slug) return null;
+
+//   try {
+//     const response = await axios.get(
+//       `${base_url}/articles/get/${encodeURIComponent(slug)}`
+//     );
+
+//     if (response.data?.success) {
+//       return (
+//         response.data?.article ||
+//         response.data?.data ||
+//         null
+//       );
+//     }
+
+//     return null;
+//   } catch (error) {
+//     console.error(
+//       "Error fetching single article:",
+//       error.response?.data || error
+//     );
+
+//     return null;
+//   }
+// }, []);
 
 
 // =========================
