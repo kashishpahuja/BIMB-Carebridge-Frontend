@@ -564,21 +564,7 @@ export default function ArticleSlugPage() {
         </div>
       </section>
 
-      {/* --------------------------------
-          Mobile Actions
-      -------------------------------- */}
 
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 w-full max-w-full bg-white/95 backdrop-blur-md border-t border-[#01193B]/10 p-3 sm:p-4 px-4 sm:px-5 z-50 flex items-center gap-2 sm:gap-3 shadow-[0_-10px_25px_rgba(0,0,0,0.08)]">
-        <button
-          onClick={handleShare}
-          className="p-3 sm:p-3.5 bg-[#F8FAFC] border border-[#01193B]/10 text-[#01193B] rounded-xl flex items-center justify-center shrink-0 active:scale-95 transition-transform"
-          aria-label="Share"
-        >
-          <Share2 size={17} />
-        </button>
-
-      
-      </div>
 
       {/* Auth Modal */}
       <AuthModal

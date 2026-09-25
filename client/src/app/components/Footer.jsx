@@ -78,13 +78,21 @@ export default function Footer() {
               </li>
 
               <li>
-                <Link
+                <a
+  href={process.env.NEXT_PUBLIC_ADMIN_URL || "http://localhost:3001"}
+  className="text-gray-300 hover:text-white transition-colors flex items-center gap-1.5 group"
+>
+  <span className="w-1.5 h-1.5 rounded-full bg-[#467B23] group-hover:scale-125 transition-transform" />
+  For Employers
+</a>
+
+                {/* <Link
                   href="/employers"
                   className="text-gray-300 hover:text-white transition-colors flex items-center gap-1.5 group"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-[#467B23] group-hover:scale-125 transition-transform" />
                   For Employers
-                </Link>
+                </Link> */}
               </li>
 
               <li>

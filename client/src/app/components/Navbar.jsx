@@ -278,10 +278,18 @@ className="p-3 rounded-lg hover:bg-[#467B23]/10 transition-all duration-300"
             </li>
 
             <li>
-              <Link href="/employers" className="relative inline-block group">
+           <a
+  href={process.env.NEXT_PUBLIC_ADMIN_URL || "http://localhost:3001"}
+  className="relative inline-block group"
+>
+  <span>For Employers</span>
+
+  <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#467B23] transition-[width] duration-300 group-hover:w-full"></span>
+</a>
+   {/* <Link href="/employers" className="relative inline-block group">
                 <span>For Employers</span>
                 <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#467B23] transition-[width] duration-300 group-hover:w-full"></span>
-              </Link>
+              </Link> */}
             </li>
 
             <li>

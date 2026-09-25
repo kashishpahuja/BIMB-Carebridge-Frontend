@@ -239,13 +239,13 @@ const filteredJobs = jobs.filter((job) => {
               <FiArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Link>
 
-            <Link
-              href="/admin"
+            <a
+               href={process.env.NEXT_PUBLIC_ADMIN_URL || "http://localhost:3001"}
               className="bg-white hover:bg-gray-50 text-[#1A2E26] border border-[#1A2E26]/20 px-7 py-3.5 rounded-xl font-medium transition-all duration-300 flex items-center gap-2 group cursor-pointer shadow-sm"
             >
               Post a Job
               <FiArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </Link>
+            </a>
           </div>
         </div>
       </div>
