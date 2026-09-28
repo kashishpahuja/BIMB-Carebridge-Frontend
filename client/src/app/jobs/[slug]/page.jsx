@@ -14,7 +14,6 @@ import {
   Briefcase,
   ArrowLeft,
   Calendar,
-  Clock,
   CheckCircle2,
   Share2,
   Building2,
@@ -48,18 +47,26 @@ const {
   const [error, setError] = useState("");
 
 useEffect(() => {
-  if (!job || !user?.jobappled) {
+  if (!job) {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsApplied(false);
     return;
   }
 
-  const alreadyApplied = user.jobappled.some(
+  const appliedJobs = user?.jobappled;
+
+  if (!Array.isArray(appliedJobs)) {
+    setIsApplied(false);
+    return;
+  }
+
+  const alreadyApplied = appliedJobs.some(
     (jobId) =>
       String(jobId?._id || jobId) === String(job._id)
   );
 
   setIsApplied(alreadyApplied);
-}, [job, user]);
+},[job,user]);
 
   /*
    * Fetch complete job details using slug.
@@ -345,7 +352,11 @@ const companyLogo = useMemo(() => {
     return job.companyLogo;
   }
 
-  return `${process.env.NEXT_PUBLIC_LOCAL_URL}/${job.companyLogo.replace(/^\/+/, "")}`;
+  const serverOrigin =
+    process.env.NEXT_PUBLIC_SERVER_ORIGIN ||
+    "http://localhost:8000";
+
+  return `${serverOrigin}/${job.companyLogo.replace(/^\/+/, "")}`;
 }, [job]);
 
   /*
@@ -786,7 +797,9 @@ const companyLogo = useMemo(() => {
     </span>
 
     <span className="font-medium text-[#01193B] text-right capitalize">
-      {job.jobType.toLowerCase().replace('_',' ')  || "Not specified"}
+{job.jobType
+  ? job.jobType.toLowerCase().replace("_", " ")
+  : "Not specified"}
     </span>
   </div>
 
@@ -801,7 +814,9 @@ const companyLogo = useMemo(() => {
     </span>
 
     <span className="font-medium text-[#01193B] text-right capitalize">
-      {job.workMode.toLowerCase() || "Not specified"}
+      {job.workMode
+  ? job.workMode.toLowerCase()
+  : "Not specified"}
     </span>
   </div>
 
@@ -812,7 +827,9 @@ const companyLogo = useMemo(() => {
     </span>
 
     <span className="font-medium text-[#01193B] text-right capitalize">
-      {job.category?.title.toLowerCase() || "Not specified"}
+      {job.category?.title
+  ? job.category.title.toLowerCase()
+  : "Not specified"}
     </span>
   </div>
 
@@ -849,7 +866,9 @@ const companyLogo = useMemo(() => {
     </span>
 
     <span className="capitalize font-medium  text-[#01193B] text-right max-w-[160px]">
-      {locationText.toLowerCase()}
+    {locationText
+  ? locationText.toLowerCase()
+  : "Not specified"}
     </span>
   </div>
 
@@ -864,7 +883,9 @@ const companyLogo = useMemo(() => {
     </span>
 
     <span className="capitalize font-medium text-[#01193B] text-right max-w-[160px]">
-      {fullAddress.toLowerCase()}
+   {fullAddress
+  ? fullAddress.toLowerCase()
+  : "Not specified"}
     </span>
   </div>
 

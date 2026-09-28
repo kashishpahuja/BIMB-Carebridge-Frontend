@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 
 
-export default function ClienteleSection() {
+export default function Organization() {
   const clients = [
     { name: "The Mad House", logo: "/Images/bimb.webp" },
     { name: "Born16", logo: "/Images/bimb.webp" },
@@ -34,7 +34,7 @@ export default function ClienteleSection() {
         </div>
 
         
-        <div className="relative mt-6 lg:mt-12">
+        <div className="relative mt-6 lg:mt-12 marquee-wrapper">
           
           <div className="absolute left-0 top-0 bottom-0 w-20 z-10 bg-linear-to-r from-gray-50 to-transparent"></div>
           <div className="absolute right-0 top-0 bottom-0 w-20 z-10 bg-linear-to-l from-gray-50 to-transparent"></div>
@@ -42,10 +42,8 @@ export default function ClienteleSection() {
           
           <div className="flex overflow-hidden">
             <div 
-              className="flex whitespace-nowrap gap-6"
-              style={{
-                animation: 'marquee 30s linear infinite'
-              }}
+              className="marquee-track flex whitespace-nowrap gap-6"
+            
             >
               {allClients.map((client, index) => (
                 <div
@@ -88,19 +86,18 @@ export default function ClienteleSection() {
     >
 
       {/* Background Video */}
-      <video
-        autoPlay
+      <video  autoPlay
         muted
         loop
         playsInline
         preload="metadata"
-        className="
+        className={`
           absolute
           inset-0
           w-full
           h-full
           object-cover
-        "
+        `}
       >
         <source src="/Images/contact.mp4" type="video/mp4" />
       </video>
@@ -119,7 +116,7 @@ export default function ClienteleSection() {
 
       {/* Content */}
       <div
-        className="
+        className={`
           relative
           z-10
        px-5 md:px-12 lg:px-24 xl:px-40
@@ -127,19 +124,19 @@ export default function ClienteleSection() {
           sm:py-24
           lg:py-28
           max-w-3xl
-          min-h-[500px]
-          sm:min-h-[550px]
-          lg:min-h-[600px]
+          min-h-125
+          sm:min-h-137.5
+          lg:min-h-150
           flex
           flex-col
           items-start
           justify-center
           space-y-6
-        "
+         `}
       >
 
         <span
-          className="
+          className={`
             inline-flex
             items-center
             gap-2
@@ -154,13 +151,13 @@ export default function ClienteleSection() {
             uppercase
             border
             border-[#467B23]/40
-          "
+           `}
         >
           Join Our Network
         </span>
 
         <h2
-          className="
+          className= {`
             text-4xl
             sm:text-5xl
             xl:text-6xl
@@ -168,7 +165,7 @@ export default function ClienteleSection() {
             tracking-tight
             text-white
             leading-[1.1]
-          "
+           `}
         >
           Let&apos;s grow your <br />
           <span className="text-[#A8E063]">
@@ -177,14 +174,14 @@ export default function ClienteleSection() {
         </h2>
 
         <p
-          className="
+          className={`
             text-gray-200
             text-base
             sm:text-lg
             font-light
             leading-relaxed
             max-w-xl
-          "
+          `}
         >
           Connect with top healthcare and hospitality opportunities
           across Ontario. Experience dependable placements tailored
@@ -251,20 +248,7 @@ export default function ClienteleSection() {
 </section>
 
     
-      <style jsx>{`
-        @keyframes marquee {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-        
-        div:hover > div > div[style*="animation"] {
-          animation-play-state: paused;
-        }
-      `}</style>
+  
     </section>
   );
 }

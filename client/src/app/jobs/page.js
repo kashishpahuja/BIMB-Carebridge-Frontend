@@ -1,7 +1,13 @@
 "use client";
 
-import { useContext, useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import {
+  Suspense,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import {
   FiMapPin,
@@ -14,11 +20,12 @@ import {
 } from "react-icons/fi";
 import { JobDataContext } from "../context/JobDataContext";
 
-export default function JobsPage() {
-  const searchParams = useSearchParams();
+function JobsPageContent() {
+const router = useRouter();
+const searchParams = useSearchParams();
 
-  const categoryParam = searchParams.get("category");
-  const subcategoryParam = searchParams.get("subcategory");
+const categoryParam = searchParams.get("category");
+const subcategoryParam = searchParams.get("subcategory");
 
   const { jobs, subcategories: allSubcategories } = useContext(JobDataContext);
 
@@ -89,6 +96,30 @@ const subcategories = useMemo(() => {
       .replace(/^-+|-+$/g, "");
   };
 
+const updateFilterUrl = ({
+  category,
+  subcategory,
+  jobType,
+}) => {
+  const params = new URLSearchParams();
+
+  if (subcategory && subcategory !== "All") {
+    params.set("subcategory", subcategory);
+  } else if (category && category !== "All") {
+    params.set("category", category);
+  }
+
+  if (jobType && jobType !== "All") {
+    params.set("jobType", jobType.toLowerCase());
+  }
+
+  const queryString = params.toString();
+
+  router.replace(
+    queryString ? `/jobs?${queryString}` : "/jobs",
+    { scroll: false }
+  );
+};
 
 useEffect(() => {
   if (
@@ -229,34 +260,85 @@ useEffect(() => {
   /*
    * Reset filters.
    */
-  const resetFilters = () => {
-    setSearchQuery("");
-    setLocationQuery("");
-    setSelectedCategory("All");
-    setSelectedSubcategory("All");
-    setSelectedType("All");
-  };
+const resetFilters = () => {
+  setSearchQuery("");
+  setLocationQuery("");
+  setSelectedCategory("All");
+  setSelectedSubcategory("All");
+  setSelectedType("All");
+
+  router.replace("/jobs", { scroll: false });
+};
 
 
-  const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
-    setSelectedSubcategory("All");
-  };
+const handleCategoryClick = (category) => {
+  setSelectedCategory(category);
+  setSelectedSubcategory("All");
+
+  if (category === "All") {
+    updateFilterUrl({
+      category: "All",
+      subcategory: "All",
+      jobType: selectedType,
+    });
+    return;
+  }
+
+  const matchedSubcategory = allSubcategories.find(
+    (subcat) =>
+      subcat?.category?.title === category
+  );
+
+  updateFilterUrl({
+    category:
+      matchedSubcategory?.category?.slug ||
+      normalizeValue(category),
+    subcategory: "All",
+    jobType: selectedType,
+  });
+};
 
   /*
    * Subcategory click.
    */
-  const handleSubcategoryClick = (subcategory) => {
-    setSelectedSubcategory(subcategory);
-  };
+const handleSubcategoryClick = (subcategory) => {
+  setSelectedSubcategory(subcategory);
+
+  if (subcategory === "All") {
+    updateFilterUrl({
+      category: selectedCategory,
+      subcategory: "All",
+      jobType: selectedType,
+    });
+    return;
+  }
+
+  const matchedSubcategory = allSubcategories.find(
+    (subcat) =>
+      subcat?.title === subcategory
+  );
+
+  updateFilterUrl({
+    category: selectedCategory,
+    subcategory:
+      matchedSubcategory?.slug ||
+      normalizeValue(subcategory),
+    jobType: selectedType,
+  });
+};
 
   /*
    * Employment type click.
    */
-  const handleTypeClick = (type) => {
-    setSelectedType(type);
-  };
+const handleTypeClick = (type) => {
+  setSelectedType(type);
 
+  updateFilterUrl({
+    category: selectedCategory,
+    subcategory: selectedSubcategory,
+    jobType: type,
+  });
+};
   /*
    * Mobile filter badge.
    */
@@ -932,6 +1014,23 @@ useEffect(() => {
         }}
       />
     </div>
+  );
+}
+
+export default function JobsPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center">
+          <div className="animate-pulse flex flex-col items-center gap-4">
+            <div className="w-12 h-12 bg-[#01193B]/15 rounded-full" />
+            <div className="w-48 h-5 bg-[#01193B]/10 rounded" />
+          </div>
+        </div>
+      }
+    >
+      <JobsPageContent />
+    </Suspense>
   );
 }
 

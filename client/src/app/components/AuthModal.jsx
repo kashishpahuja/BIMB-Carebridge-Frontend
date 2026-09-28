@@ -41,9 +41,9 @@ export default function AuthModal({
   const [successMessage, setSuccessMessage] =
     useState("");
 
-  useEffect(() => {
-    setActiveTab(initialTab);
-  }, [initialTab]);
+  // useEffect(() => {
+  //   setActiveTab(initialTab);
+  // }, [initialTab]);
 
   /* =========================
      BODY SCROLL

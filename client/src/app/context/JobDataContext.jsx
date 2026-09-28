@@ -385,6 +385,7 @@ const applyJob = useCallback(
   // =========================
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     getCurrentUser();
   }, [getCurrentUser]);
 
