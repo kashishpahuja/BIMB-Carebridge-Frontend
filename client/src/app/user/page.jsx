@@ -17,6 +17,7 @@ import {
   FaEdit,
   FaSave,
   FaTimes,
+  FaSignOutAlt
 } from "react-icons/fa";
 
 import { JobDataContext } from "../context/JobDataContext";
@@ -36,6 +37,54 @@ export default function UserPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
+  const [loggingOut, setLoggingOut] = useState(false);
+
+
+  const handleLogout = async () => {
+  try {
+    setLoggingOut(true);
+    setError("");
+
+    const API_URL =
+      process.env.NEXT_PUBLIC_SERVER_URL ||
+      "http://localhost:8000/api/v1/user";
+
+    const response = await fetch(
+      `${API_URL}/auth/logout`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+
+    const contentType = response.headers.get("content-type") || "";
+
+    if (!contentType.includes("application/json")) {
+      const text = await response.text();
+
+      console.error("Logout API returned:", text);
+
+      throw new Error("Unable to logout. Please try again.");
+    }
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data?.message || "Unable to logout.");
+    }
+
+    // Clear local authentication state if your context exposes it
+    window.location.href = "/";
+  } catch (error) {
+    console.error("Logout error:", error);
+
+    setError(
+      error?.message || "Something went wrong while logging out."
+    );
+  } finally {
+    setLoggingOut(false);
+  }
+};
 const [formData, setFormData] = useState({
   fullname: "",
   phone: "",
@@ -249,15 +298,37 @@ const handleSave = async () => {
             </div>
 
             {/* Edit */}
-            {!isEditing && (
-              <button
-                onClick={handleEdit}
-                className="inline-flex items-center gap-2 bg-white text-[#0b2345] px-5 py-2.5 rounded-lg font-medium hover:bg-gray-100 transition"
-              >
-                <FaEdit />
-                Edit Profile
-              </button>
-            )}
+           {/* Actions */}
+{!isEditing && (
+  <div className="flex flex-col sm:flex-row items-center gap-3">
+    <button
+      onClick={handleEdit}
+      className="inline-flex items-center gap-2 bg-white text-[#0b2345] px-5 py-2.5 rounded-lg font-medium hover:bg-gray-100 transition"
+    >
+      <FaEdit />
+      Edit Profile
+    </button>
+
+    <button
+      type="button"
+      onClick={handleLogout}
+      disabled={loggingOut}
+      className="inline-flex items-center justify-center gap-2 bg-red-500/10 border border-red-300/30 text-white px-5 py-2.5 rounded-lg font-medium hover:bg-red-500/20 transition disabled:opacity-60 disabled:cursor-not-allowed"
+    >
+      {loggingOut ? (
+        <>
+          <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+          Logging out...
+        </>
+      ) : (
+        <>
+          <FaSignOutAlt />
+          Logout
+        </>
+      )}
+    </button>
+  </div>
+)}
           </div>
         </div>
 
